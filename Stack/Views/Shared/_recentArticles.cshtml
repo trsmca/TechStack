@@ -1,0 +1,23 @@
+﻿<ul class="fh5co-post">
+    @{
+        var articlesModel = new Stack.Models.ArticlesModel();
+    }
+    @foreach (var item in articlesModel.GetRecentArticles())
+    {
+        <li>
+            <a href="~/Articles/Details/@item.ArticleNameSeo">
+                <div class="fh5co-post-media">
+                    @*<img src="/images/slide_1.jpg" alt="">*@
+                    @*<i class="icon-note to-animate-2"></i>*@
+                    @*<i class="fa fa-sticky-note to-animate-2"></i>*@
+                    <i class="fa fa-arrow-circle-down to-animate-2"></i>
+                </div>
+                <div class="fh5co-post-blurb">
+                    @item.ArticleName
+                    <span class="fh5co-post-meta">@item.CreatedBy</span>
+                </div>
+            </a>
+        </li>
+    }
+</ul>
+

@@ -1,0 +1,151 @@
+﻿@using Stack.Models
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Stack &mdash; one platform for all questions/</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="www.tutorialsbasket.com" />
+    <meta name="keywords" content="tutorials,c#,csharp,.net,oops,object oriented programming language,entity framework" />
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:description" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:card" content="" />
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="shortcut icon" href="favicon.ico">
+    @*<link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>*@
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    <!-- Modernizr JS -->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/unobtrusive")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/scripts")
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.textcomplete/1.8.0/jquery.textcomplete.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="container">
+    <header role="banner" id="fh5co-header">
+        <div class="fluid-container active">
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <!-- Mobile Toggle Menu Button -->
+                    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
+                    <a class="navbar-brand" href="index.html">
+                        @*<span>1000</span> PROJECTS*@
+                        <img src="~/images/1000projects_logo1.png" style="height:61px;margin-top:-21px" />
+                    </a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        @*<li class="active"><a href="#" data-nav-section="recentPosts"><span>Recent Posts</span></a></li>
+                            <li><a href="#" data-nav-section="recentProjects"><span>Recent Projects</span></a></li>
+                            <li><a href="#" data-nav-section="testimony"><span>Testimony</span></a></li>*@
+                        <li><a href="#" data-nav-section="footer"><span>Contact</span></a></li>
+                        <li><a href="#" data-nav-section="footer"><span>About Us</span></a></li>
+                        @if (Session["UserEmail"] != null)
+                        {
+                            <li><a>@Session["UserEmail"].ToString()</a></li>
+                            <li class="call-to-action" style="padding-right:5px"><a class="external" href="/Users/Edit"><span>My Profile</span></a></li>
+                            <li class="call-to-action"><a class="external" href="~/Account/Logout" id="btnLogout"><span>Logout</span></a></li>
+                        }
+                        else
+                        {
+                            <li class="call-to-action" style="margin-right: 3px;"><a class="external" href="~/Account/Login"><span>Signin</span></a></li>
+                            <li class="call-to-action"><a class="external" href="~/Account/Register"><span>Sign up free</span></a></li>
+                        }
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="menu-container">
+        @Html.Partial("_MenuPartial")
+    </div>
+    <div role="contentinfo" class="container body-content">
+        @RenderBody()
+    </div>
+    <div id="fh5co-footer" role="contentinfo">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 to-animate">
+                    <h3 class="section-title">About Us</h3>
+                    <p>we are into the marked to provide knowledge to the users by writing articles and tutorials.One of the major thing, we are also builded so many projects for acadamic and real business.</p>
+                    <p class="copy-right">
+                        &copy; @Stack.Common.Constants.ApplicationName <br>All Rights Reserved. <br>
+                    </p>
+                </div>
+                <div class="col-md-4 to-animate">
+                    <h3 class="section-title">Our Address</h3>
+                    <ul class="contact-info">
+                        <li>@*<i class="icon-map-marker">*@<i class="fa fa-map-marker"></i></i>Near Ciber Pear hitech City</li>
+                        @*<li><i class="icon-phone"></i>+ 1235 2355 98</li>*@
+                        <li>@*<i class="icon-envelope"></i>*@<i class="fa fa-envelope"></i><a href="#">@Stack.Common.Constants.SupportEmail</a></li>
+                        <li>@*<i class="icon-globe2"></i>*@<i class="fa fa-globe"></i><a href="#">@Stack.Common.Constants.ApplicationName</a></li>
+                    </ul>
+                    <h3 class="section-title">Connect with Us</h3>
+                    <ul class="social-media">
+                        <li><a href="#" class="facebook">@*<i class="icon-facebook"></i>*@<i class="fa fa-facebook-square"></i></a></li>
+                        <li><a href="#" class="twitter"><i class="fa fa-twitter-square"></i></a></li>
+                        <li><a href="#" class="dribbble"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a href="#" class="github"><i class="fa fa-github-square"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 to-animate">
+                    <h3 class="section-title">Drop us a line</h3>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name" class="sr-only">Name</label>
+                            <input type="name" class="form-control" id="name" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="sr-only">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="sr-only">Message</label>
+                            <textarea class="form-control" id="message" rows="7" placeholder="Message"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" id="btn-submit" class="btn btn-send-message btn-md" value="Send Message">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*@Scripts.Render("~/bundles/scripts")
+        @RenderSection("scripts", required: false)*@
+    <script type="text/javascript">
+        $("#btnLogout").click(function () {
+            //$.get("/Account/Logout");
+            window.href = "";
+        });
+        $("#btnLogin").click(function () {
+            //$.get("/Account/Login");
+            window.href = "/Account/Login";
+        });
+    </script>
+</body>
+</html>

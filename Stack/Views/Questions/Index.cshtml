@@ -1,0 +1,63 @@
+﻿@model  Stack.Models.QuestionsModel
+<div class="container">
+    <div id="fh5co-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <section id="fh5co-faq" data-section="faq">
+                        <div class="fh5co-faq">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-8 section-heading text-left">
+                                        <h2 class="to-animate">Questions</h2>
+                                        <div class="row">
+                                            <div class="col-md-8 subtext text-left">
+                                                <h3 class="to-animate"></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div id="divArticles">@Html.Partial("_questions", Model.QuestionsList)</div>
+                                        <div id="divPaginationArticles"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="fh5co-sidebox">
+                        <h3 class="fh5co-sidebox-lead">Recent Questions</h3>
+                        @Html.Partial("_recentQuestions")
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="fh5co-spacer fh5co-spacer-lg"></div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#divPaginationArticles').pagination({
+            items: '@Model.TotalRecords',
+            itemsOnPage: 5,
+            cssStyle: 'light-theme',
+            onPageClick: function (pageNumber, event) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Questions/Index?pageNumber=' + pageNumber,
+                    contentType: "application/html",
+                    //datatype: 'json',
+                    //data: JSON.stringify(comments),//$(commentsdata).serialize(),
+                    success: function (result) {
+                        $("#divArticles").html(result);
+                    }
+                });
+            }
+        });
+    });
+</script>

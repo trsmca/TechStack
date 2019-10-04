@@ -1,0 +1,254 @@
+﻿@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Stack.Models.QuestionsModel
+@{
+    var userDetails = Stack.Models.UserDetails.Instance;
+}
+<div id="fh5co-main">
+    <div class="container">
+        <div class="row clssitemap" style="padding-left: 15px">
+            @Html.ActionLink("Show All Questions", "Index")
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <span style="font-size: 25px;font-weight: bold">@Html.DisplayFor(model => model.Question)</span>
+                <br />
+                <span>By <span style="color: orange">@Model.CreatedBy</span> on <span style="color: #ff3b30">@Model.LastEditedDate</span></span>
+                <hr />
+                @*<h2>@Html.DisplayFor(model => model.ArticleName)</h2>*@
+                <p>@Html.Raw(Model.Description.ToString().Replace("<h3>", "").Replace("</h3>", ""))</p>
+                <hr />
+                <div class="col-md-12 row-bottom-padded-md">
+                    <div class="col-md-3">
+                        <img src="@Model.ProfilePicUrl" height="100px" width="100px" />
+                    </div>
+                    <div class="col-md-9" style="font-size: 13px;">
+                        <span style="color: orange; font-size: 26px;font-weight: bold;">@Model.CreatedBy</span>
+                        <br />
+                        @if (userDetails.Description != null)
+                        {
+                            @Html.Raw(userDetails.Description.ToString().Replace("<h3>", "").Replace("</h3>", ""))
+                        }
+                    </div>
+                </div>
+                <div class="col-md-12 row-bottom-padded-md">
+                    Comments
+                    @*<hr><img id="user-photo" src="#" style="display: none;" />
+                        <a href="javascript:void(0)" onclick="FB.login(setFacebookPhoto, { scope: 'user_photos' });">
+                            Get User Photo from Facebook
+                        </a>*@
+                    <div id="comments-container"></div>
+                    @*<textarea id="comments-container" style="width: 700px; border: 1px solid rgb(204, 204, 204); height: 150px;"></textarea>*@
+                    @*<input class="btn btn-send-message btn-md btn-submit" style="float: right" value="Submit Comments" type="submit">*@
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="fh5co-sidebox">
+                    @*<h3 class="fh5co-sidebox-lead">Articles List</h3>
+                        <ul class="fh5co-post">
+                            @{
+                                var articlesModel = new Stack.Models.ArticlesModel();
+                            }
+                            @foreach (var item in articlesModel.GetRecentArticles().Take(5))
+                            {
+                                <li>
+                                    <a href="~/Articles/Details/@item.ArticleNameSeo">
+                                        <div class="fh5co-post-media">
+                                              <i class="fa fa-arrow-circle-down to-animate-2"></i>
+                                        </div>
+                                        <div class="fh5co-post-blurb">
+                                            @item.ArticleName
+                                            <span class="fh5co-post-meta">@item.CreatedBy</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>*@
+                    <h3 class="fh5co-sidebox-lead">Recent Questions</h3>
+                    @Html.Partial("_recentQuestions")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="fh5co-spacer fh5co-spacer-lg"></div>
+<script>
+    $(function () {
+        var commentsArray = [];
+        $.ajax({
+            type: 'get',
+            url: '/Comments/Get?pkid=' + '@Model.QuestionId' + '&category=Article',
+            contentType: "application/json;charset=utf-8",
+            datatype: 'json',
+            async: false,
+            success: function (data) {
+                commentsArray = JSON.parse(data);
+            }
+        });
+        //var commentsArray = [
+        //                    {
+        //                        "id": 5,
+        //                        "parent": 0,
+        //                        "created": "3/9/2017 2:43:27 AM",
+        //                        "modified": "3/9/2017 2:43:27 AM",
+        //                        "content": "Far far away, behind the word mountains, far from the countries Vokalia \nand Consonantia, there live the blind texts. Separated they live in \nBookmarksgrove.\n\nFar far away, behind the word mountains, far from the countries Vokalia \nand Consonantia, there live the blind texts. Separated they live in \nBookmarksgrove.\n",
+        //                        "pings": null,
+        //                        "creator": 1,
+        //                        "fullname": "Raja Sekhar Tadepalli",
+        //                        "profile_picture_url": null,
+        //                        "created_by_admin": false,
+        //                        "created_by_current_user": false,
+        //                        "upvote_count": 0,
+        //                        "user_has_upvoted": false
+        //                    }, { "id": 6, "parent": 0, "created": "3/9/2017 2:44:01 AM", "modified": "3/9/2017 2:44:01 AM", "content": "Test Raja \n", "pings": null, "creator": 1, "fullname": "Raja Sekhar Tadepalli", "profile_picture_url": null, "created_by_admin": false, "created_by_current_user": false, "upvote_count": 0, "user_has_upvoted": false }];
+        //var commentsArray = [
+        //    {
+        //        "id": 1,
+        //        "parent": null,
+        //        "created": "2015-01-01",
+        //        "modified": "2015-01-01",
+        //        "content": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu.",
+        //        "pings": [],
+        //        "creator": 6,
+        //        "fullname": "Simon Powell",
+        //        "profile_picture_url": "https://app.viima.com/static/media/user_profiles/user-icon.png",
+        //        "created_by_admin": false,
+        //        "created_by_current_user": false,
+        //        "upvote_count": 3,
+        //        "user_has_upvoted": false
+        //    } ];
+        var usersArray = [{
+            id: 1
+        }];
+        var saveComment = function (data) {
+            if ('@Session["UserEmail"]' != null && '@Session["UserEmail"]' != '') {
+                var comments = {
+                    CommentId: 0,
+                    PkId: '@Model.QuestionId',
+                    Category: 'Article',
+                    Comment: data.content,
+                    ParentId: data.parent,
+                    //Pings:
+                    CreatedDate: data.created,
+                    LastEditedDate: data.modified,
+                    UpvoteCount: data.upvote_count,
+                    UserHasUpvoted: data.user_has_upvoted
+                };
+                $.ajax({
+                    type: 'post',
+                    url: '/Comments/Create',
+                    contentType: "application/json;charset=utf-8",
+                    datatype: 'json',
+                    data: JSON.stringify(comments),//$(commentsdata).serialize(),
+                    success: function () {
+                        alert('form was submitted');
+                    }
+                });
+                // Convert pings to human readable format
+                $(data.pings).each(function (index, id) {
+                    var user = usersArray.filter(function (user) { return user.id == id })[0];
+                    data.content = data.content;
+                });
+                return data;
+            } else {
+                alert('Please login before commenting.');
+            }
+        }
+        $('#comments-container').comments({
+            profilePictureURL: '/images/avatar.png',
+            currentUserId: 1,
+            roundProfilePictures: true,
+            textareaRows: 1,
+            enableAttachments: true,
+            enableHashtags: true,
+            enablePinging: true,
+            getUsers: function (success, error) {
+                setTimeout(function () {
+                    success(usersArray);
+                }, 500);
+            },
+            getComments: function (success, error) {
+                //alert(1);
+                setTimeout(function () {
+                    //    alert(2);
+                    success(commentsArray);
+                }, 500);
+            },
+            postComment: function (data, success, error) {
+                setTimeout(function () {
+                    success(saveComment(data));
+                }, 500);
+            },
+            putComment: function (data, success, error) {
+                setTimeout(function () {
+                    success(saveComment(data));
+                }, 500);
+            },
+            deleteComment: function (data, success, error) {
+                setTimeout(function () {
+                    success();
+                }, 500);
+            },
+            upvoteComment: function (data, success, error) {
+                setTimeout(function () {
+                    success(data);
+                }, 500);
+            },
+            uploadAttachments: function (dataArray, success, error) {
+                setTimeout(function () {
+                    success(dataArray);
+                }, 500);
+            },
+        });
+    });
+    //$('#comments-container').comments({
+    //    profilePictureURL: 'https://app.viima.com/static/media/user_profiles/user-icon.png',
+    //    getComments: function (success, error) {
+    //        var commentsArray = [{
+    //            id: 1,
+    //            created: '2015-10-01',
+    //            content: 'Lorem ipsum dolort sit amet',
+    //            fullname: 'Simon Powell',
+    //            upvote_count: 2,
+    //            user_has_upvoted: false
+    //        }];
+    //        success(commentsArray);
+    //    }
+    //});
+
+</script>
+@*<script>
+
+        //Init facebook functionality by using FB.init() with parameters
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: 210409689437092, // App ID
+                channelUrl: '//localhost:14481/fbchannel.html', // Channel File
+                status: true, // check login status
+                cookie: true, // enable cookies to allow the server to access the session
+                xfbml: true  // parse XFBML
+            });
+        };
+
+        // Self-invoking anonymous function that loads facebook SDK
+        (function (d) {
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        })(document);
+
+        function setFacebookPhoto(response) {
+
+            if (response.status === 'connected') {
+                FB.api('/me/?fields=picture', function (response) {
+                    $("#hf-facebook-profile-img-url").val(response.picture.data.url);
+                    $("#user-photo").attr('src', response.picture.data.url).show();
+                });
+            }
+        }
+
+    </script>*@

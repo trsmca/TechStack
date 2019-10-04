@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Stack.DBModels.Projects>
+@{Layout = null;}
+<ul class="fh5co-post">
+    @foreach (var item in Model)
+    {
+        <li>
+            <h3>@item.ProjectName</h3>
+            <p>
+                @if (item.Description != null && item.Description.Length > 150)
+                {
+                    @Html.Raw(item.Description.Substring(0, 150).ToString().Replace("<h3>", "").Replace("</h3>", "")) <span>...</span>
+                }
+                else
+                {
+                    @Html.Raw(item.Description.ToString().Replace("<h3>", "").Replace("</h3>", ""))
+                }
+            </p>
+            <span class="fh5co-post-meta">@item.LastEditedDate</span>
+            @Html.ActionLink("Read More..", "Details", new { id = item.ProjectNameSeo }, new { @class = "button" })
+        </li>
+    }
+</ul>

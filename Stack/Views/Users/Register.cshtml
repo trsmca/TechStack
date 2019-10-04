@@ -1,0 +1,88 @@
+﻿@model Stack.Models.UserModel
+<div role="contentinfo">
+    <div class="container">
+        <div class="row row-bottom-padded-md" style="margin: 0 auto">
+            <div class="col-md-12 section-heading text-center">
+                <h2 class="to-animate fadeInUp animated">New User Registration</h2>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 subtext">
+                        <h3 class="to-animate fadeInUp animated">Register your self by providing your details to post the articles/questions/projects and forums.</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <form action="" class="sky-form">
+                    <fieldset>
+                        <section>
+                            <label class="input">
+                                <i class="icon-append icon-user"></i>
+                                <input placeholder="Username" type="text">
+                                <b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
+                            </label>
+                        </section>
+
+                        <section>
+                            <label class="input">
+                                <i class="icon-append icon-envelope-alt"></i>
+                                <input placeholder="Email address" type="text">
+                                <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
+                            </label>
+                        </section>
+
+                        <section>
+                            <label class="input">
+                                <i class="icon-append icon-lock"></i>
+                                <input placeholder="Password" type="password">
+                                <b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
+                            </label>
+                        </section>
+
+                        <section>
+                            <label class="input">
+                                <i class="icon-append icon-lock"></i>
+                                <input placeholder="Confirm password" type="password">
+                                <b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
+                            </label>
+                        </section>
+                    </fieldset>
+
+                    <fieldset>
+                        <div class="row">
+                            <section class="col col-6">
+                                <label class="input">
+                                    <input placeholder="First name" type="text">
+                                </label>
+                            </section>
+                            <section class="col col-6">
+                                <label class="input">
+                                    <input placeholder="Last name" type="text">
+                                </label>
+                            </section>
+                        </div>
+
+                        <section>
+                            <label class="select">
+                                <select>
+                                    <option value="0" selected="" disabled="">Gender</option>
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                    <option value="3">Other</option>
+                                </select>
+                                <i></i>
+                            </label>
+                        </section>
+
+                        <section>
+                            <label class="checkbox"><input name="checkbox" type="checkbox"><i></i>I agree to the Terms of Service</label>
+                            <label class="checkbox"><input name="checkbox" type="checkbox"><i></i>I want to receive news and  special offers</label>
+                        </section>
+                    </fieldset>
+                    <footer>
+                        <button type="submit" class="button">Submit</button>
+                    </footer>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

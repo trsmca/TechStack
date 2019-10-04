@@ -1,0 +1,237 @@
+﻿@using Stack.Models
+<div class="container">
+    <section id="fh5co-services" data-section="recentPosts">
+        <div class="fh5co-services">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        @*<div class="row">
+                            <div class="col-md-12 section-heading text-center">
+                                <h2 class="to-animate">Recent Articles</h2><a href="#modal" class="list-group-item" id="newspaper">Newspaper</a>
+                                <div class="row">
+                                    <div class="col-md-8 col-md-offset-2 subtext">
+                                        <h3 class="to-animate"></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                        @{
+                            var articlesModel = new ArticlesModel();
+                        }
+                        @foreach (var item in articlesModel.GetRecentArticles())
+                        {
+                            <div class="col-md-6" style="padding-bottom:20px">
+                                <div class="box-services pad-10px">
+                                    @*<i class="fa fa-sticky-note to-animate-2"></i>*@
+                                    <div class="fh5co-post to-animate">
+                                        <a href="~/Articles/Details/@item.ArticleNameSeo">
+                                            <h3>
+                                                @if (item.ArticleName.Length > 30)
+                                                {
+                                                    @item.ArticleName.Substring(0, 29).ToString()<span>...</span>
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                                {
+                                                    @item.ArticleName
+                                                }
+                                            </h3>
+                                        </a>
+                                        @if (item.ShortDescription != null)
+                                        {
+                                            if (item.ShortDescription.Length > 99)
+                                            {
+                                                @Html.Raw(item.ShortDescription.Substring(0, 100).ToString().Replace("<h3>", "").Replace("</h3>", "")) <span>...</span>
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw(item.ShortDescription.Replace("<h3>", "").Replace("</h3>", ""))
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        <h3 class="fh5co-sidebox-lead" style="font-size:18px">Recent Projects</h3>
+                        @Html.Partial("_recentProjects")
+                    </div>
+                </div>
+                @*<div class="call-to-action text-center to-animate"><a href="#" class="btn btn-learn">Learn More</a></div>*@
+            </div>
+        </div>
+    </section>
+    <section id="fh5co-faq" data-section="recentProjects">
+        <div class="fh5co-services">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 section-heading text-center">
+                        <h2 class="to-animate">Recent Projects</h2>
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 subtext">
+                                <h3 class="to-animate"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @{
+                        var projectsModel = new ProjectsModel();
+                    }
+                    @foreach (var item in projectsModel.GetRecentProjects())
+                    {
+                        <div class="col-md-4" style="padding-bottom:20px">
+                            <div class="box-services bg-box2 pad-10px box-shadow">
+                                @*<i class="fa fa-sticky-note to-animate-2"></i>*@
+                                <div class="fh5co-post to-animate">
+                                    <a href="~/Projects/Details/@item.ProjectNameSeo"><h3>@item.ProjectName</h3></a>
+                                    @if (item.ShortDescription != null)
+                                    {
+                                        if (item.ShortDescription.Length > 199)
+                                        {
+                                            @Html.Raw(item.ShortDescription.Substring(0, 200).ToString().Replace("<h3>", "").Replace("</h3>", "")) <span>...</span>
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(item.ShortDescription.Replace("<h3>", "").Replace("</h3>", ""))
+                                        }
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="fh5co-faq" data-section="recentProjects">
+        <div class="fh5co-services">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 section-heading text-center">
+                        <h2 class="to-animate">Recent Questions</h2>
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 subtext">
+                                <h3 class="to-animate"></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @{
+                            var questionsModel = new QuestionsModel();
+                        }
+                        @foreach (var item in questionsModel.GetRecentQuestions())
+                        {
+                            <div class="col-md-4">
+                                <div class="box-services bg-box  pad-10px box-shadow">
+                                    @*<i class="fa fa-sticky-note to-animate-2"></i>*@
+                                    <div class="fh5co-post to-animate">
+                                        <a href="~/Questions/Details/@item.QuestionSeo"><h3>@item.Question</h3></a>
+                                        @if (item.ShortDescription != null)
+                                        {
+                                            if (item.ShortDescription.Length > 199)
+                                            {
+                                                @Html.Raw(item.ShortDescription.Substring(0, 200).ToString().Replace("<h3>", "").Replace("</h3>", "")) <span>...</span>
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw(item.ShortDescription.Replace("<h3>", "").Replace("</h3>", ""))
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+    @*<section id="fh5co-testimony" data-section="testimony">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 to-animate">
+                        <div class="wrap-testimony">
+                            <div class="owl-carousel-fullwidth">
+                                <div class="item">
+                                    <div class="testimony-slide active text-center">
+                                        <figure>
+                                            <img src="/images/person2.jpg" alt="user">
+                                        </figure>
+                                        <blockquote>
+                                            <p>"Providing lot of stuff in all technologies in easy manner. "</p>
+                                        </blockquote>
+                                        <span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="testimony-slide active text-center">
+                                        <figure>
+                                            <img src="/images/person3.jpg" alt="user">
+                                        </figure>
+                                        <blockquote>
+                                            <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
+                                        </blockquote>
+                                        <span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="testimony-slide active text-center">
+                                        <figure>
+                                            <img src="/images/person2.jpg" alt="user">
+                                        </figure>
+                                        <blockquote>
+                                            <p>"Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean."</p>
+                                        </blockquote>
+                                        <span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>*@
+</div>
+<div class="getting-started getting-started-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 to-animate">
+                <h3>Getting Started</h3>
+                <p>Register into site to access all the services.Please walkthorugh the projects which are accessed by file browsing.</p>
+            </div>
+            <div class="col-md-6 to-animate-2">
+                <div class="call-to-action text-right">
+                    <a href="~/Account/Register" class="sign-up">Sign Up For Free</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal" style="display: none;" class="modal-example-content">
+    <div class="modal-example-header">
+        <button type="button" class="close" onclick="$.fn.custombox('close');">&times;</button>
+        <h4>jQuery Custombox</h4>
+    </div>
+    <div class="modal-example-body">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    </div>
+</div>
+<script>
+   
+   
+    $('#newspaper').on('click', function () {
+        $.fn.custombox(this, {
+            effect: 'newspaper',
+            overlay: false
+        });
+        return false;
+    });
+</script>

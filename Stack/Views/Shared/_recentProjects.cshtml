@@ -1,0 +1,23 @@
+﻿ <ul class="fh5co-post">
+    @{
+        var projectsModel = new Stack.Models.ProjectsModel();
+    }
+    @foreach (var item in projectsModel.GetRecentProjects())
+    {
+        <li>
+            <a href="~/Projects/Details/@item.ProjectNameSeo">
+                <div class="fh5co-post-media">
+                    @*<img src="/images/slide_1.jpg" alt="">*@
+                    @*<i class="icon-note to-animate-2"></i>*@
+                    @*<i class="fa fa-sticky-note to-animate-2"></i>*@
+                    <i class="fa fa-arrow-circle-down to-animate-2"></i>
+                </div>
+                <div class="fh5co-post-blurb">
+                    @item.ProjectName
+                    <span class="fh5co-post-meta">@*@item.CreatedBy*@Raja Sekhar</span>
+                </div>
+            </a>
+        </li>
+    }
+</ul>
+

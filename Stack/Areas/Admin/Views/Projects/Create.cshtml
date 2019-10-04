@@ -1,0 +1,87 @@
+﻿@model Stack.Areas.Admin.Models.AdminProjectsModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/ckeditor/ckeditor.js"></script>
+<script src="~/Scripts/adapters_jquery.js"></script>
+<script src="~/Scripts/editor.js"></script>
+<div class="row row-bottom-padded-md" style="margin: 0 auto">
+    <div class="col-md-12 section-heading text-center">
+        <h2 class="to-animate fadeInUp animated">Create Article</h2>
+        @*<div class="row">
+            <div class="col-md-8 col-md-offset-2 subtext">
+                <h3 class="to-animate fadeInUp animated">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove. </h3>
+            </div>
+        </div>*@
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        @using (Html.BeginForm("Create", "Projects", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.ProjectId)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MenuItemId, "MenuItemId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.MenuItemId, new SelectList(Model.GetMenuItems(), "MenuItemId", "MenuItem", Model.MenuItemId), "---Please choose---")
+                        @*@Html.DropDownListFor(model => model.ArticleCategoryId, new SelectList(Model.GetArticleCategories(), "ArticleCategoryId", "ArticleCategory"))*@
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.ShortDescription, new { maxlength = "200", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @*<textarea name="Description" id="Description" rows="10" cols="80"></textarea>*@
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    Document
+                    <div class="col-md-10">
+                        <input type="file" name="file" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    Project
+                    <div class="col-md-10">
+                        <input type="file" name="fileProject" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        }
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+</div>
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+<script>
+    initSample();
+</script>

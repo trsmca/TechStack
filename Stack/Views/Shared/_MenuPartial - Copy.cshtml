@@ -1,0 +1,34 @@
+﻿@using Stack.Models
+<div class="menu">
+    <ul>
+        @{
+            foreach (var parentMenu in MenuItemsModel.GetParentMenuItems())
+            {
+                var count = 0;
+                <li>
+                    <a href="/">@parentMenu.MenuItem</a>
+                    @if (MenuItemsModel.GetMenuItemsOnParentId(parentMenu.MenuItemId).Count > 0)
+                    {
+                        <ul>
+                            @foreach (var menu in MenuItemsModel.GetMenuItemsOnParentId(parentMenu.MenuItemId))
+                            {
+                                if (count == 0)
+                                {
+                                    @:<li><ul>
+                                                                                        }
+
+                                                                                        <li><a href="/Articles/@menu.MenuItemSeo">@menu.MenuItem</a></li>
+
+                                if (count % 4 == 0 && count != 0)
+                                {
+                                    @:</ul></li><li><ul>
+                                            }
+                                count++;
+                            }
+                        </ul>
+                    }
+                </li>
+            }
+        }
+    </ul> 
+</div>

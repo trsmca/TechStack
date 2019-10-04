@@ -1,0 +1,167 @@
+﻿@model Stack.Models.AccountModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- Bootstrap Date-Picker Plugin -->
+<div class="container">
+    @*<div class="row row-bottom-padded-md" style="margin: 0 auto">
+            <div class="col-md-12 section-heading text-center">
+                <h2 class="to-animate fadeInUp animated">Profile Update</h2>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 subtext">
+                        <h3 class="to-animate fadeInUp animated"></h3>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    <div class="col-md-4">
+        @using (Html.BeginForm("ProfilePic", "Users", FormMethod.Post, new { @id = "frmProfilePic", enctype = "multipart/form-data", @style = "box-shadow:none" }))
+        {
+            <img src="@Model.ProfilePicUrl" class="profile-pic" style="margin-bottom:10px" />
+
+            @Html.HiddenFor(model => model.UserId)
+            <input type="file" class="file-inputs  text-center" title="Select File" name="FileUpload">
+            <br />
+            <input type="submit" value="Upload" style="float:left;margin:0" class="btn btn-default button" id="btnUploadProfilePic" />
+        }
+    </div>
+    <div class="col-md-8">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h2 class="title">User</h2>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.UserId)
+                @Html.HiddenFor(model => model.ProfilePicUrl)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Gender, "Gender", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 ">
+                        @*@Html.RadioButtonFor(model => model.Gender, new { @id = "GenderMale" }) <span>Male</span> &nbsp;
+                            @Html.RadioButtonFor(model => model.Gender, new { @id = "GenderFemale" }) <span>Female</span>*@
+                        <span>Male :</span>   @Html.RadioButton("Gender", "Male")
+                        <span>Female :</span> @Html.RadioButton("Gender", "Female")
+                        @*@Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.State, "State", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Country, "Country", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type='text' id="DOB" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        @*@Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })*@
+                        @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContactNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.ProfilePicUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ProfilePicUrl, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProfilePicUrl, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default button" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#datetimepicker1').datetimepicker();
+    //$('.file-inputs').bootstrapFileInput();
+    //$("#btnUploadProfilePic").click(function () {
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "/Users/ProfilePic?UserId=" + $("#UserId").val(),
+    //        data: new FormData($('#frmProfilePic')[0]),
+    //        cache: false,
+    //        contentType: false,
+    //        processData: false,
+    //        enctype: 'multipart/form-data',
+    //        success: function (data) {
+    //            if (data.toLowerCase() == 'true') {
+    //                Lobibox.notify('success', {
+    //                    size: 'mini',
+    //                    showClass: 'fadeInDown',
+    //                    hideClass: 'fadeUpDown',
+    //                    msg: 'Profile pic uploaded successfully.'
+    //                });
+    //            }
+    //        }
+    //    });
+    //});
+</script>

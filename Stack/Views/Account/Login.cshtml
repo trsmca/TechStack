@@ -1,0 +1,197 @@
+﻿@model Stack.Models.AccountModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div role="contentinfo">
+    <div class="container">
+        <div class="row row-bottom-padded-md" style="margin: 0 auto">
+            <div class="col-md-12 section-heading text-center">
+                <h2 class="to-animate fadeInUp animated">Login</h2>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 subtext">
+                        <h3 class="to-animate fadeInUp animated"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "sky-form", role = "form" }))
+                {
+                    <fieldset>
+                        <table style="width: 100%; padding: 10px">
+                            <tr>
+                                <td class="col-md-8">
+                                    <section>
+                                        @Html.ValidationSummary(true)
+                                    </section>
+                                    <section>
+                                        <label class="input">
+                                            <i class="icon-append fa-user-circle"></i>
+                                            @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email address", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Email)
+                                            <b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
+                                        </label>
+                                    </section>
+
+                                    <section>
+                                        <label class="input">
+                                            <i class="icon-append fa-lock"></i>
+                                            @Html.PasswordFor(m => m.Password, new { @placeholder = "Password", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Password)
+                                            <b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
+                                        </label>
+                                    </section>
+                                    <footer>
+                                        <a>Forgot Password</a>
+                                        <button type="submit" class="button">Login</button>
+                                    </footer>
+                                </td>
+                                <td class="col-md-1">
+                                    <div class="wrapper">
+                                        <div class="line"></div>
+                                        <div class="wordwrapper">
+                                            <div class="word">or</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="col-md-3">
+                                    @*<button type="submit" class="btn btn-default" id="Google" name="provider" value="Google" title="Log in using your Google account">Google</button>*@
+                                    <a href="/Account/Facebook"> <img src="/images/facebook-login.png" style="width: 180px; height: 35px; cursor: pointer" /></a>
+                                    <br /><br />
+                                    <a href="/Account/ExternalLogin?provider=Google"><img src="data:image/png;base64,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" style="width: 180px; height: 35px" /></a>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </fieldset>
+                }
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+    </div>
+</div>
+@*@using Stack.Models
+    @model LoginViewModel
+    @{
+        ViewBag.Title = "Log in";
+    }
+
+    <h2>@ViewBag.Title.</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <section id="loginForm">
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Log in" class="btn btn-default" />
+                        </div>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Register as a new user", "Register")
+                    </p>
+
+                }
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+@*<div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=210409689437092";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+*@
+@*<div class="fb-login-button" data-max-rows="10" data-size="xlarge" data-show-faces="true" data-auto-logout-link="true"></div>*@
+
+
+@*<!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+    </head>
+    <body>
+        <div>
+            <h2>Login</h2>
+            @Html.ActionLink("Login with Facebook.", "Facebook", "Account")
+        </div>
+    </body>
+    </html>*@
+<style>
+    .wrapper {
+        position: relative;
+        height: 300px;
+        margin: 10px;
+    }
+
+    .line {
+        position: absolute;
+        left: 49%;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: #ccc;
+        z-index: 1;
+    }
+
+    .wordwrapper {
+        text-align: center;
+        height: 12px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        margin-top: -12px;
+        z-index: 2;
+    }
+
+    .word {
+        color: #ccc;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 3px;
+        font: bold 12px arial,sans-serif;
+        background: #fff;
+    }
+</style>

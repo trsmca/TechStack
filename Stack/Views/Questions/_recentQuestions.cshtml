@@ -1,0 +1,22 @@
+﻿ <ul class="fh5co-post">
+    @{
+        var questionsModel = new Stack.Models.QuestionsModel();
+    }
+    @foreach (var item in questionsModel.GetRecentQuestions())
+    {
+        <li>
+            <a href="~/Articles/Details/@item.QuestionSeo">
+                <div class="fh5co-post-media">
+                    @*<img src="/images/slide_1.jpg" alt="">*@
+                    @*<i class="icon-note to-animate-2"></i>*@
+                    <i class="fa fa-sticky-note to-animate-2"></i>
+                </div>
+                <div class="fh5co-post-blurb">
+                    @item.Question
+                    <span class="fh5co-post-meta">Raja Sekhar</span>
+                </div>
+            </a>
+        </li>
+    }
+</ul>
+
