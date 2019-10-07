@@ -45,37 +45,38 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="container">
+<body class="">
     <header role="banner" id="fh5co-header">
         <div class="fluid-container active">
             <nav class="navbar navbar-default">
-                <div class="navbar-header">
+                <div class="navbar-header container">
                     <!-- Mobile Toggle Menu Button -->
                     <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i></i></a>
                     <a class="navbar-brand" href="index.html">
                         @*<span>1000</span> PROJECTS*@
                         <img src="~/images/1000projects_logo1.png" style="height:61px;margin-top:-21px" />
                     </a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        @*<li class="active"><a href="#" data-nav-section="recentPosts"><span>Recent Posts</span></a></li>
-                            <li><a href="#" data-nav-section="recentProjects"><span>Recent Projects</span></a></li>
-                            <li><a href="#" data-nav-section="testimony"><span>Testimony</span></a></li>*@
-                        <li><a href="#" data-nav-section="footer"><span>Contact</span></a></li>
-                        <li><a href="#" data-nav-section="footer"><span>About Us</span></a></li>
-                        @if (Session["UserEmail"] != null)
-                        {
-                            <li><a>@Session["UserEmail"].ToString()</a></li>
-                            <li class="call-to-action" style="padding-right:5px"><a class="external" href="/Users/Edit"><span>My Profile</span></a></li>
-                            <li class="call-to-action"><a class="external" href="~/Account/Logout" id="btnLogout"><span>Logout</span></a></li>
-                        }
-                        else
-                        {
-                            <li class="call-to-action" style="margin-right: 3px;"><a class="external" href="~/Account/Login"><span>Signin</span></a></li>
-                            <li class="call-to-action"><a class="external" href="~/Account/Register"><span>Sign up free</span></a></li>
-                        }
-                    </ul>
+
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            @*<li class="active"><a href="#" data-nav-section="recentPosts"><span>Recent Posts</span></a></li>
+                <li><a href="#" data-nav-section="recentProjects"><span>Recent Projects</span></a></li>
+                <li><a href="#" data-nav-section="testimony"><span>Testimony</span></a></li>*@
+                            <li><a href="#" data-nav-section="footer"><span>Contact</span></a></li>
+                            <li><a href="#" data-nav-section="footer"><span>About Us</span></a></li>
+                            @if (Session["UserEmail"] != null)
+                            {
+                                <li><a>@Session["UserEmail"].ToString()</a></li>
+                                <li class="call-to-action" style="padding-right:5px"><a class="external" href="/Users/Edit"><span>My Profile</span></a></li>
+                                <li class="call-to-action"><a class="external" href="~/Account/Logout" id="btnLogout"><span>Logout</span></a></li>
+                            }
+                            else
+                            {
+                                <li class="call-to-action" style="margin-right: 3px;"><a class="external" href="~/Account/Login"><span>Signin</span></a></li>
+                                <li class="call-to-action"><a class="external" href="~/Account/Register"><span>Sign up free</span></a></li>
+                            }
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </div>
