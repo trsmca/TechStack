@@ -19,7 +19,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <div id="divArticles">@Html.Partial("_articles", Model.ArticlesList)</div>
+                                        <div id="divArticles">@Html.Partial("_articles", Model.GetRecentArticles())</div>
                                         <div id="divPaginationArticles"></div>
                                     </div>
                                 </div>

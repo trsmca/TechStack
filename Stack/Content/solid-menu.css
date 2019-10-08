@@ -13975,9 +13975,9 @@ em.state-invalid {
 }
 
 .solid-menus .navbar-default.navbar-default-dark {
-    background: #000;
-    border-left: 1px solid #124599;
-    border-right: 1px solid #124599;
+    background: #222;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
     border-bottom: 0;
     border-top: 0;
 }

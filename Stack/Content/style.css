@@ -26,9 +26,11 @@ body {
     padding: 0 !important;
     /*margin: 10px;*/
 }
+
 html {
     background-color: #ddd;
 }
+
 textarea {
     width: 100%;
 }
@@ -234,6 +236,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #ff3b30;
     color: #fff;
 }
+
     #fh5co-header #navbar li.call-to-action a:hover {
         background-color: transparent;
         color: #000;
@@ -1570,4 +1573,73 @@ input.input-validation-error {
     background-color: #d8d8d8;
     padding: 10px;
     /*font-weight: 500;*/
+}
+
+
+/*---------------------------------------------*/
+.how2 {
+    height: 50px;
+    border: 1px solid #e6e6e6;
+    padding: 0 18px;
+    position: relative;
+}
+
+    .how2::before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 5px;
+        height: calc(100% + 2px);
+        top: -1px;
+        left: -1px;
+    }
+
+.how2-cl1::before {
+    background-color: #e71d69;
+}
+
+.how2-cl2::before {
+    background-color: #15a752;
+}
+
+.how2-cl3::before {
+    background-color: #e3724a;
+}
+
+.how2-cl4::before {
+    background-color: #333;
+}
+
+.how2-cl5::before {
+    background-color: #00b5e9;
+}
+
+.how2-cl6::before {
+    background-color: #2489b0;
+}
+
+.flex-s-c {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.flex-s-c {
+    justify-content: flex-start;
+}
+
+.flex-s-c {
+    align-items: center;
+}
+
+.bocl12 {
+    border-color: #ccc;
+}
+
+.f1-m-2 {
+    font-family: Roboto-Medium;
+    font-size: 18px;
+    line-height: 1.333333;
 }
