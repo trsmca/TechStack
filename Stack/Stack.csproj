@@ -560,6 +560,8 @@
     <Content Include="Content\loader.css" />
     <Content Include="Content\lobibox.css" />
     <Content Include="Content\magnific-popup.css" />
+    <Content Include="Content\mn\main.css" />
+    <Content Include="Content\mn\util.css" />
     <Content Include="Content\navigation.css" />
     <Content Include="Content\owl.carousel.min.css" />
     <Content Include="Content\owl.theme.default.min.css" />

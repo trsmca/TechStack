@@ -9,7 +9,7 @@ namespace Stack
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            filters.Add(new CustomErrorHandling());
+            filters.Add(new CustomErrorHandling()); 
         }
     }
 }

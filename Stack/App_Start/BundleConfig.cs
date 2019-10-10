@@ -56,7 +56,9 @@ namespace Stack
                       "~/Content/lobibox.css",
                       "~/Content/jquery-comments.css",
                       "~/Content/loader.css",
-                      "~/Content/custombox.css"));
+                      "~/Content/custombox.css",
+                      "~/Content/mn/main.css",
+                      "~/Content/mn/util.css"));
         }
     }
 }
