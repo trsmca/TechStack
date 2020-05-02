@@ -69,7 +69,8 @@ namespace Stack.Models
                         model.created_by_current_user = false;
                     model.upvote_count = item.UpvoteCount;
                     model.user_has_upvoted = item.UserHasUpvoted;
-                    var user = AccountModel.GetUsers(item.CreatedById);
+                    var accountModel=new AccountModel();
+                    var user = accountModel.GetUsers(item.CreatedById);
                     model.profile_picture_url = user.ProfilePicUrl;
                     list.Add(model);
                 }

@@ -11,6 +11,7 @@ using Stack.Models;
 using System.IO;
 using System.IO.Compression;
 using System.Collections.Generic;
+using System.Web;
 
 namespace Stack.Areas.Admin.Controllers
 {
@@ -61,30 +62,54 @@ namespace Stack.Areas.Admin.Controllers
             string fileName = string.Empty;
             model.Save();
             _model.ProjectId = model.ProjectId;
-            //var filePaths = DirSearch("C:\\Raja Sekhar\\Projects\\barter\\web\\");
-            if (Request.Files.Count > 0)
+            foreach (HttpPostedFileBase file in model.CoverPhoto)
             {
-                var file = Request.Files[0];
-                if (file != null && file.ContentLength > 0)
+                //Checking file is available to save.  
+                if (file != null)
                 {
-                    fileName = Path.GetFileName(file.FileName);
-                    fileName = model.ProjectId + "__" + fileName;
-                    var path = Path.Combine(Server.MapPath("~/Documents/Projects/Abstract/"), fileName);
-                    model.SaveAttachments(fileName, "Abstratct");
-                    file.SaveAs(path);
+                    var InputFileName = Path.GetFileName(file.FileName);
+
+                    AttachmentsModel.SaveAttachments(InputFileName, ConvertToByte(file), "ProjectCoverPhoto", _model.ProjectId);
+                    ViewBag.UploadStatus = model.Files.Count().ToString() + " Cover Photo uploaded successfully.";
                 }
-                var projectFile = Request.Files[1];
-                if (projectFile != null && projectFile.ContentLength > 0)
-                {
-                    fileName = Path.GetFileName(projectFile.FileName);
-                    fileName = model.ProjectId + "__" + fileName;
-                    var path = Path.Combine(Server.MapPath("~/Documents/Projects/Project/"), fileName);
-                    projectFile.SaveAs(path);
-                    model.SaveAttachments(fileName, "Projects");
-                    Directory.CreateDirectory(Server.MapPath("~/Documents/Projects/Extract/Project_" + model.ProjectId));
-                    ZipFile.ExtractToDirectory(path, Server.MapPath("~/Documents/Projects/Extract/Project_" + model.ProjectId));
-                }
+
             }
+            foreach (HttpPostedFileBase file in model.Files)
+            {
+                //Checking file is available to save.  
+                if (file != null)
+                {
+                    var InputFileName = Path.GetFileName(file.FileName);
+
+                    AttachmentsModel.SaveAttachments(InputFileName, ConvertToByte(file), "Projects", _model.ProjectId);
+                    ViewBag.UploadStatus = model.Files.Count().ToString() + " files uploaded successfully.";
+                }
+
+            }
+            //var filePaths = DirSearch("C:\\Raja Sekhar\\Projects\\barter\\web\\");
+            //if (Request.Files.Count > 0)
+            //{
+            //    var file = Request.Files[0];
+            //    if (file != null && file.ContentLength > 0)
+            //    {
+            //        fileName = Path.GetFileName(file.FileName);
+            //        fileName = model.ProjectId + "__" + fileName;
+            //        var path = Path.Combine(Server.MapPath("~/Documents/Projects/Abstract/"), fileName);
+            //        model.SaveAttachments(fileName, "Abstratct");
+            //        file.SaveAs(path);
+            //    }
+            //    var projectFile = Request.Files[1];
+            //    if (projectFile != null && projectFile.ContentLength > 0)
+            //    {
+            //        fileName = Path.GetFileName(projectFile.FileName);
+            //        fileName = model.ProjectId + "__" + fileName;
+            //        var path = Path.Combine(Server.MapPath("~/Documents/Projects/Project/"), fileName);
+            //        projectFile.SaveAs(path);
+            //        model.SaveAttachments(fileName, "Projects");
+            //        Directory.CreateDirectory(Server.MapPath("~/Documents/Projects/Extract/Project_" + model.ProjectId));
+            //        ZipFile.ExtractToDirectory(path, Server.MapPath("~/Documents/Projects/Extract/Project_" + model.ProjectId));
+            //    }
+            //}
             return RedirectToAction("Index");
             //return View(_model);
         }
@@ -173,5 +198,13 @@ namespace Stack.Areas.Admin.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
+        public byte[] ConvertToByte(HttpPostedFileBase file)
+        {
+            byte[] imageByte = null;
+            BinaryReader rdr = new BinaryReader(file.InputStream);
+            imageByte = rdr.ReadBytes((int)file.ContentLength);
+            return imageByte;
+        }
+         
     }
 }

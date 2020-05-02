@@ -2,87 +2,165 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link href="~/Content/menu.css" rel="stylesheet" />
 @model Stack.Models.ArticlesModel
 @using Stack.Models;
 @{
-    var user = AccountModel.GetUsers(Model.LastEditedById);
+    var accountModel=new AccountModel();
+    var user = accountModel.GetUsers(Model.LastEditedById);
 }
-<div id="fh5co-main">
-    <div class="container">
-        <div class="row clssitemap" style="padding-left: 15px">
-            @Html.ActionLink("Show All Articles", "Index")
+<div class="container wrapper">
+    <!-- Sidebar  -->
+    @*<nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Bootstrap Sidebar</h3>
         </div>
-        <div class="row">
-            <div class="col-md-8">
-                <span style="font-size: 25px;font-weight: bold">@Html.DisplayFor(model => model.ArticleName)</span>
-                <br />
-                <span>By <span style="color: orange">@user.CreatedBy</span> on <span style="color: #ff3b30">@Model.LastEditedDate</span></span>
-                <hr />
-                @*<h2>@Html.DisplayFor(model => model.ArticleName)</h2>*@
-                <div class="content">@Html.Raw(Model.Description.ToString().Replace("<h3>", "").Replace("</h3>", ""))</div>
-                <hr />
+        <ul class="list-unstyled components">
+            <p>Dummy Heading</p>
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="#">Home 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Home 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Home 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Portfolio</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+        <ul class="list-unstyled CTAs">
+            <li>
+                <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+            </li>
+            <li>
+                <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+            </li>
+        </ul>
+    </nav>*@
+    <!-- Page Content  -->
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                    <span>Toggle Sidebar</span>
+                </button>
+                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-align-justify"></i>
+                </button>
+                <div id="fh5co-main">
+                    <div class="container">
+                        <div class="row clssitemap" style="padding-left: 15px">
+                            @Html.ActionLink("Show All Articles", "Index")
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <span style="font-size: 25px;font-weight: bold">@Html.DisplayFor(model => model.ArticleName)</span>
+                                <br />
+                                <span>By <span style="color: orange">@user.CreatedBy</span> on <span style="color: #ff3b30">@Model.LastEditedDate</span></span>
+                                <hr />
+                                @*<h2>@Html.DisplayFor(model => model.ArticleName)</h2>*@
+                                <div class="content">@Html.Raw(Model.Description.ToString().Replace("<h3>", "").Replace("</h3>", ""))</div>
+                                <hr />
 
-                <div class="col-md-12 row-bottom-padded-md">
-                    <div class="col-md-3">
-                        <img src="@user.ProfilePicUrl" height="100px" width="100px" />
+                                <div class="col-md-12 row-bottom-padded-md">
+                                    <div class="col-md-3">
+                                        <img src="@user.ProfilePicUrl" height="100px" width="100px" />
+                                    </div>
+                                    <div class="col-md-9" style="font-size: 13px;">
+                                        <span style="color: orange; font-size: 26px;font-weight: bold;">@user.CreatedBy</span>
+                                        <br />
+                                        @if (user.Description != null)
+                                        {
+                                            @Html.Raw(user.Description.ToString().Replace("<h3>", "").Replace("</h3>", ""))
+                                        }
+                                        else
+                                        {
+                                            <span>
+                                                Having good understanding about .Net and Java technologies.
+                                            </span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-12 row-bottom-padded-md">
+                                    Comments
+                                    @*<hr><img id="user-photo" src="#" style="display: none;" />
+                            <a href="javascript:void(0)" onclick="FB.login(setFacebookPhoto, { scope: 'user_photos' });">
+                                Get User Photo from Facebook
+                            </a>*@
+                                    <div id="comments-container"></div>
+                                    @*<textarea id="comments-container" style="width: 700px; border: 1px solid rgb(204, 204, 204); height: 150px;"></textarea>*@
+                                    @*<input class="btn btn-send-message btn-md btn-submit" style="float: right" value="Submit Comments" type="submit">*@
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="fh5co-sidebox">
+                                    @*<h3 class="fh5co-sidebox-lead">Articles List</h3>
+                            <ul class="fh5co-post">
+                                @{
+                                    var articlesModel = new Stack.Models.ArticlesModel();
+                                }
+                                @foreach (var item in articlesModel.GetRecentArticles().Take(5))
+                                {
+                                    <li>
+                                        <a href="~/Articles/Details/@item.ArticleNameSeo">
+                                            <div class="fh5co-post-media">
+                                                  <i class="fa fa-arrow-circle-down to-animate-2"></i>
+                                            </div>
+                                            <div class="fh5co-post-blurb">
+                                                @item.ArticleName
+                                                <span class="fh5co-post-meta">@item.CreatedBy</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>*@
+                                    @*<h3 class="fh5co-sidebox-lead">Recent Articles</h3>
+                                    @Html.Partial("_recentArticles")*@
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-9" style="font-size: 13px;">
-                        <span style="color: orange; font-size: 26px;font-weight: bold;">@user.CreatedBy</span>
-                        <br />
-                        @if (user.Description != null)
-                        {
-                            @Html.Raw(user.Description.ToString().Replace("<h3>", "").Replace("</h3>", ""))
-                        }
-                        else
-                        {
-                            <span>
-                                Having good understanding about .Net and Java technologies.
-                            </span>
-                        }
-                    </div>
                 </div>
-                <div class="col-md-12 row-bottom-padded-md">
-                    Comments
-                    @*<hr><img id="user-photo" src="#" style="display: none;" />
-                        <a href="javascript:void(0)" onclick="FB.login(setFacebookPhoto, { scope: 'user_photos' });">
-                            Get User Photo from Facebook
-                        </a>*@
-                    <div id="comments-container"></div>
-                    @*<textarea id="comments-container" style="width: 700px; border: 1px solid rgb(204, 204, 204); height: 150px;"></textarea>*@
-                    @*<input class="btn btn-send-message btn-md btn-submit" style="float: right" value="Submit Comments" type="submit">*@
-                </div>
+                <div class="fh5co-spacer fh5co-spacer-lg"></div>
             </div>
-            <div class="col-md-4">
-                <div class="fh5co-sidebox">
-                    @*<h3 class="fh5co-sidebox-lead">Articles List</h3>
-                        <ul class="fh5co-post">
-                            @{
-                                var articlesModel = new Stack.Models.ArticlesModel();
-                            }
-                            @foreach (var item in articlesModel.GetRecentArticles().Take(5))
-                            {
-                                <li>
-                                    <a href="~/Articles/Details/@item.ArticleNameSeo">
-                                        <div class="fh5co-post-media">
-                                              <i class="fa fa-arrow-circle-down to-animate-2"></i>
-                                        </div>
-                                        <div class="fh5co-post-blurb">
-                                            @item.ArticleName
-                                            <span class="fh5co-post-meta">@item.CreatedBy</span>
-                                        </div>
-                                    </a>
-                                </li>
-                            }
-                        </ul>*@
-                    <h3 class="fh5co-sidebox-lead">Recent Articles</h3>
-                    @Html.Partial("_recentArticles")
-                </div>
-            </div>
-        </div>
+        </nav>
     </div>
 </div>
-<div class="fh5co-spacer fh5co-spacer-lg"></div>
+
 <script>
+    $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+            $('#sidebar').toggleClass('active');
+        });
+    });
     $(function () {
         var commentsArray = [];
         $.ajax({

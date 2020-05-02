@@ -2,6 +2,7 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using Stack.Models
 @model Stack.Models.ProjectsModel
 @{
     var userDetails = Stack.Models.UserDetails.Instance;
@@ -13,17 +14,40 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <span style="font-size: 25px;font-weight: bold;color:#F86604">@Html.DisplayFor(model => model.ProjectName)</span>
+
+                <span style="font-size: 25px; font-weight: bold; color: #F86604">@Html.DisplayFor(model => model.ProjectName)</span>
                 <br />
                 <span>By <span style="color: orange">@Model.CreatedBy</span> on <span style="color: #ff3b30">@Model.LastEditedDate</span></span>
                 <hr />
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="col-md-2" style="alignment: center">
+                            <label>File Name</label>
+                        </th>
+
+                        <th class="col-md-2">File</th>
+                    </tr>
+
+                    @foreach (var item in AttachmentsModel.GetFilesList("Projects", Model.ProjectId))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FileName)
+                            </td>
+                            <td>
+                                @Html.ActionLink("DownLoadFile", "DownLoadFile", new { id = item.AttachmentId })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
                 <div class="col-md-12 row-bottom-padded-md">
                     @*<i class="fa fa-file-powerpoint-o"></i>*@
                     @if (Model.AttachmentNames != null)
                     {
                         foreach (var value in Model.AttachmentNames.Split(new[] { "||" }, StringSplitOptions.None))
                         {
-                            <a style="margin-right:10px;cursor:pointer" data-val="@value" class="attOpen"><img src="~/images/PowerPoint.png" style="width:25px;height:25px;margin-right:5px;">@value.Split(new[] { "__" }, StringSplitOptions.None)[1] </a>
+                            <a style="margin-right: 10px; cursor: pointer" data-val="@value" class="attOpen"><img src="~/images/PowerPoint.png" style="width: 25px; height: 25px; margin-right: 5px;">@value.Split(new[] { "__" }, StringSplitOptions.None)[1] </a>
                         }
                     }
                 </div>
@@ -32,36 +56,36 @@
                 @*<p>@Html.Raw(Model.Description.ToString().Replace("<h3>", "").Replace("</h3>", ""))</p>*@
                 <p>@Html.Raw(Model.Description.ToString())</p>
                 @*<div class="col-md-12" style="padding:10px;margin-bottom:10px">
-                        <table class="tabletb table-responsive table table-bordered table-striped">
-                            <tr>
-                                <th class="text-center">Sample Project Files</th>
-                                <th class="text-center">File Content</th>
-                            </tr>
-                            <tr>
-                                <td class="col-md-6">
-                                    <div class="treeview">
-                                        @if (Model.ProjectFiles != null && Model.ProjectFiles.Count() > 0)
-                                        {
-                                            <ul>
-                                                @Treeview.GetTreeView(Model.ProjectFiles, Model.ProjectFiles.FirstOrDefault().ParentId)
-                                            </ul>
-                                        }
-                                    </div>
-                                </td>
+            <table class="tabletb table-responsive table table-bordered table-striped">
+                <tr>
+                    <th class="text-center">Sample Project Files</th>
+                    <th class="text-center">File Content</th>
+                </tr>
+                <tr>
+                    <td class="col-md-6">
+                        <div class="treeview">
+                            @if (Model.ProjectFiles != null && Model.ProjectFiles.Count() > 0)
+                            {
+                                <ul>
+                                    @Treeview.GetTreeView(Model.ProjectFiles, Model.ProjectFiles.FirstOrDefault().ParentId)
+                                </ul>
+                            }
+                        </div>
+                    </td>
 
-                                <td class="col-md-6">
-                                    <pre class="highlight">
-                                     </pre>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>*@
+                    <td class="col-md-6">
+                        <pre class="highlight">
+                         </pre>
+                    </td>
+                </tr>
+            </table>
+        </div>*@
                 <div class="col-md-12 row-bottom-padded-md">
                     <div class="col-md-3">
                         <img src="@Model.ProfilePicUrl" height="100px" width="100px" />
                     </div>
                     <div class="col-md-9" style="font-size: 13px;">
-                        <span style="color: orange; font-size: 26px;font-weight: bold;">@Model.CreatedBy</span>
+                        <span style="color: orange; font-size: 26px; font-weight: bold;">@Model.CreatedBy</span>
                         <br />
                         @if (userDetails.Description != null)
                         {
@@ -72,9 +96,9 @@
                 <div class="col-md-12 row-bottom-padded-md">
                     Comments
                     @*<hr><img id="user-photo" src="#" style="display: none;" />
-                        <a href="javascript:void(0)" onclick="FB.login(setFacebookPhoto, { scope: 'user_photos' });">
-                            Get User Photo from Facebook
-                        </a>*@
+            <a href="javascript:void(0)" onclick="FB.login(setFacebookPhoto, { scope: 'user_photos' });">
+                Get User Photo from Facebook
+            </a>*@
                     <div id="comments-container"></div>
                     @*<textarea id="comments-container" style="width: 700px; border: 1px solid rgb(204, 204, 204); height: 150px;"></textarea>*@
                     @*<input class="btn btn-send-message btn-md btn-submit" style="float: right" value="Submit Comments" type="submit">*@

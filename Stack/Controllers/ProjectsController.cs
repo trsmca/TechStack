@@ -52,6 +52,12 @@ namespace Stack.Controllers
             return View(_model);
         }
 
+        [HttpGet]
+        public FileResult DownLoadFile(int id)
+        {
+            var attachment = db.Attachments.FirstOrDefault(x => x.AttachmentId == id);
+            return File(attachment.Attachment, "application/pdf", attachment.FileName);
+        }
         //// GET: Projects/Create
         //public ActionResult Create()
         //{

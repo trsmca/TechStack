@@ -7,14 +7,15 @@
 <script src="~/ckeditor/ckeditor.js"></script>
 <script src="~/Scripts/adapters_jquery.js"></script>
 <script src="~/Scripts/editor.js"></script>
+ 
 <div class="row row-bottom-padded-md" style="margin: 0 auto">
     <div class="col-md-12 section-heading text-center">
         <h2 class="to-animate fadeInUp animated">Create Article</h2>
         @*<div class="row">
-            <div class="col-md-8 col-md-offset-2 subtext">
-                <h3 class="to-animate fadeInUp animated">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove. </h3>
-            </div>
-        </div>*@
+                <div class="col-md-8 col-md-offset-2 subtext">
+                    <h3 class="to-animate fadeInUp animated">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove. </h3>
+                </div>
+            </div>*@
     </div>
     <div class="col-md-2"></div>
     <div class="col-md-8">
@@ -56,17 +57,31 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    Document
+                    @Html.LabelFor(model => model.CoverPhoto, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input type="file" name="file" />
+                        @Html.TextBoxFor(model => model.CoverPhoto, "", new { @type = "file" })
+                        @Html.ValidationMessageFor(model => model.CoverPhoto, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    Project
+                    @Html.LabelFor(model => model.Files, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <input type="file" name="fileProject" />
+                        @Html.TextBoxFor(model => model.Files, "", new { @type = "file", @multiple = "multiple" })
+                        @Html.ValidationMessageFor(model => model.Files, "", new { @class = "text-danger" })
                     </div>
                 </div>
+                @*<div class="form-group">
+                        Document
+                        <div class="col-md-10">
+                            <input type="file" name="file" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        Project
+                        <div class="col-md-10">
+                            <input type="file" name="fileProject" />
+                        </div>
+                    </div>*@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Create" class="btn btn-default" />

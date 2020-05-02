@@ -652,7 +652,7 @@ li.respon-sub-menu > .sub-menu .sub-menu {
 /*==================================================================
 [ Fixed menu desktop ]*/
 .fix-menu-desktop .main-nav {
-  position: fixed;
+  /*position: fixed;*/
   top: -55px;
   left: 0;
   transition: transform 0.3s;

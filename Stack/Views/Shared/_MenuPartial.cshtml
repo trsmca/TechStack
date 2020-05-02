@@ -1,111 +1,229 @@
 ﻿@using Stack.Models
-@{
-    var userDetails = UserDetails.Instance;
-}
-<div class="container-fluid solid-menus container no-padding" id="solidMenus" style="padding:0">
-    <nav class="navbar navbar-default navbar-default-dark no-border-radius no-margin no-padding">
-        <div class="container container-fluid no-padding" id="navbar-inner-container">
-            <form action="mega-menu-5.html" id="top-search" role="form" class="no-margin" style="display: none">
-                <div class="col-lg-12 no-padding">
-                    <div class="form-group no-margin"><input class="form-control no-border" id="search_term" name="search_term" placeholder="Type & Press Enter" type="text"></div>
-                </div>
-            </form>
-            <div class="navbar-header"><button type="button" class="navbar-toggle navbar-toggle-left" data-toggle="collapse" data-target="#solidMenu"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button></div>
-            <div class="collapse navbar-collapse" id="solidMenu">
-                <ul class="nav navbar-nav">
-                    @foreach (var parentMenu in MenuItemsModel.GetParentMenuItems())
-                    {
-                        var count = 0; var maxCount = 0; var url = "";
-                        if (parentMenu.MenuItem == "Articles")
-                        {
-                            url = "/Articles";
-                        }
-                        else if (parentMenu.MenuItem == "Projects")
-                        {
-                            url = "/Projects";
-                        }
-                        var sb = new System.Text.StringBuilder();
-                        var list = MenuItemsModel.GetMenuItemsOnParentId(parentMenu.MenuItemId);
-                        maxCount = list.Count / 4;
-                        if (maxCount == 0) { maxCount = 1; }
-                        if (maxCount % 4 > 0) { maxCount = maxCount + 1; }
-                        var css = "";
-                        if (list.Count < 5)
-                        {
-                            css = "dropdown-convey-width";
-                        }
-                        else
-                        {
-                            css = "dropdown-full-width";
-                        }
-                        <li class="dropdown dropdown-autoheight @css" data-animation="fadeIn">
-                            <a class="external" href="@parentMenu.MenuUrl">
-                                @parentMenu.MenuItem
-                                @if (parentMenu.MenuItem == "Home")
-                                {
-                                    <i class="fa fa-home"></i>
-                                }
-                                else if (list.Count > 0)
-                                {
-                                    <i class="fa fa-caret-down"></i>
-                                }
+<div class="content" style="color:#fefefe">
+    <ul class="exo-menu" style="color:#fefefe">
+        @foreach (var parentMenu in MenuItemsModel.GetParentMenuItems())
+        {
+            var count = 0; var maxCount = 0; var url = "";
+            var list = MenuItemsModel.GetMenuItemsOnParentId(parentMenu.MenuItemId);
+            maxCount = list.Count / 4;
+            if (maxCount == 0) { maxCount = 1; }
+            if (maxCount % 4 > 0) { maxCount = maxCount + 1; }
+            if (parentMenu.MenuItem == "Articles")
+            {
+                url = "/Articles";
+            }
+            else if (parentMenu.MenuItem == "Projects")
+            {
+                url = "/Projects";
+            }
+            if (list.Count > 10)
+            {
+                <li class="mega-drop-down">
+                    <a href="@url/@parentMenu.MenuItemSeo" style="color:#fefefe"><i class="fa fa-list"></i>@*<i class="fa fa-home"></i>*@ @parentMenu.MenuItem</a>
 
-                            </a>
-                            @if (list.Count > 0)
-                            {
-                                <div class="dropdown-menu no-border-radius no-padding" data-adjust="2">
-                                    <div class="row row-autoheight no-margin">
-
-                                        @foreach (var menu in list)
-                                        {
-                                            if (count != 0 && count % maxCount == 0)
-                                            {
-                                                sb = new System.Text.StringBuilder();
-                                                sb.Append("</ul>");
-                                                sb.Append("</div>");
-                                                sb.Append("</div>");
-                                                @Html.Raw(sb)
-                                            }
-                                            if (count == 0 || count % maxCount == 0)
-                                            {
-                                                sb = new System.Text.StringBuilder();
-                                                sb.Append("<div class=\"col-lg-3 col-md-3 col-sm-3 col-xs-12 clearfix\">");
-                                                sb.Append("<div class=\"widget-default clearfix\">");
-                                                sb.Append("<ul class=\"s-list s-list-pl s-list-mb-5 no-padding\" style='min-width:100px'>");
-                                                @Html.Raw(sb)
-                                            }
-                                            sb = new System.Text.StringBuilder();
-                                            sb.Append("<li><a href=\"" + url + "/" + @menu.MenuItemSeo + "\">" + @menu.MenuItem + "</a></li>");
-                                            @Html.Raw(sb)
-                                            count++;
-                                        }
+                    <div class="animated fadeIn mega-menu">
+                        <div class="mega-menu-wrap">
+                            <div class="row">
+                                @foreach (var menu in list)
+                                {
+                                    <div class="col-md-3">
+                                        <ul class="stander">
+                                            <li><a href="@url/@menu.MenuItemSeo" style="color:#fefefe">@menu.MenuItem</a></li>
+                                            @*<li><a class="view-more btn- btn-sm" href="#">View more</a></li>*@
+                                        </ul>
                                     </div>
-                                </div>
-                            }
-                        </li>
-                    }
-                    @if (userDetails.RoleId == 1)
-                    {
-                        <li class="dropdown dropdown-autoheight">
-                            <a class="external">Admin <i class="fa fa-caret-down"></i></a>
-                            <div class="dropdown-menu no-border-radius no-padding fadeIn animated" data-adjust="2" style="width: 166px; height: auto;">
-                                <div class="row row-autoheight no-margin">
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 clearfix">
-                                        <div class="widget-default clearfix">
-                                            <ul class="s-list s-list-pl s-list-mb-5 no-padding" style="min-width:100px">
-                                                <li><a href="/Admin/Articles">Articles</a></li>
-                                                <li><a href="/Admin/Projects">Projects</a></li>
-                                                <li><a href="/Admin/Questions">Questions</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                }
                             </div>
-                        </li>
-                    }
-                </ul>
+                        </div>
+                    </div>
+                </li>
+            }
+            else if (list.Count > 0)
+            {
+                <li class="drop-down">
+                    @*<a href="#"><i class="fa fa-cogs"></i> Flyout</a>*@
+                    <a href="@url/@parentMenu.MenuItemSeo" style="color:#fefefe">@parentMenu.MenuItem</a>
+                    <ul class="drop-down-ul animated fadeIn">
+                        @foreach (var menu in list)
+                        {
+                            <li><a href="@url/@menu.MenuItemSeo">@menu.MenuItem</a></li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li>
+                    @*<a href="#"><i class="fa fa-cogs"></i> Flyout</a>*@
+                    <a href="@url/@parentMenu.MenuItemSeo" style="color:#fefefe">@parentMenu.MenuItem</a>
+                </li>
+            }
+
+            //foreach (var menu in list)
+            //{ }
+        }
+        @*<li class="mega-drop-down">
+            <a href="#"><i class="fa fa-list"></i> Mega Menu</a>
+            <div class="animated fadeIn mega-menu">
+                <div class="mega-menu-wrap">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="row mega-title">Standers</h4>
+                            <ul class="stander">
+                                <li><a href="#">Mobile</a></li>
+                                <li><a href="#">Computer</a></li>
+                                <li><a href="#">Watch</a></li>
+                                <li><a href="#">laptop</a></li>
+                                <li><a href="#">Camera</a></li>
+                                <li><a href="#">I pad</a></li>
+                                <li><a class="view-more btn- btn-sm" href="#">View more</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="row mega-title">Standers</h4>
+                            <ul class="stander">
+                                <li><a href="#">Mobile</a></li>
+                                <li><a href="#">Computer</a></li>
+                                <li><a href="#">Watch</a></li>
+                                <li><a href="#">laptop</a></li>
+                                <li><a href="#">Camera</a></li>
+                                <li><a href="#">I pad</a></li>
+                                <li><a class="view-more btn- btn-sm" href="#">View more</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="row mega-title">Description</h4>
+                            <ul class="description">
+                                <li>
+                                    <a href="#">Women</a>
+                                    <span>Description of Women</span>
+                                </li>
+                                <li>
+                                    <a href="#">Men</a>
+                                    <span>Description of men Cloths</span>
+                                </li>
+                                <li>
+                                    <a href="#">Kids</a>
+                                    <span>Description of Kids Cloths</span>
+                                </li>
+                                <li>
+                                    <a href="#">Others</a>
+                                    <span>Description of Others Cloths</span>
+                                </li>
+                                <li>
+                                    <a class="view-more btn btn-sm " href="#">View more</a>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="row mega-title">Icon + Description</h4>
+                            <ul class="icon-des">
+                                <li><a href="#"><i class="fa fa-globe"></i>Web</a></li>
+                                <li><a href="#"><i class="fa fa-mobile"></i>Mobile</a></li>
+                                <li><a href="#"><i class="fa fa-arrows-h"></i>Responsive</a></li>
+                                <li><a href="#"><i class="fa fa-desktop"></i>Desktop</a></li>
+                                <li><a href="#"><i class="fa fa-paint-brush"></i>UI/UX</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            <div class="navbar-pos-search"><a href="#" class="x-search x-search-trigger navbar-link"><i class="fa fa-search"></i></a> <a href="#" class="x-search x-search-close navbar-link" style="display: none"><i class="icon-line-cross"></i></a></div>
-        </div>
-    </nav>
-</div> 
+        </li>*@
+        @*<li><a class="active" href="#"><i class="fa fa-home"></i> Home</a></li>
+        <li class="drop-down">
+            <a href="#"><i class="fa fa-cogs"></i> Flyout</a>
+            <!--Drop Down-->
+            <ul class="drop-down-ul animated fadeIn">
+                <li class="flyout-right">
+                    <a href="#">Flyout Right</a><!--Flyout Right-->
+                    <ul class="animated fadeIn">
+                        <li><a href="#">Mobile</a></li>
+                        <li><a href="#">Computer</a></li>
+                        <li><a href="#">Watch</a></li>
+                    </ul>
+                </li>
+
+                <li class="flyout-left">
+                    <a href="#">Flyout Left</a><!--Flyout Left-->
+                    <ul class="animated fadeIn">
+                        <li><a href="#">Mobile</a></li>
+                        <li><a href="#">Computer</a></li>
+                        <li><a href="#">Watch</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#">No Flyout</a></li>
+
+            </ul>
+            <!--//End drop down-->
+
+        </li>
+        <li><a href="#"><i class="fa fa-cogs"></i> Services</a></li>
+        <li><a href="#"><i class="fa fa-briefcase"></i> Portfolio</a></li>
+        <li class="mega-drop-down">
+            <a href="#"><i class="fa fa-list"></i> Mega Menu</a>
+            <div class="animated fadeIn mega-menu">
+                <div class="mega-menu-wrap">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="row mega-title">Standers</h4>
+                            <ul class="stander">
+                                <li><a href="#">Mobile</a></li>
+                                <li><a href="#">Computer</a></li>
+                                <li><a href="#">Watch</a></li>
+                                <li><a href="#">laptop</a></li>
+                                <li><a href="#">Camera</a></li>
+                                <li><a href="#">I pad</a></li>
+                                <li><a class="view-more btn- btn-sm" href="#">View more</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="row mega-title">Description</h4>
+                            <ul class="description">
+                                <li>
+                                    <a href="#">Women</a>
+                                    <span>Description of Women</span>
+                                </li>
+                                <li>
+                                    <a href="#">Men</a>
+                                    <span>Description of men Cloths</span>
+                                </li>
+                                <li>
+                                    <a href="#">Kids</a>
+                                    <span>Description of Kids Cloths</span>
+                                </li>
+                                <li>
+                                    <a href="#">Others</a>
+                                    <span>Description of Others Cloths</span>
+                                </li>
+                                <li>
+                                    <a class="view-more btn btn-sm " href="#">View more</a>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="row mega-title">Icon + Description</h4>
+                            <ul class="icon-des">
+                                <li><a href="#"><i class="fa fa-globe"></i>Web</a></li>
+                                <li><a href="#"><i class="fa fa-mobile"></i>Mobile</a></li>
+                                <li><a href="#"><i class="fa fa-arrows-h"></i>Responsive</a></li>
+                                <li><a href="#"><i class="fa fa-desktop"></i>Desktop</a></li>
+                                <li><a href="#"><i class="fa fa-paint-brush"></i>UI/UX</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <a href="#"><i class="fa fa-envelope"></i> Contact</a>
+            <div class="contact">
+
+            </div>
+        </li>*@
+    </ul>
+</div>

@@ -37,28 +37,34 @@ namespace Stack
                       "~/Scripts/solid-menu.js",
                       "~/Scripts/notifications.js",
                       "~/Scripts/jquery-comments.min.js",
-                       "~/Scripts/custombox.js"));
+                      "~/Scripts/jquery.toast.js",
+                      "~/Scripts/loader.js",
+                       "~/Scripts/custombox.js",
+                      "~/Scripts/Site.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/style.css",
-                      "~/Content/font-awesome.css",
-                      "~/Content/animate.css",
-                      "~/Content/icomoon.css",
-                      "~/Content/simple-line-icons.css",
-                      "~/Content/owl.carousel.min.css",
-                      "~/Content/owl.theme.default.min.css",
                       "~/Content/style-new.css",
-                      "~/Content/sky-forms.css",
+                      "~/Content/font-awesome.css",
+                      //"~/Content/animate.css",
+                      //"~/Content/icomoon.css",
+                      //"~/Content/simple-line-icons.css",
+                      //"~/Content/owl.carousel.min.css",
+                      //"~/Content/owl.theme.default.min.css",
+                      //"~/Content/style-new.css",
+                      ////"~/Content/sky-forms.css",
                       "~/Content/simplePagination.css",
-                      "~/Content/navigation.css",
+                      //"~/Content/navigation.css",
                       "~/Content/solid-menu.css",
-                      "~/Content/lobibox.css",
-                      "~/Content/jquery-comments.css",
+                      //"~/Content/lobibox.css",
+                      "~/Content/jquery.toast.css",
                       "~/Content/loader.css",
-                      "~/Content/custombox.css",
-                      "~/Content/mn/main.css",
-                      "~/Content/mn/util.css"));
+                      "~/Content/jquery-comments.css"
+                      //"~/Content/loader.css",
+                      //"~/Content/custombox.css",
+                      //"~/Content/mn/main.css",
+                      //"~/Content/mn/util.css"
+                      ));
         }
     }
 }

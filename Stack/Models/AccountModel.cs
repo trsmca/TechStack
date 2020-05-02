@@ -10,10 +10,17 @@ using System.Globalization;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
 using Stack.Common;
+using Exception = System.Exception;
+using Stack.Entities;
+using System.Net.Mail;
+using System.Net;
+
 namespace Stack.Models
 {
     public class AccountModel
     {
+        #region "Properties"
+        private StackEntities db = new StackEntities();
         public int UserId { get; set; }
 
         [DisplayName("Email:")]
@@ -57,6 +64,9 @@ namespace Stack.Models
         public bool SpecialOffers { get; set; }
         public int RoleId { get; set; }
         public string RoleName { get; set; }
+        #endregion
+
+        #region "Methods"
         public void Save()
         {
             using (var db = new StackContext())
@@ -87,6 +97,33 @@ namespace Stack.Models
                 db.Entry(model).Property(x => x.CreatedById).IsModified = false;
                 db.Users.AddOrUpdate(model);
                 db.SaveChanges();
+            }
+        }
+        public void PasswordChangeLink()
+        {
+            string smtpAddress = "smtp.gmail.com";
+            int portNumber = 587;
+            bool enableSSL = true;
+            string emailFromAddress = "trsmca35@gmail.com"; //Sender Email Address  
+            string password = "Epam@123$"; //Sender Password  
+            string emailToAddress = "receiver@gmail.com"; //Receiver Email Address  
+            string subject = "Hello";
+            string body = "Hello, This is Email sending test using gmail.";
+
+            using (MailMessage mail = new MailMessage())
+            {
+                mail.From = new MailAddress(emailFromAddress);
+                mail.To.Add(emailToAddress);
+                mail.Subject = subject;
+                mail.Body = body;
+                mail.IsBodyHtml = true;
+                //mail.Attachments.Add(new Attachment("D:\\TestFile.txt"));//--Uncomment this to send any attachment  
+                using (SmtpClient smtp = new SmtpClient(smtpAddress, portNumber))
+                {
+                    smtp.Credentials = new NetworkCredential(emailFromAddress, password);
+                    smtp.EnableSsl = enableSSL;
+                    smtp.Send(mail);
+                }
             }
         }
         public void UpdateProfile()
@@ -192,26 +229,48 @@ namespace Stack.Models
                 }
             }
         }
-        public static AccountModel GetUsers(int UserId)
+        public AccountModel GetUsers(int userId)
         {
+            //try
+            //{
             var model = new AccountModel();
-            using (var db = new StackContext())
+            var user = db.Users.ToList().Find(x => x.UserId == UserId);
+            if (user != null)
             {
-                using (var ctx = new StackContext())
-                {
-                    var user = ctx.Users.ToList().Find(x => x.UserId == UserId);
-                    model.UserId = user.UserId;
-                    model.FirstName = user.FirstName;
-                    model.LastName = user.LastName;
-                    model.Email = user.Email;
-                    model.Address = user.Address;
-                    model.ContactNumber = user.ContactNumber;
-                    model.CreatedDate = user.CreatedDate.ToString(CultureInfo.InvariantCulture);
-                    model.ProfilePicUrl = user.ProfilePicUrl;
-                    model.CreatedBy = user.FirstName + " " + user.LastName;
-                }
+                model.UserId = user.UserId;
+                model.FirstName = user.FirstName;
+                model.LastName = user.LastName;
+                model.Email = user.Email;
+                model.Address = user.Address;
+                model.ContactNumber = user.ContactNumber;
+                model.CreatedDate = user.CreatedDate.ToString();
+                model.ProfilePicUrl = user.ProfilePicUrl;
+                model.CreatedBy = user.FirstName + " " + user.LastName;
+                //using (var db = new StackContext())
+                //{
+                //    using (var ctx = new StackContext())
+                //    {
+                //        var user = ctx.Users.ToList().Find(x => x.UserId == UserId);
+                //        model.UserId = user.UserId;
+                //        model.FirstName = user.FirstName;
+                //        model.LastName = user.LastName;
+                //        model.Email = user.Email;
+                //        model.Address = user.Address;
+                //        model.ContactNumber = user.ContactNumber;
+                //        model.CreatedDate = user.CreatedDate.ToString(CultureInfo.InvariantCulture);
+                //        model.ProfilePicUrl = user.ProfilePicUrl;
+                //        model.CreatedBy = user.FirstName + " " + user.LastName;
+                //    }
+                //}
             }
             return model;
+            //}
+            //catch (Exception ex)
+            //{
+
+            //}
+
+            return null;
         }
         public static int GetUserId(string Email)
         {
@@ -227,5 +286,6 @@ namespace Stack.Models
             return 0;
         }
 
+        #endregion
     }
 }

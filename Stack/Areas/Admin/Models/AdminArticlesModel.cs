@@ -7,6 +7,8 @@ using Stack.Models;
 using Stack.Helpers;
 using System.Data.Entity.Migrations;
 using System.Data.Entity;
+using System.ComponentModel.DataAnnotations;
+
 namespace Stack.Areas.Admin.Models
 {
     public class AdminArticlesModel : AdminMenuItems
@@ -20,6 +22,12 @@ namespace Stack.Areas.Admin.Models
         public string Description { get; set; }
 
         public string ShortDescription { get; set; }
+
+        [Required(ErrorMessage = "Please select file.")]
+        [Display(Name = "Browse File")]
+        public HttpPostedFileBase[] CoverPhoto{ get; set; }
+
+        public HttpPostedFileBase[] files { get; set; }
 
         //public List<ArticleCategories> GetArticleCategories()
         //{
@@ -55,7 +63,7 @@ namespace Stack.Areas.Admin.Models
                 ctx.SaveChanges();
             }
         }
-        public void Save()
+        public int Save()
         {
             var userDetails = UserDetails.Instance;
 
@@ -78,7 +86,9 @@ namespace Stack.Areas.Admin.Models
                 ctx.Entry(article).State = EntityState.Modified;
                 ctx.Articles.AddOrUpdate(article);
                 ctx.SaveChanges();
+                return article.ArticleId;
             }
+            return 0;
         }
     }
 }

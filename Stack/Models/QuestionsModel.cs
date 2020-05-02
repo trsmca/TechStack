@@ -51,7 +51,8 @@ namespace Stack.Models
                 //CreatedBy = question.CreatedBy;
                 LastEditedDate = question.LastEditedDate;
                 //ProfilePicUrl = userDetails.ProfilePicUrl;
-                var user = AccountModel.GetUsers(question.CreatedById);
+                var accountModel = new AccountModel();
+                var user = accountModel.GetUsers(question.CreatedById);
                 ProfilePicUrl = user.ProfilePicUrl;
             }
         }

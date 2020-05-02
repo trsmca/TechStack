@@ -1,0 +1,707 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="StackModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="ArticleId" />
+          </Key>
+          <Property Name="ArticleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuItemId" Type="int" Nullable="false" />
+          <Property Name="ArticleName" Type="nvarchar(max)" />
+          <Property Name="ArticleNameSeo" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedBy" Type="nvarchar(max)" />
+          <Property Name="CreatedById" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastEditedById" Type="int" />
+          <Property Name="LastEditedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Attachments">
+          <Key>
+            <PropertyRef Name="AttachmentId" />
+          </Key>
+          <Property Name="AttachmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PkId" Type="int" Nullable="false" />
+          <Property Name="AttachmentCategory" Type="nvarchar(max)" />
+          <Property Name="AttachmentKey" Type="nvarchar(max)" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="2000" />
+          <Property Name="CreatedById" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastEditedById" Type="int" />
+          <Property Name="LastEditedDate" Type="datetime" />
+          <Property Name="Attachment" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="PkId" Type="int" />
+          <Property Name="Category" Type="nvarchar(max)" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="Pings" Type="nvarchar(max)" />
+          <Property Name="UpvoteCount" Type="int" />
+          <Property Name="UserHasUpvoted" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedById" Type="int" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastEditedById" Type="int" />
+          <Property Name="LastEditedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Master_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="100" />
+          <Property Name="RoleKey" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MenuItems">
+          <Key>
+            <PropertyRef Name="MenuItemId" />
+          </Key>
+          <Property Name="MenuItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentMenuId" Type="int" Nullable="false" />
+          <Property Name="MenuItem" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MenuItemSeo" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MenuUrl" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreatedById" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastEditedById" Type="int" />
+          <Property Name="LastEditedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProjectFiles">
+          <Key>
+            <PropertyRef Name="ProjectFileId" />
+          </Key>
+          <Property Name="ProjectFileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="ProjectId" Type="int" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuItemId" Type="int" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar(max)" />
+          <Property Name="ProjectNameSeo" Type="nvarchar(max)" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="CreatedById" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastEditedById" Type="int" />
+          <Property Name="LastEditedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Question" Type="nvarchar" MaxLength="2000" />
+          <Property Name="QuestionSeo" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="CreatedById" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastEditedById" Type="int" />
+          <Property Name="LastEditedDate" Type="datetime" />
+          <Property Name="MenuItemId" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="ContactNumber" Type="nvarchar(max)" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="State" Type="nvarchar(max)" />
+          <Property Name="Country" Type="nvarchar(max)" />
+          <Property Name="PinCode" Type="nvarchar(max)" />
+          <Property Name="ProfilePicUrl" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedById" Type="int" />
+          <Property Name="LastEditedById" Type="int" />
+          <Property Name="LastEditedDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Comments_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Master_Roles">
+          <End Role="Master_Roles" Type="Self.Master_Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_GetFormattedColumnName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+          <Parameter Name="columnName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Generate_UpdateScriptWithPK" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Table_Name" Type="varchar" Mode="In" />
+          <Parameter Name="Primary_Key" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="GET_MenuItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Get_QuestionsOnMenuId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MenuItemId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InitCap" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+          <Parameter Name="InputString" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="InsertGenerator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tableName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ResetPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Split" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="InputString" Type="varchar" Mode="In" />
+          <Parameter Name="Delimiter" Type="varchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Item" Type="varchar" MaxLength="8000" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="Update_Attachments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AttachmentId" Type="int" Mode="InOut" />
+          <Parameter Name="PkId" Type="int" Mode="In" />
+          <Parameter Name="AttachmentCategory" Type="nvarchar" Mode="In" />
+          <Parameter Name="AttachmentKey" Type="nvarchar" Mode="In" />
+          <Parameter Name="FileName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Attachment" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="contactID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="StackModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attachments" EntityType="Self.Attachments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Master_Roles" EntityType="Self.Master_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuItems" EntityType="Self.MenuItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectFiles" EntityType="Self.ProjectFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Master_Roles" Association="Self.FK_Users_Master_Roles">
+            <End Role="Master_Roles" EntitySet="Master_Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StackModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="Split_Result">
+          <Property Name="Item" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+        </ComplexType>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="ArticleId" />
+          </Key>
+          <Property Name="ArticleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuItemId" Type="Int32" Nullable="false" />
+          <Property Name="ArticleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ArticleNameSeo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedById" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastEditedById" Type="Int32" />
+          <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="AttachmentId" />
+          </Key>
+          <Property Name="AttachmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PkId" Type="Int32" Nullable="false" />
+          <Property Name="AttachmentCategory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AttachmentKey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FileName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedById" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastEditedById" Type="Int32" />
+          <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
+          <Property Name="Attachment1" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="CommentId" />
+          </Key>
+          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="PkId" Type="Int32" />
+          <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="Pings" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpvoteCount" Type="Int32" />
+          <Property Name="UserHasUpvoted" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedById" Type="Int32" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastEditedById" Type="Int32" />
+          <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Comments_Users" FromRole="Comments" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Master_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RoleKey" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Master_Roles" FromRole="Master_Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="MenuItem">
+          <Key>
+            <PropertyRef Name="MenuItemId" />
+          </Key>
+          <Property Name="MenuItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentMenuId" Type="Int32" Nullable="false" />
+          <Property Name="MenuItem1" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MenuItemSeo" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MenuUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedById" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastEditedById" Type="Int32" />
+          <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ProjectFile">
+          <Key>
+            <PropertyRef Name="ProjectFileId" />
+          </Key>
+          <Property Name="ProjectFileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="ProjectId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuItemId" Type="Int32" Nullable="false" />
+          <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProjectNameSeo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDescription" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedById" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastEditedById" Type="Int32" />
+          <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Question1" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionSeo" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDescription" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedById" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastEditedById" Type="Int32" />
+          <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
+          <Property Name="MenuItemId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PinCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedById" Type="Int32" />
+          <Property Name="LastEditedById" Type="Int32" />
+          <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
+          <NavigationProperty Name="Master_Roles" Relationship="Self.FK_Users_Master_Roles" FromRole="Users" ToRole="Master_Roles" />
+        </EntityType>
+        <Association Name="FK_Comments_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Master_Roles">
+          <End Role="Master_Roles" Type="Self.Master_Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StackEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="Articles" EntityType="Self.Article" />
+          <EntitySet Name="Attachments" EntityType="Self.Attachment" />
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Master_Roles" EntityType="Self.Master_Roles" />
+          <EntitySet Name="MenuItems" EntityType="Self.MenuItem" />
+          <EntitySet Name="ProjectFiles" EntityType="Self.ProjectFile" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Master_Roles" Association="Self.FK_Users_Master_Roles">
+            <End Role="Master_Roles" EntitySet="Master_Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="Split" IsComposable="true" ReturnType="Collection(StackModel.Split_Result)">
+            <Parameter Name="InputString" Mode="In" Type="String" />
+            <Parameter Name="Delimiter" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Generate_UpdateScriptWithPK">
+            <Parameter Name="Table_Name" Mode="In" Type="String" />
+            <Parameter Name="Primary_Key" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GET_MenuItems" ReturnType="Collection(StackModel.GET_MenuItems_Result)">
+            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get_QuestionsOnMenuId" ReturnType="Collection(StackModel.Get_QuestionsOnMenuId_Result)">
+            <Parameter Name="MenuItemId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertGenerator">
+            <Parameter Name="tableName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ResetPassword">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Update_Attachments" ReturnType="Collection(Int32)">
+            <Parameter Name="AttachmentId" Mode="InOut" Type="Int32" />
+            <Parameter Name="PkId" Mode="In" Type="Int32" />
+            <Parameter Name="AttachmentCategory" Mode="In" Type="String" />
+            <Parameter Name="AttachmentKey" Mode="In" Type="String" />
+            <Parameter Name="FileName" Mode="In" Type="String" />
+            <Parameter Name="Attachment" Mode="In" Type="Binary" />
+            <Parameter Name="contactID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GET_MenuItems_Result">
+          <Property Type="String" Name="MenuItem" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="MenuItemSeo" Nullable="true" MaxLength="1000" />
+          <Property Type="Binary" Name="Attachment" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Get_QuestionsOnMenuId_Result">
+          <Property Type="Int32" Name="QuestionId" Nullable="false" />
+          <Property Type="String" Name="Question" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="QuestionSeo" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="ShortDescription" Nullable="true" MaxLength="2000" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Int32" Name="CreatedById" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="LastEditedById" Nullable="true" />
+          <Property Type="DateTime" Name="LastEditedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="MenuItemId" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StackModelStoreContainer" CdmEntityContainer="StackEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="StackModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="StackModel.Article">
+              <MappingFragment StoreEntitySet="Articles">
+                <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
+                <ScalarProperty Name="ArticleName" ColumnName="ArticleName" />
+                <ScalarProperty Name="ArticleNameSeo" ColumnName="ArticleNameSeo" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastEditedById" ColumnName="LastEditedById" />
+                <ScalarProperty Name="LastEditedDate" ColumnName="LastEditedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attachments">
+            <EntityTypeMapping TypeName="StackModel.Attachment">
+              <MappingFragment StoreEntitySet="Attachments">
+                <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
+                <ScalarProperty Name="PkId" ColumnName="PkId" />
+                <ScalarProperty Name="AttachmentCategory" ColumnName="AttachmentCategory" />
+                <ScalarProperty Name="AttachmentKey" ColumnName="AttachmentKey" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastEditedById" ColumnName="LastEditedById" />
+                <ScalarProperty Name="LastEditedDate" ColumnName="LastEditedDate" />
+                <ScalarProperty Name="Attachment1" ColumnName="Attachment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="StackModel.Comment">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PkId" ColumnName="PkId" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Comment1" ColumnName="Comment" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Pings" ColumnName="Pings" />
+                <ScalarProperty Name="UpvoteCount" ColumnName="UpvoteCount" />
+                <ScalarProperty Name="UserHasUpvoted" ColumnName="UserHasUpvoted" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="LastEditedById" ColumnName="LastEditedById" />
+                <ScalarProperty Name="LastEditedDate" ColumnName="LastEditedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Master_Roles">
+            <EntityTypeMapping TypeName="StackModel.Master_Roles">
+              <MappingFragment StoreEntitySet="Master_Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleKey" ColumnName="RoleKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuItems">
+            <EntityTypeMapping TypeName="StackModel.MenuItem">
+              <MappingFragment StoreEntitySet="MenuItems">
+                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
+                <ScalarProperty Name="ParentMenuId" ColumnName="ParentMenuId" />
+                <ScalarProperty Name="MenuItem1" ColumnName="MenuItem" />
+                <ScalarProperty Name="MenuItemSeo" ColumnName="MenuItemSeo" />
+                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastEditedById" ColumnName="LastEditedById" />
+                <ScalarProperty Name="LastEditedDate" ColumnName="LastEditedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectFiles">
+            <EntityTypeMapping TypeName="StackModel.ProjectFile">
+              <MappingFragment StoreEntitySet="ProjectFiles">
+                <ScalarProperty Name="ProjectFileId" ColumnName="ProjectFileId" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="StackModel.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectNameSeo" ColumnName="ProjectNameSeo" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastEditedById" ColumnName="LastEditedById" />
+                <ScalarProperty Name="LastEditedDate" ColumnName="LastEditedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="StackModel.Question">
+              <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Question1" ColumnName="Question" />
+                <ScalarProperty Name="QuestionSeo" ColumnName="QuestionSeo" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastEditedById" ColumnName="LastEditedById" />
+                <ScalarProperty Name="LastEditedDate" ColumnName="LastEditedDate" />
+                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="StackModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="ProfilePicUrl" ColumnName="ProfilePicUrl" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="LastEditedById" ColumnName="LastEditedById" />
+                <ScalarProperty Name="LastEditedDate" ColumnName="LastEditedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="StackModel.Store.Split" FunctionImportName="Split">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StackModel.Split_Result">
+                <ScalarProperty Name="Item" ColumnName="Item" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Generate_UpdateScriptWithPK" FunctionName="StackModel.Store.Generate_UpdateScriptWithPK" />
+          <FunctionImportMapping FunctionImportName="GET_MenuItems" FunctionName="StackModel.Store.GET_MenuItems">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StackModel.GET_MenuItems_Result">
+                <ScalarProperty Name="MenuItem" ColumnName="MenuItem" />
+                <ScalarProperty Name="MenuItemSeo" ColumnName="MenuItemSeo" />
+                <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_QuestionsOnMenuId" FunctionName="StackModel.Store.Get_QuestionsOnMenuId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StackModel.Get_QuestionsOnMenuId_Result">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="QuestionSeo" ColumnName="QuestionSeo" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastEditedById" ColumnName="LastEditedById" />
+                <ScalarProperty Name="LastEditedDate" ColumnName="LastEditedDate" />
+                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertGenerator" FunctionName="StackModel.Store.InsertGenerator" />
+          <FunctionImportMapping FunctionImportName="ResetPassword" FunctionName="StackModel.Store.ResetPassword" />
+          <FunctionImportMapping FunctionImportName="Update_Attachments" FunctionName="StackModel.Store.Update_Attachments" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -12,7 +12,7 @@ namespace Stack.DBModels
         public int PkId { get; set; }
         public string AttachmentCategory { get; set; }
         public string AttachmentKey { get; set; }
-        //public string Attachment { get; set; }
+        public byte[] Attachment { get; set; }
         public string FileName { get; set; }
     }
 }

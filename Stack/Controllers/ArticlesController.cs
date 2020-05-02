@@ -24,9 +24,9 @@ namespace Stack.Controllers
             _model.MenuItemSeo = id;
             return View(_model);
         }
-        public ActionResult Index(string id, int pageNumber)
+        public ActionResult Index(string id, int? pageNumber)
         {
-            _model.GetArticlesOnMenuItemId(id, pageNumber);
+            _model.GetArticlesOnMenuItemId(id,Convert.ToInt32(pageNumber));
             return View("_articles", _model.ArticlesList);
         }
         //// GET: RecentArticles

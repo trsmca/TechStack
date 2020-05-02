@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using Stack.Areas.Admin.Models;
 using Stack.DBModels;
@@ -55,7 +57,31 @@ namespace Stack.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.Save();
+                int articleId = model.Save();
+                foreach (HttpPostedFileBase file in model.CoverPhoto)
+                {
+                    //Checking file is available to save.  
+                    if (file != null)
+                    {
+                        var InputFileName = Path.GetFileName(file.FileName);
+
+                        AttachmentsModel.SaveAttachments(InputFileName, ConvertToByte(file), "ArticlesCoverPhoto", articleId);
+                        ViewBag.UploadStatus = model.files.Count().ToString() + " Cover Photo uploaded successfully.";
+                    }
+
+                }
+                foreach (HttpPostedFileBase file in model.files)
+                {
+                    //Checking file is available to save.  
+                    if (file != null)
+                    {
+                        var InputFileName = Path.GetFileName(file.FileName);
+
+                        AttachmentsModel.SaveAttachments(InputFileName, ConvertToByte(file), "Articles", articleId);
+                        ViewBag.UploadStatus = model.files.Count().ToString() + " files uploaded successfully.";
+                    }
+
+                }
                 return RedirectToAction("Index");
             }
             return View(_model);
@@ -69,6 +95,7 @@ namespace Stack.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             _model.Edit(id);
+
             //ViewBag.ArticleCategoryId = new SelectList(db.ArticleCategories, "ArticleCategoryId", "ArticleCategory1", article.ArticleCategoryId);
             return View("Create", _model);
         }
@@ -117,5 +144,12 @@ namespace Stack.Areas.Admin.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
+        public byte[] ConvertToByte(HttpPostedFileBase file)
+        {
+            byte[] imageByte = null;
+            BinaryReader rdr = new BinaryReader(file.InputStream);
+            imageByte = rdr.ReadBytes((int)file.ContentLength);
+            return imageByte;
+        }
     }
 }

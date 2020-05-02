@@ -18,50 +18,64 @@
     </div>
     <div class="col-md-2"></div>
     <div class="col-md-8">
-        @using (Html.BeginForm("Create", "Articles", "Admin"))
+        @using (Html.BeginForm("Create", "Articles", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
 
-            <div class="form-horizontal">
-                @Html.HiddenFor(model => model.ArticleId)
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.MenuItemId, "MenuItemId", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.MenuItemId, new SelectList(Model.GetMenuItems(), "MenuItemId", "MenuItem", Model.MenuItemId), "---Please choose---")
-                        @*@Html.DropDownListFor(model => model.ArticleCategoryId, new SelectList(Model.GetArticleCategories(), "ArticleCategoryId", "ArticleCategory"))*@
-                        @Html.ValidationMessageFor(model => model.ArticleCategoryId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ArticleName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.ArticleName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ArticleName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.ShortDescription, new { maxlength = "200", @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                        @*<textarea name="Description" id="Description" rows="10" cols="80"></textarea>*@
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
+        <div class="form-horizontal">
+            @Html.HiddenFor(model => model.ArticleId)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.MenuItemId, "MenuItemId", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.MenuItemId, new SelectList(Model.GetMenuItems(), "MenuItemId", "MenuItem", Model.MenuItemId), "---Please choose---")
+                    @*@Html.DropDownListFor(model => model.ArticleCategoryId, new SelectList(Model.GetArticleCategories(), "ArticleCategoryId", "ArticleCategory"))*@
+                    @Html.ValidationMessageFor(model => model.ArticleCategoryId, "", new { @class = "text-danger" })
                 </div>
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ArticleName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ArticleName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ArticleName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.ShortDescription, new { maxlength = "200", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @*<textarea name="Description" id="Description" rows="10" cols="80"></textarea>*@
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CoverPhoto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.CoverPhoto, "", new { @type = "file"})
+                    @Html.ValidationMessageFor(model => model.CoverPhoto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.files, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.files, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
         }
         <div>
             @Html.ActionLink("Back to List", "Index")

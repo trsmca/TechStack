@@ -18,13 +18,14 @@ namespace Stack.Models
         public string CreatedBy { get; set; }
         public string ProfilePicUrl { get; set; }
         public string MenuItemSeo { get; set; }
+        public byte[] TimelinePicture { get; set; }
 
         public List<Articles> ArticlesList { get; set; }
         public List<Articles> GetRecentArticles()
         {
             using (var ctx = new StackContext())
             {
-                return ctx.Articles.Take(6).ToList();
+                return ctx.Articles.OrderByDescending(x => x.ArticleId).Take(4).ToList();
             }
         }
         public List<Articles> GetArticlesOnMenuItemId(string menuItemId, int pageNumber)

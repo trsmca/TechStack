@@ -2,145 +2,162 @@
 @using CaptchaMvc.HtmlHelpers;
 @{
     ViewBag.Title = "Sign up";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
-<div class="container">
-    <div class="row row-bottom-padded-md" style="margin: 0 auto">
-        <div class="col-md-12 section-heading text-center">
-            <h2 class="to-animate fadeInUp animated">New User Registration</h2>
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 subtext">
-                    <h3 class="to-animate fadeInUp animated"></h3>
+<link href="~/Content/checkbox.css" rel="stylesheet" />
+<div class="col-md-12">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "sky-form", role = "form", @id = "frmRegister" }))
+    {
+        <div class="form-group">
+            <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
+                <div class="c-label  "><label id="c-1-7-label" for="c-1-7">First Name </label></div>
+                <div class="c-editor c-editor-email">
+                    @Html.TextBoxFor(m => m.FirstName, new { @placeholder = "First Name", @class = "form-control" })
                 </div>
+                <div class="c-validation validation-FirstName" style="display: none !important">First Name is required.</div>
             </div>
         </div>
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "sky-form", role = "form", @id = "frmRegister" }))
-            {
-                <fieldset>
-                    <section>
-                        @Html.ValidationSummary(false)
-                    </section>
-                    <section>
-                        <label class="input">
-                            <i class="icon-append fa fa-envelope"></i>
-                            @*<input placeholder="Email address" type="text">*@
-                            @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email address", @class = "form-control", @id = "txtEmail" })
-                            <b class="tooltip tooltip-bottom-right">Needed to verify your account</b>
-                            @Html.ValidationMessageFor(model => model.Email)
-                        </label>
-                        @*<div class="cssload-square" style="float:left">
-                                <div class="cssload-square-part cssload-square-green"></div>
-                                <div class="cssload-square-part cssload-square-pink"></div>
-                                <div class="cssload-square-blend"></div>
-                            </div>*@
-                    </section>
-                    <section>
-                        <label class="input">
-                            <i class="icon-append fa-lock"></i>
-                            @Html.PasswordFor(m => m.Password, new { @placeholder = "Password", @class = "form-control" })
-                            <b class="tooltip tooltip-bottom-right">Password must be has one capital letter and one special character</b>
-                            @Html.ValidationMessageFor(model => model.Password)
-                        </label>
-                    </section>
-
-                    <section>
-                        <label class="input">
-                            <i class="icon-append fa-lock"></i>
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = "Confirm Password", @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.ConfirmPassword)
-                        </label>
-                    </section>
-                </fieldset>
-
-                <fieldset>
-                    <div class="row">
-                        <section class="col col-6">
-                            <label class="input">
-                                @Html.TextBoxFor(m => m.FirstName, new { @placeholder = "First Name", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.FirstName)
-                            </label>
-                        </section>
-                        <section class="col col-6">
-                            <label class="input">
-                                @Html.TextBoxFor(m => m.LastName, new { @placeholder = "Last Name", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.LastName)
-                            </label>
-                        </section>
-                    </div>
-                    <section>
-                        Male : @Html.RadioButton("Gender", "Male")
-                        Female : @Html.RadioButton("Gender", "Female")
-                        @*<select id="GenderId">
-                                <option value="">Please Select Gender</option>
-                                <option value="0">Male</option>
-                                <option value="1">Female</option>
-                            </select>*@
-                        @*@Html.ValidationMessageFor(model => model.GenderId)*@
-                        <span id="errGender" style="display:none" class="field-validation-error"><span>Please select gender.</span></span>
-                        <i></i>
-                    </section>
-                    @*<section>
-                            <label class="select">
-                                <input type="file" />
-                                <i></i>
-                            </label>
-                        </section>*@
-                    <section>
-                        <label class="checkbox"><input id="TermsOfConditions" type="checkbox"><i></i>I agree to the Terms of Service</label>
-                        @*<label class="checkbox"><input id="SpecialOffers" type="checkbox"><i></i>I want to receive news and special offers</label>*@
-                        <span id="errTermsOfConditions" style="display:none" class="field-validation-error"><span>Please select terms & conditions.</span></span>
-                    </section>
-                    <section>
-                        @Html.Captcha(4)
-                    </section>
-                </fieldset>
-
-                <footer>
-                    <button type="submit" id="btnRegister" class="button">Register</button>
-                </footer>
-            }
+        <div class="form-group">
+            <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
+                <div class="c-label  "><label id="c-1-7-label" for="c-1-7">Last Name </label></div>
+                <div class="c-editor c-editor-email">
+                    @Html.TextBoxFor(m => m.LastName, new { @placeholder = "Last Name", @class = "form-control" })
+                </div>
+                <div class="c-validation validation-LastName" style="display: none !important">Last Name is required.</div>
+            </div>
         </div>
-    </div>
+        <div class="form-group">
+            <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
+                <div class="c-label  "><label id="c-1-7-label" for="c-1-7">Email </label></div>
+                <div class="c-editor c-editor-email">
+                    @Html.TextBoxFor(m => m.Email, new { @id = "regEmail", @placeholder = "Email address", @class = "form-control" })
+                </div>
+                <div class="c-validation validation-regEmail" style="display: none !important">Email is required.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
+                <div class="c-label  "><label id="c-1-7-label" for="c-1-7">Password </label></div>
+                <div class="c-editor c-editor-email">
+                    @Html.TextBoxFor(m => m.Password, new { @id = "regPassword", @placeholder = "Password", @class = "form-control" })
+                </div>
+                <div class="c-validation validation-regPassword" style="display: none !important">Password is required.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
+                <div class="c-label  "><label id="c-1-7-label" for="c-1-7">Confirm Password </label></div>
+                <div class="c-editor c-editor-email">
+                    @Html.TextBoxFor(m => m.ConfirmPassword, new { @placeholder = "Email address", @class = "form-control" })
+                </div>
+                <div class="c-validation validation-ConfirmPassword" style="display: none !important">Confirm Password is required.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
+                <div class="c-label  "><label id="c-1-7-label" for="c-1-7">Gender</label></div>
+                <div class="c-editor c-editor-email">
+                    <input type="radio" id="rdMale" name="radio-group-gender" checked>
+                    @*@Html.RadioButton("Gender", "Male")*@
+                    <label for="rdMale">Male</label>
+
+                    <input type="radio" id="rdFemale" name="radio-group-gender">
+                    @*@Html.RadioButton("Gender", "Female")*@
+                    <label for="rdFemale">Female</label>
+                </div>
+                <div class="c-validation validation-Email" style="display: none !important">Gender is required.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
+                <div class="c-label  "><label id="c-1-7-label" for="c-1-7">Gender</label></div>
+                <!-- Default switch -->
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitches">
+                    <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
+                </div>
+                <div class="c-editor c-editor-email">
+                    <label class="checkbox">
+                        <input id="TermsOfConditions" type="checkbox">
+                        <i></i>I agree to the Terms of Service
+                    </label>
+                    <span id="errTermsOfConditions" style="display:none" class="field-validation-error"><span>Please select terms & conditions.</span></span>
+                </div>
+                <div class="c-validation validation-TermsOfConditions" style="display: none !important">Terms Of Conditions is required.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
+                <div class="c-label  "><label id="c-1-7-label" for="c-1-7">Gender</label></div>
+                <div class="c-editor c-editor-email">
+                    @Html.Captcha(4)
+                </div>
+                <div class="c-validation validation-Email" style="display: none !important">Email is required.</div>
+            </div>
+        </div>
+        <footer>
+            <button type="button" id="btnRegistration" class="btn btn-primary button">Register</button>
+        </footer>
+    }
 </div>
 <script type="text/javascript">
-    $("#btnRegister").click(function () {
-        var valid = true;
-        if ($("#GenderId").val() == "") {
-            $("#errGender").show();
-            valid = false;
-        } else {
-            $("#errGender").hide();
+    $("#btnRegistration").click(function () {
+        var count = 0;
+        if ($("#FirstName").val().length == 0) {
+            $(".validation-FirstName").parent("div").addClass("c-required c-error");
+            $(".validation-FirstName").show();
+            count = 1;
         }
-        if ($('#TermsOfConditions').is(":checked") == false) {
-            //Lobibox.notify('error', {
-            //    size: 'mini',
-            //    showClass: 'fadeInDown',
-            //    hideClass: 'fadeUpDown',
-            //    msg: 'Please select checkbox.'
-            //});
-            $('#frmRegister').valid();
-            $(".validation-summary-errors").hide();
-            $("#errTermsOfConditions").show();
-            valid = false;
-        } else {
-            $("#errTermsOfConditions").hide();
+        if ($("#LastName").val().length == 0) {
+            $(".validation-LastName").parent("div").addClass("c-required c-error");
+            $(".validation-LastName").show();
+            count = 1;
         }
-        if (valid == false)
-            return false;
+        if ($("#regEmail").val().length == 0) {
+            $(".validation-regEmail").parent("div").addClass("c-required c-error");
+            $(".validation-regEmail").show();
+            count = 1;
+        }
+        if ($("#regPassword").val().length == 0) {
+            $(".validation-regPassword").parent("div").addClass("c-required c-error");
+            $(".validation-regPassword").show();
+            count = 1;
+        }
+        if ($("#ConfirmPassword").val().length == 0) {
+            $(".validation-ConfirmPassword").parent("div").addClass("c-required c-error");
+            $(".validation-ConfirmPassword").show();
+            count = 1;
+        }
+        if (!$("#TermsOfConditions").prop("checked")) {
+            $(".validation-TermsOfConditions").parent("div").addClass("c-required c-error");
+            $(".validation-TermsOfConditions").show();
+            count = 1;
+        }
+        if (count == 0) {
+            $("#frmRegistration").submit();
+        }
     });
-    //$("#txtEmail").keypress(function () {
-    //    $.ajax({
-    //        type: "GET",
-    //        url: "/Account/IsUserAlereadyExists?eMail=" + $(this).val(),
-    //        success: function (data) {
-    //            if (data.toLowerCase() = 'true') {
-
-    //            }
-    //        }
-    //    });
+    //$("#btnRegister").click(function () {
+    //    var valid = true;
+    //    if ($("#GenderId").val() == "") {
+    //        $("#errGender").show();
+    //        valid = false;
+    //    } else {
+    //        $("#errGender").hide();
+    //    }
+    //    if ($('#TermsOfConditions').is(":checked") == false) {
+    //        $('#frmRegister').valid();
+    //        $(".validation-summary-errors").hide();
+    //        $("#errTermsOfConditions").show();
+    //        valid = false;
+    //    } else {
+    //        $("#errTermsOfConditions").hide();
+    //    }
+    //    if (valid == false)
+    //        return false;
     //});
+
     $("#txtEmail").blur(function () {
         $.ajax({
             type: "GET",

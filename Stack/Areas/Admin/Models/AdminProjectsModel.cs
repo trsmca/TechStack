@@ -19,7 +19,8 @@ namespace Stack.Areas.Admin.Models
         public string ProjectName { get; set; }
         public string Description { get; set; }
         public string ShortDescription { get; set; }
-
+        public HttpPostedFileBase[] CoverPhoto { get; set; }
+        public HttpPostedFileBase[] Files { get; set; }
         //public List<ProjectCategories> GetProjectCategories()
         //{
         //    using (var ctx = new StackContext())

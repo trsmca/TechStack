@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin.Security;
 using Stack.Models;
 using CaptchaMvc.HtmlHelpers;
+using Stack.Helpers;
 
 namespace Stack.Controllers
 {
@@ -43,12 +44,15 @@ namespace Stack.Controllers
         [HttpPost]
         public ActionResult Login(AccountModel _model)
         {
-            GetUserDetails(_model.Email, _model.Password);
-            if (_userLoggedIn == true)
-                return RedirectToAction("Index", "Home");
-            else
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Invalid User Name or Password.");
+                GetUserDetails(_model.Email, _model.Password);
+                if (_userLoggedIn == true)
+                    return RedirectToAction("Index", "Home");
+                else
+                {
+                    ModelState.AddModelError("", "Invalid User Name or Password.");
+                }
             }
             return View();
         }
@@ -137,6 +141,61 @@ namespace Stack.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View(_model);
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public string ForgotPassword(AccountModel model)
+        {
+            try
+            {
+                var subject = "Forgot Password";
+                var emailToAddress = model.Email;
+                var emailTemplate = Server.MapPath("~/Templates/Forgotpassword.html");
+                string logo = Server.MapPath("~/Images/Email/logo1.png");
+                string bodyImage = Server.MapPath("~/Images/Email/Forgotpassword.jpg");
+                string guid = Guid.NewGuid().ToString();
+
+                EmailHelper.SendForgotPasswordEmail(subject, emailToAddress, emailTemplate, logo, bodyImage, guid);
+                return "Password reset email sent successfully";
+            }
+            catch(Exception ex)
+            {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+                return "Internal error. Please contact the website administrator.";
+            }
+        }
+        public ActionResult ResetPassword(string id)
+        {
+            ResetPasswordViewModel model = new ResetPasswordViewModel();
+            return View(model);
+            //try
+            //{
+            //    return "Password reset email sent successfully";
+            //}
+            //catch (Exception ex)
+            //{
+            //    Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+            //    return "Internal error. Please contact the website administrator.";
+            //}
+        }
+        [HttpPost]
+        public ActionResult ResetPassword(ResetPasswordViewModel model)
+        {
+            return View(model);
+            //try
+            //{
+            //    return "Password reset email sent successfully";
+            //}
+            //catch (Exception ex)
+            //{
+            //    Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+            //    return "Internal error. Please contact the website administrator.";
+            //}
+        }
         [AllowAnonymous]
         public ActionResult Facebook()
         {
