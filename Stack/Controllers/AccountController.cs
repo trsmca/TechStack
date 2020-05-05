@@ -44,8 +44,8 @@ namespace Stack.Controllers
         [HttpPost]
         public ActionResult Login(AccountModel _model)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 GetUserDetails(_model.Email, _model.Password);
                 if (_userLoggedIn == true)
                     return RedirectToAction("Index", "Home");
@@ -53,7 +53,7 @@ namespace Stack.Controllers
                 {
                     ModelState.AddModelError("", "Invalid User Name or Password.");
                 }
-            }
+            //}
             return View();
         }
         public void GetUserDetails(string email, string password)
@@ -72,6 +72,9 @@ namespace Stack.Controllers
                 userDetails.RoleId = _model.RoleId;
                 FormsAuthentication.SetAuthCookie(_model.Email, false);
                 Session["UserEmail"] = _model.Email;
+                Session["FirstName"] = _model.FirstName;
+                Session["FullName"] = _model.FirstName + " " + _model.LastName;
+                Session["Email"] = _model.Email;
                 _userLoggedIn = true;
             }
         }
@@ -130,7 +133,9 @@ namespace Stack.Controllers
             if (ModelState.IsValid)
             {
                 model.Save();
-                return View("RegistrationSuccess", _model);
+                ViewBag.HeaderContent = "Thank You!";
+                ViewBag.BodyContent = "<strong>Please check your email</strong> for further instructions on how to complete your account setup.";
+                return View("SuccessMessage");
             }
             return View("Register", model);
         }
@@ -152,17 +157,24 @@ namespace Stack.Controllers
         {
             try
             {
-                var subject = "Forgot Password";
-                var emailToAddress = model.Email;
-                var emailTemplate = Server.MapPath("~/Templates/Forgotpassword.html");
-                string logo = Server.MapPath("~/Images/Email/logo1.png");
-                string bodyImage = Server.MapPath("~/Images/Email/Forgotpassword.jpg");
-                string guid = Guid.NewGuid().ToString();
-
-                EmailHelper.SendForgotPasswordEmail(subject, emailToAddress, emailTemplate, logo, bodyImage, guid);
-                return "Password reset email sent successfully";
+                if (!model.UserAlreadyExists(model.Email))
+                {
+                    return "User is not registered with application";
+                }
+                else
+                {
+                    var subject = "Forgot Password";
+                    var emailToAddress = model.Email;
+                    var emailTemplate = Server.MapPath("~/Templates/Forgotpassword.html");
+                    string logo = Server.MapPath("~/Images/Email/logo1.png");
+                    string bodyImage = Server.MapPath("~/Images/Email/Forgotpassword.jpg");
+                    string guid = Guid.NewGuid().ToString();
+                    model.UpdateForgotPasswordGuid(model.Email, guid);
+                    EmailHelper.SendForgotPasswordEmail(subject, emailToAddress, emailTemplate, logo, bodyImage, guid);
+                    return "Password reset email sent successfully";
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
                 return "Internal error. Please contact the website administrator.";
@@ -185,6 +197,7 @@ namespace Stack.Controllers
         [HttpPost]
         public ActionResult ResetPassword(ResetPasswordViewModel model)
         {
+
             return View(model);
             //try
             //{

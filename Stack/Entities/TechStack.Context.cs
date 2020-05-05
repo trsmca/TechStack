@@ -15,10 +15,10 @@ namespace Stack.Entities
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class StackEntities : DbContext
+    public partial class TechStack : DbContext
     {
-        public StackEntities()
-            : base("name=StackEntities")
+        public TechStack()
+            : base("name=TechStack")
         {
         }
     
@@ -31,14 +31,16 @@ namespace Stack.Entities
         public virtual DbSet<Article> Articles { get; set; }
         public virtual DbSet<Attachment> Attachments { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<ForgotPassword> ForgotPasswords { get; set; }
         public virtual DbSet<Master_Roles> Master_Roles { get; set; }
         public virtual DbSet<MenuItem> MenuItems { get; set; }
+        public virtual DbSet<News> News { get; set; }
         public virtual DbSet<ProjectFile> ProjectFiles { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
-        [DbFunction("StackEntities", "Split")]
+        [DbFunction("TechStack", "Split")]
         public virtual IQueryable<Split_Result> Split(string inputString, string delimiter)
         {
             var inputStringParameter = inputString != null ?
@@ -49,7 +51,7 @@ namespace Stack.Entities
                 new ObjectParameter("Delimiter", delimiter) :
                 new ObjectParameter("Delimiter", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[StackEntities].[Split](@InputString, @Delimiter)", inputStringParameter, delimiterParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[TechStack].[Split](@InputString, @Delimiter)", inputStringParameter, delimiterParameter);
         }
     
         public virtual int Generate_UpdateScriptWithPK(string table_Name, string primary_Key)

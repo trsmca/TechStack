@@ -978,7 +978,12 @@ li.respon-sub-menu > .sub-menu .sub-menu {
 [ Modal video 01 ]*/
 body {
     padding-right: 0px !important;
-    background-image: url("../../images/bg.jpg");
+    /*background-image: url("../../images/bg.jpg");*/
+    /*background-image: url('../../images/bg.png');*/
+    /*background-repeat: repeat;*/
+    /*background-color:#ccc !important;*/
+    /*background-attachment: fixed;*/
+    /*background-size: 100% 100%;*/
 }
 
 .modal {

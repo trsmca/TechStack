@@ -11,16 +11,16 @@ using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
 using Stack.Common;
 using Exception = System.Exception;
-using Stack.Entities;
 using System.Net.Mail;
 using System.Net;
-
+using Stack.Entities;
 namespace Stack.Models
 {
     public class AccountModel
     {
+        private TechStack db = new TechStack();
+
         #region "Properties"
-        private StackEntities db = new StackEntities();
         public int UserId { get; set; }
 
         [DisplayName("Email:")]
@@ -69,6 +69,7 @@ namespace Stack.Models
         #region "Methods"
         public void Save()
         {
+            var roleId = db.Master_Roles.FirstOrDefault(x => x.RoleKey == "User").RoleId;
             using (var db = new StackContext())
             {
                 var model = new Users
@@ -87,6 +88,7 @@ namespace Stack.Models
                     State = State,
                     Country = Country,
                     //Da = DOB,
+                    RoleId = roleId,
                     ContactNumber = ContactNumber
                 };
                 model.UserId = GetUserId(Email);
@@ -267,10 +269,7 @@ namespace Stack.Models
             //}
             //catch (Exception ex)
             //{
-
             //}
-
-            return null;
         }
         public static int GetUserId(string Email)
         {
@@ -286,6 +285,31 @@ namespace Stack.Models
             return 0;
         }
 
+        public int UpdateForgotPasswordGuid(string email, string guid)
+        {
+            ForgotPassword obj = new ForgotPassword
+            {
+                GUID = guid,
+                Email = email,
+                ExpiryTime = DateTime.Now.AddMinutes(30)
+            };
+            db.ForgotPasswords.Add(obj);
+            db.SaveChanges();
+            return 0;
+        }
+
+        public int ResetPassword(string email, string password)
+        {
+            User obj = new User
+            {
+                GUID = guid,
+                Email = email,
+                ExpiryTime = DateTime.Now.AddMinutes(30)
+            };
+            db.ForgotPasswords.Add(obj);
+            db.SaveChanges();
+            return 0;
+        }
         #endregion
     }
 }

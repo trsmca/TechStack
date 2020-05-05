@@ -11,7 +11,7 @@ namespace Stack.Models
 {
     public class AttachmentsModel
     {
-        private static StackEntities db = new StackEntities();
+        private static TechStack db = new TechStack();
         public int AttachmentId { get; set; }
         public int PkId { get; set; }
         public string AttachmentCategory { get; set; }

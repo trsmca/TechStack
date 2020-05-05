@@ -35,5 +35,11 @@ namespace Stack.Controllers
 
             return View();
         }
+        public ActionResult SuccessMessage()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View("SuccessMessage");
+        }
     }
 }

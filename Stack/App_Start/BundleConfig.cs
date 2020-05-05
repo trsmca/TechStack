@@ -37,7 +37,7 @@ namespace Stack
                       "~/Scripts/solid-menu.js",
                       "~/Scripts/notifications.js",
                       "~/Scripts/jquery-comments.min.js",
-                      "~/Scripts/jquery.toast.js",
+                      "~/Scripts/Notifications/jquery.notify.min.js",
                       "~/Scripts/loader.js",
                        "~/Scripts/custombox.js",
                       "~/Scripts/Site.js"));
@@ -57,9 +57,10 @@ namespace Stack
                       //"~/Content/navigation.css",
                       "~/Content/solid-menu.css",
                       //"~/Content/lobibox.css",
-                      "~/Content/jquery.toast.css",
+                      "~/Content/Notifications/jquery.notify.css",
                       "~/Content/loader.css",
-                      "~/Content/jquery-comments.css"
+                      "~/Content/jquery-comments.css",
+                      "~/Content/Site.css"
                       //"~/Content/loader.css",
                       //"~/Content/custombox.css",
                       //"~/Content/mn/main.css",

@@ -49,7 +49,7 @@ a, a:hover, a.active, a:active, a:visited, a:focus {
     float: left;
     list-style: none;
     position: fixed;
-    background: #23364B;
+    background: #247285; /*#247285;*/
 }
 
     .exo-menu > li {
@@ -337,7 +337,7 @@ ul.icon-des li {
 
     .exo-menu {
         min-height: 58px;
-        background-color: #23364B;
+        background-color: #247285;
         width: 100%;
     }
 
@@ -367,6 +367,6 @@ a.toggle-menu {
     padding: 20px;
     font-size: 27px;
     background-color: #ccc;
-    color: #23364B;
+    color: #247285;
     top: 0px;
 }

@@ -6,7 +6,7 @@
 }
 <link href="~/Content/checkbox.css" rel="stylesheet" />
 <div class="col-md-12">
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "sky-form", role = "form", @id = "frmRegister" }))
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "sky-form", role = "form", @id = "frmRegistration" }))
     {
         <div class="form-group">
             <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
@@ -39,7 +39,7 @@
             <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
                 <div class="c-label  "><label id="c-1-7-label" for="c-1-7">Password </label></div>
                 <div class="c-editor c-editor-email">
-                    @Html.TextBoxFor(m => m.Password, new { @id = "regPassword", @placeholder = "Password", @class = "form-control" })
+                    @Html.PasswordFor(m => m.Password, new { @id = "regPassword", @placeholder = "Password", @class = "form-control" })
                 </div>
                 <div class="c-validation validation-regPassword" style="display: none !important">Password is required.</div>
             </div>
@@ -48,7 +48,7 @@
             <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
                 <div class="c-label  "><label id="c-1-7-label" for="c-1-7">Confirm Password </label></div>
                 <div class="c-editor c-editor-email">
-                    @Html.TextBoxFor(m => m.ConfirmPassword, new { @placeholder = "Email address", @class = "form-control" })
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = "Email address", @class = "form-control" })
                 </div>
                 <div class="c-validation validation-ConfirmPassword" style="display: none !important">Confirm Password is required.</div>
             </div>
@@ -71,12 +71,11 @@
         </div>
         <div class="form-group">
             <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
-                <div class="c-label  "><label id="c-1-7-label" for="c-1-7">Gender</label></div>
-                <!-- Default switch -->
+                @*<div class="c-label  "><label id="c-1-7-label" for="c-1-7">Gender</label></div>
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="customSwitches">
                     <label class="custom-control-label" for="customSwitches">Toggle this switch element</label>
-                </div>
+                </div>*@
                 <div class="c-editor c-editor-email">
                     <label class="checkbox">
                         <input id="TermsOfConditions" type="checkbox">
@@ -89,11 +88,11 @@
         </div>
         <div class="form-group">
             <div class="c-email c-field  c-col-13 c-sml-col-1 c-span-12 c-sml-span-12" data-field="Email">
-                <div class="c-label  "><label id="c-1-7-label" for="c-1-7">Gender</label></div>
+                <div class="c-label  ">@*<label id="c-1-7-label" for="c-1-7">Captcha</label>*@</div>
                 <div class="c-editor c-editor-email">
                     @Html.Captcha(4)
                 </div>
-                <div class="c-validation validation-Email" style="display: none !important">Email is required.</div>
+                <div class="c-validation validation-Email" style="display: none !important">Captcha is required.</div>
             </div>
         </div>
         <footer>
@@ -176,3 +175,20 @@
         });
     });
 </script>
+<style type="text/css">
+    #CaptchaInputText {
+        display: block;
+        width: 50%;
+        padding: 0.5rem 0.75rem;
+        /*font-size: 1rem;*/
+        /*line-height: 1.25;*/
+        color: #495057;
+        background-color: #fff;
+        background-image: none;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0.25rem;
+        transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+        height: 40px;
+    }
+</style>

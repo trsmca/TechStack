@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="StackModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TechStackModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -65,6 +65,15 @@
           <Property Name="LastEditedById" Type="int" />
           <Property Name="LastEditedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="ForgotPassword">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="GUID" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ExpiryTime" Type="datetime" />
+        </EntityType>
         <EntityType Name="Master_Roles">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -86,6 +95,12 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="LastEditedById" Type="int" />
           <Property Name="LastEditedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="ProjectFiles">
           <Key>
@@ -217,13 +232,15 @@
           <Parameter Name="Attachment" Type="varbinary(max)" Mode="In" />
           <Parameter Name="contactID" Type="int" Mode="In" />
         </Function>
-        <EntityContainer Name="StackModelStoreContainer">
+        <EntityContainer Name="TechStackModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Attachments" EntityType="Self.Attachments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForgotPassword" EntityType="Self.ForgotPassword" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_Roles" EntityType="Self.Master_Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MenuItems" EntityType="Self.MenuItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectFiles" EntityType="Self.ProjectFiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
@@ -241,7 +258,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="StackModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="TechStackModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <ComplexType Name="Split_Result">
           <Property Name="Item" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
         </ComplexType>
@@ -306,6 +323,15 @@
           <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="User" Relationship="Self.FK_Comments_Users" FromRole="Comments" ToRole="Users" />
         </EntityType>
+        <EntityType Name="ForgotPassword">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GUID" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="ExpiryTime" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="Master_Roles">
           <Key>
             <PropertyRef Name="RoleId" />
@@ -328,6 +354,12 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="LastEditedById" Type="Int32" />
           <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="ProjectFile">
           <Key>
@@ -418,13 +450,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="StackEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TechStack" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="Articles" EntityType="Self.Article" />
           <EntitySet Name="Attachments" EntityType="Self.Attachment" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="ForgotPasswords" EntityType="Self.ForgotPassword" />
           <EntitySet Name="Master_Roles" EntityType="Self.Master_Roles" />
           <EntitySet Name="MenuItems" EntityType="Self.MenuItem" />
+          <EntitySet Name="News" EntityType="Self.News" />
           <EntitySet Name="ProjectFiles" EntityType="Self.ProjectFile" />
           <EntitySet Name="Projects" EntityType="Self.Project" />
           <EntitySet Name="Questions" EntityType="Self.Question" />
@@ -437,7 +471,7 @@
             <End Role="Master_Roles" EntitySet="Master_Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <FunctionImport Name="Split" IsComposable="true" ReturnType="Collection(StackModel.Split_Result)">
+          <FunctionImport Name="Split" IsComposable="true" ReturnType="Collection(TechStackModel.Split_Result)">
             <Parameter Name="InputString" Mode="In" Type="String" />
             <Parameter Name="Delimiter" Mode="In" Type="String" />
           </FunctionImport>
@@ -445,10 +479,10 @@
             <Parameter Name="Table_Name" Mode="In" Type="String" />
             <Parameter Name="Primary_Key" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="GET_MenuItems" ReturnType="Collection(StackModel.GET_MenuItems_Result)">
+          <FunctionImport Name="GET_MenuItems" ReturnType="Collection(TechStackModel.GET_MenuItems_Result)">
             <Parameter Name="CategoryID" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="Get_QuestionsOnMenuId" ReturnType="Collection(StackModel.Get_QuestionsOnMenuId_Result)">
+          <FunctionImport Name="Get_QuestionsOnMenuId" ReturnType="Collection(TechStackModel.Get_QuestionsOnMenuId_Result)">
             <Parameter Name="MenuItemId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="InsertGenerator">
@@ -490,9 +524,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="StackModelStoreContainer" CdmEntityContainer="StackEntities">
+        <EntityContainerMapping StorageEntityContainer="TechStackModelStoreContainer" CdmEntityContainer="TechStack">
           <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="StackModel.C__MigrationHistory">
+            <EntityTypeMapping TypeName="TechStackModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
@@ -502,7 +536,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Articles">
-            <EntityTypeMapping TypeName="StackModel.Article">
+            <EntityTypeMapping TypeName="TechStackModel.Article">
               <MappingFragment StoreEntitySet="Articles">
                 <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
                 <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
@@ -519,7 +553,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Attachments">
-            <EntityTypeMapping TypeName="StackModel.Attachment">
+            <EntityTypeMapping TypeName="TechStackModel.Attachment">
               <MappingFragment StoreEntitySet="Attachments">
                 <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
                 <ScalarProperty Name="PkId" ColumnName="PkId" />
@@ -535,7 +569,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="StackModel.Comment">
+            <EntityTypeMapping TypeName="TechStackModel.Comment">
               <MappingFragment StoreEntitySet="Comments">
                 <ScalarProperty Name="CommentId" ColumnName="CommentId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -554,8 +588,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ForgotPasswords">
+            <EntityTypeMapping TypeName="TechStackModel.ForgotPassword">
+              <MappingFragment StoreEntitySet="ForgotPassword">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="ExpiryTime" ColumnName="ExpiryTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Master_Roles">
-            <EntityTypeMapping TypeName="StackModel.Master_Roles">
+            <EntityTypeMapping TypeName="TechStackModel.Master_Roles">
               <MappingFragment StoreEntitySet="Master_Roles">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -564,7 +608,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MenuItems">
-            <EntityTypeMapping TypeName="StackModel.MenuItem">
+            <EntityTypeMapping TypeName="TechStackModel.MenuItem">
               <MappingFragment StoreEntitySet="MenuItems">
                 <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
                 <ScalarProperty Name="ParentMenuId" ColumnName="ParentMenuId" />
@@ -578,8 +622,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="TechStackModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ProjectFiles">
-            <EntityTypeMapping TypeName="StackModel.ProjectFile">
+            <EntityTypeMapping TypeName="TechStackModel.ProjectFile">
               <MappingFragment StoreEntitySet="ProjectFiles">
                 <ScalarProperty Name="ProjectFileId" ColumnName="ProjectFileId" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
@@ -589,7 +640,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Projects">
-            <EntityTypeMapping TypeName="StackModel.Project">
+            <EntityTypeMapping TypeName="TechStackModel.Project">
               <MappingFragment StoreEntitySet="Projects">
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
@@ -605,7 +656,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Questions">
-            <EntityTypeMapping TypeName="StackModel.Question">
+            <EntityTypeMapping TypeName="TechStackModel.Question">
               <MappingFragment StoreEntitySet="Questions">
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="Question1" ColumnName="Question" />
@@ -621,7 +672,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="StackModel.User">
+            <EntityTypeMapping TypeName="TechStackModel.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -645,26 +696,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionName="StackModel.Store.Split" FunctionImportName="Split">
+          <FunctionImportMapping FunctionName="TechStackModel.Store.Split" FunctionImportName="Split">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="StackModel.Split_Result">
+              <ComplexTypeMapping TypeName="TechStackModel.Split_Result">
                 <ScalarProperty Name="Item" ColumnName="Item" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Generate_UpdateScriptWithPK" FunctionName="StackModel.Store.Generate_UpdateScriptWithPK" />
-          <FunctionImportMapping FunctionImportName="GET_MenuItems" FunctionName="StackModel.Store.GET_MenuItems">
+          <FunctionImportMapping FunctionImportName="Generate_UpdateScriptWithPK" FunctionName="TechStackModel.Store.Generate_UpdateScriptWithPK" />
+          <FunctionImportMapping FunctionImportName="GET_MenuItems" FunctionName="TechStackModel.Store.GET_MenuItems">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="StackModel.GET_MenuItems_Result">
+              <ComplexTypeMapping TypeName="TechStackModel.GET_MenuItems_Result">
                 <ScalarProperty Name="MenuItem" ColumnName="MenuItem" />
                 <ScalarProperty Name="MenuItemSeo" ColumnName="MenuItemSeo" />
                 <ScalarProperty Name="Attachment" ColumnName="Attachment" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Get_QuestionsOnMenuId" FunctionName="StackModel.Store.Get_QuestionsOnMenuId">
+          <FunctionImportMapping FunctionImportName="Get_QuestionsOnMenuId" FunctionName="TechStackModel.Store.Get_QuestionsOnMenuId">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="StackModel.Get_QuestionsOnMenuId_Result">
+              <ComplexTypeMapping TypeName="TechStackModel.Get_QuestionsOnMenuId_Result">
                 <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
                 <ScalarProperty Name="Question" ColumnName="Question" />
                 <ScalarProperty Name="QuestionSeo" ColumnName="QuestionSeo" />
@@ -678,9 +729,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="InsertGenerator" FunctionName="StackModel.Store.InsertGenerator" />
-          <FunctionImportMapping FunctionImportName="ResetPassword" FunctionName="StackModel.Store.ResetPassword" />
-          <FunctionImportMapping FunctionImportName="Update_Attachments" FunctionName="StackModel.Store.Update_Attachments" />
+          <FunctionImportMapping FunctionImportName="InsertGenerator" FunctionName="TechStackModel.Store.InsertGenerator" />
+          <FunctionImportMapping FunctionImportName="ResetPassword" FunctionName="TechStackModel.Store.ResetPassword" />
+          <FunctionImportMapping FunctionImportName="Update_Attachments" FunctionName="TechStackModel.Store.Update_Attachments" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
