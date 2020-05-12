@@ -14,5 +14,6 @@ namespace Stack.DBModels
         public string AttachmentKey { get; set; }
         public byte[] Attachment { get; set; }
         public string FileName { get; set; }
+        public string ContentType { get; set; }
     }
 }

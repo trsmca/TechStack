@@ -26,8 +26,12 @@ namespace Stack.Models
         [DisplayName("Email:")]
         [Required(ErrorMessage = "Please enter the email address.")]
         public string Email { get; set; }
+
+
         [DisplayName("Password:")]
         [Required(ErrorMessage = "Please enter the password.")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [DisplayName("Confirm Password:")]
@@ -42,6 +46,9 @@ namespace Stack.Models
         [DisplayName("Last Name:")]
         [Required(ErrorMessage = "Please enter the last name.")]
         public string LastName { get; set; }
+
+        public string FullName { get; set; }
+
         [DisplayName("Gender:")]
         //[Required(ErrorMessage = "Please enter gender.")]
         public bool Gender { get; set; }
@@ -64,6 +71,18 @@ namespace Stack.Models
         public bool SpecialOffers { get; set; }
         public int RoleId { get; set; }
         public string RoleName { get; set; }
+
+        public string Website { get; set; }
+
+        public string Education { get; set; }
+
+        public string WorkingIn { get; set; }
+
+        public string WorkingAs { get; set; }
+
+        public string WorkingFrom { get; set; }
+
+        public byte[] ProfilePic { get; set; }
         #endregion
 
         #region "Methods"
@@ -231,45 +250,28 @@ namespace Stack.Models
                 }
             }
         }
-        public AccountModel GetUsers(int userId)
+        public void GetUsers(int userId)
         {
-            //try
-            //{
-            var model = new AccountModel();
-            var user = db.Users.ToList().Find(x => x.UserId == UserId);
+            var user = db.Users.ToList().Find(x => x.UserId == userId);
             if (user != null)
             {
-                model.UserId = user.UserId;
-                model.FirstName = user.FirstName;
-                model.LastName = user.LastName;
-                model.Email = user.Email;
-                model.Address = user.Address;
-                model.ContactNumber = user.ContactNumber;
-                model.CreatedDate = user.CreatedDate.ToString();
-                model.ProfilePicUrl = user.ProfilePicUrl;
-                model.CreatedBy = user.FirstName + " " + user.LastName;
-                //using (var db = new StackContext())
-                //{
-                //    using (var ctx = new StackContext())
-                //    {
-                //        var user = ctx.Users.ToList().Find(x => x.UserId == UserId);
-                //        model.UserId = user.UserId;
-                //        model.FirstName = user.FirstName;
-                //        model.LastName = user.LastName;
-                //        model.Email = user.Email;
-                //        model.Address = user.Address;
-                //        model.ContactNumber = user.ContactNumber;
-                //        model.CreatedDate = user.CreatedDate.ToString(CultureInfo.InvariantCulture);
-                //        model.ProfilePicUrl = user.ProfilePicUrl;
-                //        model.CreatedBy = user.FirstName + " " + user.LastName;
-                //    }
-                //}
+                UserId = user.UserId;
+                FirstName = user.FirstName;
+                LastName = user.LastName;
+                FullName = user.FirstName + " " + user.LastName;
+                Email = user.Email;
+                Address = user.Address;
+                ContactNumber = user.ContactNumber;
+                CreatedDate = user.CreatedDate.ToString();
+                ProfilePic = user.ProfilePic;
+                CreatedBy = user.FirstName + " " + user.LastName;
+                Description = user.Description;
+                Website = user.Website;
+                Education = user.Education;
+                WorkingIn = user.WorkingIn;
+                WorkingAs = user.WorkingAs;
+                WorkingFrom = user.WorkingFrom.ToString();
             }
-            return model;
-            //}
-            //catch (Exception ex)
-            //{
-            //}
         }
         public static int GetUserId(string Email)
         {
@@ -298,18 +300,44 @@ namespace Stack.Models
             return 0;
         }
 
-        public int ResetPassword(string email, string password)
+        public int ResetPassword(string code, string password)
         {
-            User obj = new User
-            {
-                GUID = guid,
-                Email = email,
-                ExpiryTime = DateTime.Now.AddMinutes(30)
-            };
-            db.ForgotPasswords.Add(obj);
+            string email = db.ForgotPasswords.First(x => x.GUID == code).Email;
+            User user = db.Users.First(x => x.Email == email);
+            user.Password = password;
             db.SaveChanges();
-            return 0;
+            return 1;
         }
+
+        public void UploadUserProfilePic(int userId, byte[] bytes)
+        {
+            User user = db.Users.First(x => x.UserId == userId);
+            user.ProfilePic = bytes;
+            db.SaveChanges();
+        }
+
+        public ImageModel GetImages(int userId)
+        {
+
+            User user = db.Users.First(x => x.UserId == userId);
+
+            ImageModel image = new ImageModel();
+
+            //image.Id = Convert.ToInt32(sdr["Id"]);
+            //image.Name = sdr["Name"].ToString();
+            //image.ContentType = sdr["ContentType"].ToString();
+            image.Data = (byte[])user.ProfilePic;
+            return image;
+        }
+
         #endregion
+    }
+    public class ImageModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ContentType { get; set; }
+        public byte[] Data { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

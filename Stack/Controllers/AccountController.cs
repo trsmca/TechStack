@@ -46,13 +46,13 @@ namespace Stack.Controllers
         {
             //if (ModelState.IsValid)
             //{
-                GetUserDetails(_model.Email, _model.Password);
-                if (_userLoggedIn == true)
-                    return RedirectToAction("Index", "Home");
-                else
-                {
-                    ModelState.AddModelError("", "Invalid User Name or Password.");
-                }
+            GetUserDetails(_model.Email, _model.Password);
+            if (_userLoggedIn == true)
+                return RedirectToAction("Index", "Home");
+            else
+            {
+                ModelState.AddModelError("", "Invalid User Name or Password.");
+            }
             //}
             return View();
         }
@@ -71,11 +71,20 @@ namespace Stack.Controllers
                 userDetails.Description = _model.Description;
                 userDetails.RoleId = _model.RoleId;
                 FormsAuthentication.SetAuthCookie(_model.Email, false);
+                Session["UserId"] = _model.UserId;
                 Session["UserEmail"] = _model.Email;
                 Session["FirstName"] = _model.FirstName;
                 Session["FullName"] = _model.FirstName + " " + _model.LastName;
                 Session["Email"] = _model.Email;
                 _userLoggedIn = true;
+
+                //Profile Pic
+                ImageModel image = _model.GetImages(_model.UserId);
+                if (image.Data != null)
+                {
+                    image.IsSelected = true;
+                    Session["ProfilePic"] = "data:image/png;base64," + Convert.ToBase64String(image.Data, 0, image.Data.Length);
+                }
             }
         }
         public bool IsUserAlereadyExists(string email)
@@ -183,6 +192,7 @@ namespace Stack.Controllers
         public ActionResult ResetPassword(string id)
         {
             ResetPasswordViewModel model = new ResetPasswordViewModel();
+            model.Code = id;
             return View(model);
             //try
             //{
@@ -197,17 +207,10 @@ namespace Stack.Controllers
         [HttpPost]
         public ActionResult ResetPassword(ResetPasswordViewModel model)
         {
-
-            return View(model);
-            //try
-            //{
-            //    return "Password reset email sent successfully";
-            //}
-            //catch (Exception ex)
-            //{
-            //    Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
-            //    return "Internal error. Please contact the website administrator.";
-            //}
+            _model.ResetPassword(model.Code, model.Password);
+            ViewBag.HeaderContent = "Success!";
+            ViewBag.BodyContent = "<strong>Password updated successfully.</strong> Please login with your credentials..";
+            return View("SuccessMessage");
         }
         [AllowAnonymous]
         public ActionResult Facebook()
@@ -291,6 +294,8 @@ namespace Stack.Controllers
         {
             return View("RegistrationSuccess");
         }
+
+
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

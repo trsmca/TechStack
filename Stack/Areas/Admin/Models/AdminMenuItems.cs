@@ -22,7 +22,13 @@ namespace Stack.Areas.Admin.Models
                 return ctx.MenuItems.ToList();
             }
         }
-
+        public static List<MenuItems> GetArticleCategories()
+        {
+            using (var ctx = new StackContext())
+            {
+                return ctx.MenuItems.Where(x => x.ParentMenuId == 2).ToList();
+            }
+        }
         public void Save()
         {
             using (var db = new StackContext())

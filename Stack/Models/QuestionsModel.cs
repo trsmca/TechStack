@@ -45,15 +45,15 @@ namespace Stack.Models
             {
                 var question = ctx.Questions.ToList().Find(x => x.QuestionSeo == id);
                 QuestionId = question.QuestionId;
-                Question= question.Question;
+                Question = question.Question;
                 QuestionNameSeo = question.QuestionSeo;
                 Description = question.Description;
                 //CreatedBy = question.CreatedBy;
                 LastEditedDate = question.LastEditedDate;
                 //ProfilePicUrl = userDetails.ProfilePicUrl;
                 var accountModel = new AccountModel();
-                var user = accountModel.GetUsers(question.CreatedById);
-                ProfilePicUrl = user.ProfilePicUrl;
+                accountModel.GetUsers(question.CreatedById);
+                ProfilePicUrl = accountModel.ProfilePicUrl;
             }
         }
     }

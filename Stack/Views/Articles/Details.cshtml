@@ -6,150 +6,136 @@
 @model Stack.Models.ArticlesModel
 @using Stack.Models;
 @{
-    var accountModel=new AccountModel();
-    var user = accountModel.GetUsers(Model.LastEditedById);
+    var accountModel = new AccountModel();
+    accountModel.GetUsers(Model.LastEditedById);
+    var image = accountModel.GetImages(Model.LastEditedById);
 }
 <div class="container wrapper">
-    <!-- Sidebar  -->
-    @*<nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Bootstrap Sidebar</h3>
-        </div>
-        <ul class="list-unstyled components">
-            <p>Dummy Heading</p>
-            <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="#">Home 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 3</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">About</a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Page 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 3</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">Portfolio</a>
-            </li>
-            <li>
-                <a href="#">Contact</a>
-            </li>
-        </ul>
-        <ul class="list-unstyled CTAs">
-            <li>
-                <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
-            </li>
-            <li>
-                <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
-            </li>
-        </ul>
-    </nav>*@
     <!-- Page Content  -->
     <div id="content">
-            <div class="container-fluid">
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-align-left"></i>
-                    <span>Toggle Sidebar</span>
-                </button>
-                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-align-justify"></i>
-                </button>
-                <div id="fh5co-main">
-                    <div class="container">
-                        <div class="row clssitemap" style="padding-left: 15px">
-                            @Html.ActionLink("Show All Articles", "Index")
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <span style="font-size: 25px;font-weight: bold">@Html.DisplayFor(model => model.ArticleName)</span>
-                                <br />
-                                <span>By <span style="color: orange">@user.CreatedBy</span> on <span style="color: #ff3b30">@Model.LastEditedDate</span></span>
-                                <hr />
-                                @*<h2>@Html.DisplayFor(model => model.ArticleName)</h2>*@
-                                <div class="content">@Html.Raw(Model.Description.ToString().Replace("<h3>", "").Replace("</h3>", ""))</div>
-                                <hr />
+        <div class="container-fluid">
+            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                <i class="fas fa-align-left"></i>
+                <span>Toggle Sidebar</span>
+            </button>
+            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-align-justify"></i>
+            </button>
+            <div id="fh5co-main">
+                <div class="container contentdiv-articles">
+                    <div class="row clssitemap" style="padding-left: 15px">
+                        @Html.ActionLink("Show All Articles", "Index")
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 padding-top25px ">
+                            <span style="font-size: 25px;font-weight: bold">@Html.DisplayFor(model => model.ArticleName)</span>
+                            <br />
+                            <span>By <span style="color: orange">@accountModel.CreatedBy</span> on <span style="color: #ff3b30">@Model.LastEditedDate</span></span>
+                            <hr />
+                            @{
+                                var list = AttachmentsModel.GetFilesList("Articles", Model.ArticleId);
+                            }
 
-                                <div class="col-md-12 row-bottom-padded-md">
-                                    <div class="col-md-3">
-                                        <img src="@user.ProfilePicUrl" height="100px" width="100px" />
-                                    </div>
-                                    <div class="col-md-9" style="font-size: 13px;">
-                                        <span style="color: orange; font-size: 26px;font-weight: bold;">@user.CreatedBy</span>
-                                        <br />
-                                        @if (user.Description != null)
-                                        {
-                                            @Html.Raw(user.Description.ToString().Replace("<h3>", "").Replace("</h3>", ""))
-                                        }
-                                        else
-                                        {
-                                            <span>
-                                                Having good understanding about .Net and Java technologies.
-                                            </span>
-                                        }
-                                    </div>
-                                </div>
-                                <div class="col-md-12 row-bottom-padded-md">
-                                    Comments
-                                    @*<hr><img id="user-photo" src="#" style="display: none;" />
-                            <a href="javascript:void(0)" onclick="FB.login(setFacebookPhoto, { scope: 'user_photos' });">
-                                Get User Photo from Facebook
-                            </a>*@
-                                    <div id="comments-container"></div>
-                                    @*<textarea id="comments-container" style="width: 700px; border: 1px solid rgb(204, 204, 204); height: 150px;"></textarea>*@
-                                    @*<input class="btn btn-send-message btn-md btn-submit" style="float: right" value="Submit Comments" type="submit">*@
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="fh5co-sidebox">
-                                    @*<h3 class="fh5co-sidebox-lead">Articles List</h3>
-                            <ul class="fh5co-post">
-                                @{
-                                    var articlesModel = new Stack.Models.ArticlesModel();
-                                }
-                                @foreach (var item in articlesModel.GetRecentArticles().Take(5))
+                            <table class="table table-bordered">
+                                @foreach (var item in list)
                                 {
-                                    <li>
-                                        <a href="~/Articles/Details/@item.ArticleNameSeo">
-                                            <div class="fh5co-post-media">
-                                                  <i class="fa fa-arrow-circle-down to-animate-2"></i>
-                                            </div>
-                                            <div class="fh5co-post-blurb">
-                                                @item.ArticleName
-                                                <span class="fh5co-post-meta">@item.CreatedBy</span>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    <tr>
+                                        <td>
+                                            @item.AttachmentCategory
+                                        </td>
+                                        <td>
+                                            <a href="/Attachments/DownLoadFile/@item.AttachmentId">Download File</a>
+                                        </td>
+                                    </tr>
                                 }
-                            </ul>*@
-                                    @*<h3 class="fh5co-sidebox-lead">Recent Articles</h3>
-                                    @Html.Partial("_recentArticles")*@
+
+                            </table>
+                            @{
+                                var data = AttachmentsModel.GetTimelinePicture("ArticlesCoverPhoto", Model.ArticleId);
+                                var img = "";
+                                if (data != null)
+                                {
+                                    img = "data:image/png;base64," + Convert.ToBase64String(data, 0, data.Length);
+                                }
+                            }
+                            <div style="text-align:center">
+                                <img alt="IMG" class="article-img" src="@img" />
+                            </div>
+                            @*<h2>@Html.DisplayFor(model => model.ArticleName)</h2>*@
+                            <div class="content">@Html.Raw(Model.Description.ToString().Replace("<h3>", "").Replace("</h3>", ""))</div>
+                            <hr />
+                            <div class="col-md-12 row-bottom-padded-md" style="padding:30px;">
+                                <div class="col-md-3">
+                                    <img class="image-cover " src='data:image/png;base64,@Convert.ToBase64String(image.Data, 0, image.Data.Length)' style="width:150px;height:150px" />
+                                </div>
+                                <div class="col-md-9" style="font-size: 13px;">
+                                    <span style="color: orange; font-size: 26px;font-weight: bold;">@accountModel.CreatedBy</span>
+                                    <br />
+                                    @if (accountModel.Description != null)
+                                    {
+                                        @Html.Raw(accountModel.Description.ToString().Replace("<h3>", "").Replace("</h3>", ""))
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            @*Having good understanding about .Net and Java technologies.*@
+                                        </span>
+                                    }
                                 </div>
                             </div>
+
+                            <div class="col-md-12 row-bottom-padded-md">
+                                <h3 class="mgbt-xs-15 font-semibold" style="font-size:24px"><i class="fa fa-file-text-o mgr-10 profile-icon"></i> Comments</h3>
+                                <hr />
+                                <div id="div-loginrequired" class="alert alert-danger" style="display:none"> <span class="vd_alert-icon"><i class="fa fa-exclamation-circle vd_red"></i></span><strong>Oh snap!</strong> <a href="/Account/Login" class="alert-link">Please login here </a> and try submitting again. </div>
+                                <div class="div-comments-success alert alert-success" style="display:none"> <span class="vd_alert-icon"><i class="fa fa-check-circle vd_green"></i></span><strong>Well done!</strong> You successfully <a href="#" class="alert-link">submitted the comments</a>. </div>
+                                <div id="comments-container"></div>
+                                @*<textarea id="comments-container" style="width: 700px; border: 1px solid rgb(204, 204, 204); height: 150px;"></textarea>*@
+                                @*<input class="btn btn-send-message btn-md btn-submit" style="float: right" value="Submit Comments" type="submit">*@
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="fh5co-sidebox">
+                                <div>
+                                    <div class="how2 how2-cl4 flex-s-c">
+                                        <h3 class="f1-m-2 cl3 tab01-title">
+                                            Most Recent Projects
+                                        </h3>
+                                    </div>
+
+                                    <ul class="p-t-35">
+                                        @{
+                                            var count = 1;
+                                            var projectsModel = new ProjectsModel();
+                                        }
+                                        @foreach (var item in projectsModel.GetRecentProjects())
+                                        {
+                                            <li class="flex-wr-sb-s p-b-22">
+                                                <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
+                                                    @count
+                                                </div>
+
+                                                <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
+                                                    @item.ProjectName
+                                                </a>
+                                            </li>
+                                            count = count + 1;
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="flex-c-s p-t-8">
+                                <a href="#">
+                                    <img class="max-w-full" src="~/magnews2/images/banner-02.jpg" alt="IMG">
+                                </a>
+                            </div>
+                            @Html.Partial("_recentQuestions")
                         </div>
                     </div>
                 </div>
-                <div class="fh5co-spacer fh5co-spacer-lg"></div>
             </div>
+            <div class="fh5co-spacer fh5co-spacer-lg"></div>
+        </div>
     </div>
 </div>
 
@@ -171,43 +157,11 @@
                 commentsArray = JSON.parse(data);
             }
         });
-        //var commentsArray = [
-        //                    {
-        //                        "id": 5,
-        //                        "parent": 0,
-        //                        "created": "3/9/2017 2:43:27 AM",
-        //                        "modified": "3/9/2017 2:43:27 AM",
-        //                        "content": "Far far away, behind the word mountains, far from the countries Vokalia \nand Consonantia, there live the blind texts. Separated they live in \nBookmarksgrove.\n\nFar far away, behind the word mountains, far from the countries Vokalia \nand Consonantia, there live the blind texts. Separated they live in \nBookmarksgrove.\n",
-        //                        "pings": null,
-        //                        "creator": 1,
-        //                        "fullname": "Raja Sekhar Tadepalli",
-        //                        "profile_picture_url": null,
-        //                        "created_by_admin": false,
-        //                        "created_by_current_user": false,
-        //                        "upvote_count": 0,
-        //                        "user_has_upvoted": false
-        //                    }, { "id": 6, "parent": 0, "created": "3/9/2017 2:44:01 AM", "modified": "3/9/2017 2:44:01 AM", "content": "Test Raja \n", "pings": null, "creator": 1, "fullname": "Raja Sekhar Tadepalli", "profile_picture_url": null, "created_by_admin": false, "created_by_current_user": false, "upvote_count": 0, "user_has_upvoted": false }];
-        //var commentsArray = [
-        //    {
-        //        "id": 1,
-        //        "parent": null,
-        //        "created": "2015-01-01",
-        //        "modified": "2015-01-01",
-        //        "content": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu.",
-        //        "pings": [],
-        //        "creator": 6,
-        //        "fullname": "Simon Powell",
-        //        "profile_picture_url": "https://app.viima.com/static/media/user_profiles/user-icon.png",
-        //        "created_by_admin": false,
-        //        "created_by_current_user": false,
-        //        "upvote_count": 3,
-        //        "user_has_upvoted": false
-        //    } ];
-        var usersArray = [{
+        var accountModelsArray = [{
             id: 1
         }];
         var saveComment = function (data) {
-            if ('@Session["UserEmail"]' != null && '@Session["UserEmail"]' != '') {
+            if ('@Session["UserId"]' != null && '@Session["UserId"]' != '') {
                 var comments = {
                     CommentId: 0,
                     PkId: '@Model.ArticleId',
@@ -218,7 +172,7 @@
                     CreatedDate: data.created,
                     LastEditedDate: data.modified,
                     UpvoteCount: data.upvote_count,
-                    UserHasUpvoted: data.user_has_upvoted
+                    accountModelHasUpvoted: data.accountModel_has_upvoted
                 };
                 $.ajax({
                     type: 'post',
@@ -227,30 +181,30 @@
                     datatype: 'json',
                     data: JSON.stringify(comments),//$(commentsdata).serialize(),
                     success: function () {
-                        alert('form was submitted');
+                        $(".div-comments-success").show();
                     }
                 });
                 // Convert pings to human readable format
                 $(data.pings).each(function (index, id) {
-                    var user = usersArray.filter(function (user) { return user.id == id })[0];
+                    var accountModel = accountModelsArray.filter(function (accountModel) { return accountModel.id == id })[0];
                     data.content = data.content;
                 });
                 return data;
             } else {
-                alert('Please login before commenting.');
+                $("#div-loginrequired").show();
             }
         }
         $('#comments-container').comments({
-            profilePictureURL: '/images/avatar.png',
-            currentUserId: 1,
+            profilePictureURL: '@Session["ProfilePic"]',
+            currentaccountModelId: 1,
             roundProfilePictures: true,
             textareaRows: 1,
             enableAttachments: true,
             enableHashtags: true,
             enablePinging: true,
-            getUsers: function (success, error) {
+            getaccountModels: function (success, error) {
                 setTimeout(function () {
-                    success(usersArray);
+                    success(accountModelsArray);
                 }, 500);
             },
             getComments: function (success, error) {
@@ -287,52 +241,4 @@
             },
         });
     });
-    //$('#comments-container').comments({
-    //    profilePictureURL: 'https://app.viima.com/static/media/user_profiles/user-icon.png',
-    //    getComments: function (success, error) {
-    //        var commentsArray = [{
-    //            id: 1,
-    //            created: '2015-10-01',
-    //            content: 'Lorem ipsum dolort sit amet',
-    //            fullname: 'Simon Powell',
-    //            upvote_count: 2,
-    //            user_has_upvoted: false
-    //        }];
-    //        success(commentsArray);
-    //    }
-    //});
-
 </script>
-@*<script>
-
-        //Init facebook functionality by using FB.init() with parameters
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: 210409689437092, // App ID
-                channelUrl: '//localhost:14481/fbchannel.html', // Channel File
-                status: true, // check login status
-                cookie: true, // enable cookies to allow the server to access the session
-                xfbml: true  // parse XFBML
-            });
-        };
-
-        // Self-invoking anonymous function that loads facebook SDK
-        (function (d) {
-            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement('script'); js.id = id; js.async = true;
-            js.src = "//connect.facebook.net/en_US/all.js";
-            ref.parentNode.insertBefore(js, ref);
-        })(document);
-
-        function setFacebookPhoto(response) {
-
-            if (response.status === 'connected') {
-                FB.api('/me/?fields=picture', function (response) {
-                    $("#hf-facebook-profile-img-url").val(response.picture.data.url);
-                    $("#user-photo").attr('src', response.picture.data.url).show();
-                });
-            }
-        }
-
-    </script>*@

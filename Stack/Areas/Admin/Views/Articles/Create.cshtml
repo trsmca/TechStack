@@ -1,90 +1,258 @@
 ﻿@model Stack.Areas.Admin.Models.AdminArticlesModel
-
+@using Stack.Areas.Admin.Models
 @{
     ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 <script src="~/ckeditor/ckeditor.js"></script>
 <script src="~/Scripts/adapters_jquery.js"></script>
 <script src="~/Scripts/editor.js"></script>
-<div class="row row-bottom-padded-md" style="margin: 0 auto">
-    <div class="col-md-12 section-heading text-center">
-        <h2 class="to-animate fadeInUp animated">Create Article</h2>
-        @*<div class="row">
-            <div class="col-md-8 col-md-offset-2 subtext">
-                <h3 class="to-animate fadeInUp animated">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove. </h3>
+<link href="~/Content/plugins/fileupload-multiple.css" rel="stylesheet" />
+<div class="panel widget light-widget">
+    <div class="panel-heading no-title"> </div>
+    <div class="panel-body">
+        <h2 class="mgbt-xs-20">Article - Create</h2>
+        <form class="form-horizontal" action="#" role="form" id="article-form" enctype="multipart/form-data" novalidate="novalidate">
+            <div class="alert alert-danger vd_hidden" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="icon-cross"></i></button>
+                <span class="vd_alert-icon"><i class="fa fa-exclamation-circle vd_red"></i></span><strong>Oh snap!</strong> Change a few things up and try submitting again.
             </div>
-        </div>*@
-    </div>
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        @using (Html.BeginForm("Create", "Articles", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            @Html.HiddenFor(model => model.ArticleId)
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.MenuItemId, "MenuItemId", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.MenuItemId, new SelectList(Model.GetMenuItems(), "MenuItemId", "MenuItem", Model.MenuItemId), "---Please choose---")
-                    @*@Html.DropDownListFor(model => model.ArticleCategoryId, new SelectList(Model.GetArticleCategories(), "ArticleCategoryId", "ArticleCategory"))*@
-                    @Html.ValidationMessageFor(model => model.ArticleCategoryId, "", new { @class = "text-danger" })
-                </div>
+            <div class="alert alert-success vd_hidden" style="display:none">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="icon-cross"></i></button>
+                <span class="vd_alert-icon"><i class="fa fa-check-circle vd_green"></i></span><strong>Well done!</strong>.
             </div>
-
             <div class="form-group">
-                @Html.LabelFor(model => model.ArticleName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ArticleName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ArticleName, "", new { @class = "text-danger" })
+                <div class="col-md-12">
+                    <label class="control-label margin-bottom-10px">Category <span class="vd_red">*</span></label>
+                    <div id="first-name-input-wrapper" class="controls">
+                        @Html.DropDownListFor(model => model.MenuItemId, new SelectList(AdminMenuItems.GetArticleCategories(), "MenuItemId", "MenuItem", Model.MenuItemId), "---Please choose---")
+                        @Html.ValidationMessageFor(model => model.ArticleCategoryId, "", new { @class = "text-danger" })
+                        @*<input type="text" placeholder="John" class="width-60 required vd_bd-red" name="name" id="name" required="" data-fillr-id="805451012" data-fillr="bound" autocomplete="off">
+                            <div for="name" class="vd_red">This field is required.</div>*@
+                    </div>
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.ShortDescription, new { maxlength = "200", @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+                <div class="col-md-12">
+                    <label class="control-label margin-bottom-10px">Article Name<span class="vd_red">*</span></label>
+                    <div id="company-input-wrapper" class="controls">
+                        @Html.EditorFor(model => model.ArticleName, new { htmlAttributes = new { @class = "width-60", @placeholder = "eg., Dependency Injection" } })
+                        @Html.ValidationMessageFor(model => model.ArticleName, "", new { @class = "text-danger" })
+                        @*<input type="text" placeholder="Your Company Co, Ltd." class="width-60 required vd_bd-red" required="" name="company" id="company" data-fillr-id="647081795" data-fillr="bound" autocomplete="off">
+                            <div for="company" class="vd_red">This field is required.</div>*@
+                    </div>
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                    @*<textarea name="Description" id="Description" rows="10" cols="80"></textarea>*@
-                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                <div class="col-md-12">
+                    <label class="control-label margin-bottom-10px">Description (short)<span class="vd_red">*</span></label>
+                    <div id="website-input-wrapper" class="controls">
+                        @Html.TextAreaFor(model => model.ShortDescription, new { maxlength = "200", @placeholder = "Enter short description about article in less than 200 characters" })
+                        @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.CoverPhoto, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.CoverPhoto, "", new { @type = "file"})
-                    @Html.ValidationMessageFor(model => model.CoverPhoto, "", new { @class = "text-danger" })
+                <div class="col-md-12">
+                    <label class="control-label margin-bottom-10px">Article <span class="vd_red">*</span></label>
+                    <div id="email-input-wrapper" class="controls">
+                        @*<textarea id="summernote" name="editordata"></textarea>*@
+                        @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.files, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple" })
-                    @Html.ValidationMessageFor(model => model.files, "", new { @class = "text-danger" })
+                <div class="col-md-12">
+                    <label class="control-label margin-bottom-10px">Cover Photo <span class="vd_red">*</span></label>
+                    <div id="email-input-wrapper" style="border:1px solid #ccc" class="controls">
+                        @*@Html.TextBoxFor(model => model.CoverPhoto, "", new { @type = "file" })*@
+                        <div class="file-upload-wrapper" data-text="Select your file!">
+                            <input id="file-coverphoto" name="file-upload-field" type="file" class="file-upload-field" value="">
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <label class="control-label margin-bottom-10px" style="margin-left: -15px;">Documents</label>
+                <div class="controls">
+                    <div class="row it">
+                        <div class="col-sm-12" id="one">
+                            <p>
+                                Please upload documents only in 'pdf', 'docx', 'rtf', 'jpg', 'jpeg', 'png' & 'text' format.
+                            </p><br>
+                            @*<div class="row">
+                                    <div class="col-sm-offset-4 col-sm-4 form-group">
+                                        <h3 class="text-center">My Documents</h3>
+                                    </div>
+                                </div>*@
+                            <div id="uploader">
+                                <div class="row uploadDoc">
+                                    <div class="col-sm-3">
+                                        <div class="docErr">Please upload valid file</div><!--error-->
+                                        <div class="fileUpload btn btn-orange">
+                                            <img src="https://image.flaticon.com/icons/svg/136/136549.svg" class="icon">
+                                            <span class="upl" id="upload">Upload document</span>
+                                            <input type="file" class="upload up file-otherfiles" id="up" onchange="readURL(this);" />
+                                        </div><!-- btn-orange -->
+                                    </div><!-- col-3 -->
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" name="" placeholder="Note">
+                                    </div><!--col-8-->
+                                    <div class="col-sm-1"><a class="btn-check"><i class="fa fa-times"></i></a></div><!-- col-1 -->
+                                </div><!--row-->
+                            </div><!--uploader-->
+                            <div class="text-center">
+                                <a class="btn btn-new"><i class="fa fa-plus"></i> Add new</a>
+                                @*<a class="btn btn-next"><i class="fa fa-paper-plane"></i> Submit</a>*@
+                            </div>
+                        </div><!--one-->
+                    </div>
+                </div>
+            </div>
+            <div id="vd_login-error" class="alert alert-danger hidden" style="display: block;"><i class="fa fa-exclamation-circle fa-fw"></i> Please fill the necessary field </div>
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                @*<div class="col-sm-2"></div>*@
+                <div class="col-md-12 mgtp-20">
+                    <div class="vd_checkbox checkbox-success">
+                        <input type="checkbox" id="checkbox-4" value="1" required="" name="checkbox-4" class="vd_bd-red float-left margin-right-10px">
+                        <span class="vd_red">*</span>
+                        <label for="checkbox-4"> I agree with <a href="#">terms of service</a></label>
+                        <div for="checkbox-4" style="display:none" class="vd_red">This field is required.</div>
+                    </div>
+                    <div class="mgtp-12 mgtp-20">
+                        <div class="it">
+                            <a class="btn btn-next" id="btn-article-submit"><i class="fa fa-paper-plane"></i> Submit</a>
+                        </div>
+                        @*<button class="btn vd_bg-green vd_white" type="submit" id="submit-register" name="submit-register">Register</button>*@
+                    </div>
                 </div>
+                <div class="col-md-12 mgbt-xs-5"> </div>
             </div>
-        </div>
-        }
-        <div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+        </form>
     </div>
 </div>
-@*@section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }*@
 <script>
     initSample();
+    var fileTypes = ['pdf', 'docx', 'rtf', 'jpg', 'jpeg', 'png', 'txt'];  //acceptable file types
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var extension = input.files[0].name.split('.').pop().toLowerCase(),  //file extension from input file
+                isSuccess = fileTypes.indexOf(extension) > -1;  //is extension in acceptable types
+
+            if (isSuccess) { //yes
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    if (extension == 'pdf') {
+                        $(input).closest('.fileUpload').find(".icon").attr('src', 'https://image.flaticon.com/icons/svg/179/179483.svg');
+                    }
+                    else if (extension == 'docx') {
+                        $(input).closest('.fileUpload').find(".icon").attr('src', 'https://image.flaticon.com/icons/svg/281/281760.svg');
+                    }
+                    else if (extension == 'rtf') {
+                        $(input).closest('.fileUpload').find(".icon").attr('src', 'https://image.flaticon.com/icons/svg/136/136539.svg');
+                    }
+                    else if (extension == 'png') {
+                        $(input).closest('.fileUpload').find(".icon").attr('src', 'https://image.flaticon.com/icons/svg/136/136523.svg');
+                    }
+                    else if (extension == 'jpg' || extension == 'jpeg') {
+                        $(input).closest('.fileUpload').find(".icon").attr('src', 'https://image.flaticon.com/icons/svg/136/136524.svg');
+                    }
+                    else if (extension == 'txt') {
+                        $(input).closest('.fileUpload').find(".icon").attr('src', 'https://image.flaticon.com/icons/svg/136/136538.svg');
+                    }
+                    else {
+                        //console.log('here=>'+$(input).closest('.uploadDoc').length);
+                        $(input).closest('.uploadDoc').find(".docErr").slideUp('slow');
+                    }
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+            else {
+                //console.log('here=>'+$(input).closest('.uploadDoc').find(".docErr").length);
+                $(input).closest('.uploadDoc').find(".docErr").fadeIn();
+                setTimeout(function () {
+                    $('.docErr').fadeOut('slow');
+                }, 9000);
+            }
+        }
+    }
+    //$(document).ready(function () {
+
+    $(document).on('change', '.up', function () {
+        var id = $(this).attr('id'); /* gets the filepath and filename from the input */
+        var profilePicValue = $(this).val();
+        var fileNameStart = profilePicValue.lastIndexOf('\\'); /* finds the end of the filepath */
+        profilePicValue = profilePicValue.substr(fileNameStart + 1).substring(0, 20); /* isolates the filename */
+        //var profilePicLabelText = $(".upl"); /* finds the label text */
+        if (profilePicValue != '') {
+            //console.log($(this).closest('.fileUpload').find('.upl').length);
+            $(this).closest('.fileUpload').find('.upl').html(profilePicValue); /* changes the label text */
+        }
+    });
+
+    $(".btn-new").on('click', function () {
+        $("#uploader").append('<div class="row uploadDoc"><div class="col-sm-3"><div class="docErr">Please upload valid file</div><!--error--><div class="fileUpload btn btn-orange"> <img src="https://image.flaticon.com/icons/svg/136/136549.svg" class="icon"><span class="upl" id="upload">Upload document</span><input type="file" class="upload up file-otherfiles" id="up" onchange="readURL(this);" /></div></div><div class="col-sm-8"><input type="text" class="form-control" name="" placeholder="Note"></div><div class="col-sm-1"><a class="btn-check"><i class="fa fa-times"></i></a></div></div>');
+    });
+
+    $(document).on("click", "a.btn-check", function () {
+        if ($(".uploadDoc").length > 1) {
+            $(this).closest(".uploadDoc").remove();
+        } else {
+            alert("You have to upload at least one document.");
+        }
+    });
+
+    $("form").on("change", ".file-upload-field", function () {
+        $(this)
+            .parent(".file-upload-wrapper")
+            .attr(
+                "data-text",
+                $(this)
+                    .val()
+                    .replace(/.*(\/|\\)/, "")
+            );
+    });
+    $("#btn-article-submit").click(function (e) {
+        //Prevent Instant Click
+        e.preventDefault();
+        $("#Description").val(CKEDITOR.instances.Description.getData());
+        // Create an FormData object
+        var formData = $("form").submit(function (e) {
+            return;
+        });
+        //formData[0] contain form data only
+        // You can directly make object via using form id but it require all ajax operation inside $("form").submit(<!-- Ajax Here   -->)
+        var formData = new FormData(formData[0]);
+
+        var fileUpload = $("#file-coverphoto").get(0);
+        var files = fileUpload.files;
+        for (var i = 0; i < files.length; i++) {
+            formData.append("CoverPhoto", files[i]);
+        }
+
+        var fileUpload = $(".file-otherfiles");
+        for (var i = 0; i < fileUpload.length; i++) {
+            var categoy = $(fileUpload[i]).closest(".col-sm-3").next("div").find("input").val();
+            formData.append(categoy, fileUpload[i].files[0]);
+        }
+        $.ajax({
+            url: "/Admin/Articles/Create",
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                $("#article-all").html(response);
+                $("#li-all-articles").trigger("click");
+                $("html, body").animate({
+                    scrollTop: 0
+                }, 900);
+            },
+            contentType: false,
+            processData: false,
+            cache: false
+        });
+        return false;
+
+    });
+
 </script>

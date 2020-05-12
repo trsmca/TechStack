@@ -24,5 +24,6 @@ namespace Stack.Entities
         public Nullable<int> LastEditedById { get; set; }
         public Nullable<System.DateTime> LastEditedDate { get; set; }
         public byte[] Attachment1 { get; set; }
+        public string ContentType { get; set; }
     }
 }

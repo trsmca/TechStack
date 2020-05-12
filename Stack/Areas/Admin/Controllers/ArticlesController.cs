@@ -20,8 +20,11 @@ namespace Stack.Areas.Admin.Controllers
         // GET: Admin/Articles
         public ActionResult Index()
         {
+            var userId = 0;
+            if (Session["UserId"] != null)
+                userId = Convert.ToInt32(Session["UserId"]);
             //var articles = db.Articles.Include(a => a.ArticleCategory);
-            var articles = db.Articles.ToList();
+            var articles = db.Articles.Where(x => x.CreatedById == userId).OrderByDescending(x => x.ArticleId).ToList();
             return View(articles);
         }
 
@@ -55,36 +58,42 @@ namespace Stack.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult Create(AdminArticlesModel model)
         {
-            if (ModelState.IsValid)
+            string FileName = "";
+            int articleId = model.Save();
+            HttpFileCollectionBase files = Request.Files;
+            for (int i = 0; i < files.Count; i++)
             {
-                int articleId = model.Save();
-                foreach (HttpPostedFileBase file in model.CoverPhoto)
+                HttpPostedFileBase file = files[i];
+                string fname;
+                string attachmentCategory = ((System.Web.HttpFileCollectionWrapper)files).AllKeys[i];
+                if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
                 {
-                    //Checking file is available to save.  
-                    if (file != null)
-                    {
-                        var InputFileName = Path.GetFileName(file.FileName);
-
-                        AttachmentsModel.SaveAttachments(InputFileName, ConvertToByte(file), "ArticlesCoverPhoto", articleId);
-                        ViewBag.UploadStatus = model.files.Count().ToString() + " Cover Photo uploaded successfully.";
-                    }
-
+                    string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                    fname = testfiles[testfiles.Length - 1];
                 }
-                foreach (HttpPostedFileBase file in model.files)
+                else
                 {
-                    //Checking file is available to save.  
-                    if (file != null)
-                    {
-                        var InputFileName = Path.GetFileName(file.FileName);
-
-                        AttachmentsModel.SaveAttachments(InputFileName, ConvertToByte(file), "Articles", articleId);
-                        ViewBag.UploadStatus = model.files.Count().ToString() + " files uploaded successfully.";
-                    }
-
+                    fname = file.FileName;
+                    FileName = file.FileName;
                 }
-                return RedirectToAction("Index");
+                using (Stream fs = file.InputStream)
+                {
+                    using (BinaryReader br = new BinaryReader(fs))
+                    {
+                        var attachmentKey = "Articles";
+                        if (attachmentCategory == "CoverPhoto")
+                            attachmentKey = "ArticlesCoverPhoto";
+                        byte[] bytes = br.ReadBytes((Int32)fs.Length);
+                        AttachmentsModel.SaveAttachments(fname, bytes, file.ContentType, attachmentKey, attachmentCategory, articleId);
+                    }
+                }
             }
-            return View(_model);
+            ViewBag.Message = "Article posted successfully.";
+            var userId = 0;
+            if (Session["UserId"] != null)
+                userId = Convert.ToInt32(Session["UserId"]);
+            var articles = db.Articles.Where(x => x.CreatedById == userId).OrderByDescending(x => x.ArticleId).ToList();
+            return View("Index", articles);
         }
 
         // GET: Admin/Articles/Edit/5

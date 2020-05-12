@@ -39,6 +39,12 @@ namespace Stack.Entities
         public Nullable<int> CreatedById { get; set; }
         public Nullable<int> LastEditedById { get; set; }
         public Nullable<System.DateTime> LastEditedDate { get; set; }
+        public byte[] ProfilePic { get; set; }
+        public string Website { get; set; }
+        public string Education { get; set; }
+        public string WorkingIn { get; set; }
+        public string WorkingAs { get; set; }
+        public Nullable<System.DateTime> WorkingFrom { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }

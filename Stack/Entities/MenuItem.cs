@@ -14,6 +14,12 @@ namespace Stack.Entities
     
     public partial class MenuItem
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MenuItem()
+        {
+            this.News = new HashSet<News>();
+        }
+    
         public int MenuItemId { get; set; }
         public int ParentMenuId { get; set; }
         public string MenuItem1 { get; set; }
@@ -23,5 +29,8 @@ namespace Stack.Entities
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> LastEditedById { get; set; }
         public Nullable<System.DateTime> LastEditedDate { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<News> News { get; set; }
     }
 }

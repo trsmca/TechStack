@@ -215,7 +215,9 @@
                                                             @item.ArticleName
                                                         </a>
                                                     </h5>
-
+                                                    <span>
+                                                        @item.ShortDescription
+                                                    </span>
                                                     <span class="cl8">
                                                         <a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
                                                             @item.CreatedBy
@@ -245,17 +247,19 @@
                                             }
                                             <!-- Item post -->
                                             <div class="flex-wr-sb-s m-b-30">
-                                                <a href="~/Articles/Details/@item.ArticleNameSeo" class="size-w-1 wrap-pic-w hov1 trans-03">
+                                                @*<a href="~/Articles/Details/@item.ArticleNameSeo" class="size-w-1 wrap-pic-w hov1 trans-03">
                                                     <img alt="IMG" src="@img" />
-                                                </a>
+                                                </a>*@
 
-                                                <div class="size-w-2">
+                                                <div class="">
                                                     <h5 class="p-b-5">
                                                         <a href="~/Articles/Details/@item.ArticleNameSeo" class="f1-s-5 cl3 hov-cl10 trans-03">
                                                             @item.ArticleName
                                                         </a>
                                                     </h5>
-
+                                                    <span>
+                                                        @item.ShortDescription
+                                                    </span>
                                                     <span class="cl8">
                                                         <a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
                                                             @item.CreatedBy
@@ -883,17 +887,19 @@
                                             }
                                             <!-- Item post -->
                                             <div class="flex-wr-sb-s m-b-30">
-                                                <a href="~/Projects/Details/@item.ProjectNameSeo" class="size-w-1 wrap-pic-w hov1 trans-03">
+                                                @*<a href="~/Projects/Details/@item.ProjectNameSeo" class="size-w-1 wrap-pic-w hov1 trans-03">
                                                     <img src="@img" alt="IMG">
-                                                </a>
+                                                </a>*@
 
-                                                <div class="size-w-2">
+                                                <div>
                                                     <h5 class="p-b-5">
                                                         <a href="~/Projects/Details/@item.ProjectNameSeo" class="f1-s-5 cl3 hov-cl10 trans-03">
                                                             @item.ProjectName
                                                         </a>
                                                     </h5>
-
+                                                    <span>
+                                                        @item.ShortDescription
+                                                    </span>
                                                     <span class="cl8">
                                                         <a href="#" class="f1-s-6 cl8 hov-cl10 trans-03">
                                                             @item.CreatedById
@@ -2193,55 +2199,6 @@
                                 </li>
                                 count = count + 1;
                             }
-                            @*<li class="flex-wr-sb-s p-b-22">
-                                    <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                                        1
-                                    </div>
-
-                                    <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                                    </a>
-                                </li>
-
-                                <li class="flex-wr-sb-s p-b-22">
-                                    <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                                        2
-                                    </div>
-
-                                    <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                                        Proin velit consectetur non neque
-                                    </a>
-                                </li>
-
-                                <li class="flex-wr-sb-s p-b-22">
-                                    <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                                        3
-                                    </div>
-
-                                    <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                                        Nunc vestibulum, enim vitae condimentum volutpat lobortis ante
-                                    </a>
-                                </li>
-
-                                <li class="flex-wr-sb-s p-b-22">
-                                    <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0 m-b-6">
-                                        4
-                                    </div>
-
-                                    <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                                        Proin velit justo consectetur non neque elementum
-                                    </a>
-                                </li>
-
-                                <li class="flex-wr-sb-s p-b-22">
-                                    <div class="size-a-8 flex-c-c borad-3 size-a-8 bg9 f1-m-4 cl0">
-                                        5
-                                    </div>
-
-                                    <a href="#" class="size-w-3 f1-s-7 cl3 hov-cl10 trans-03">
-                                        Proin velit consectetur non neque
-                                    </a>
-                                </li>*@
                         </ul>
                     </div>
 

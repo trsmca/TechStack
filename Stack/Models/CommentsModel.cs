@@ -69,9 +69,9 @@ namespace Stack.Models
                         model.created_by_current_user = false;
                     model.upvote_count = item.UpvoteCount;
                     model.user_has_upvoted = item.UserHasUpvoted;
-                    var accountModel=new AccountModel();
-                    var user = accountModel.GetUsers(item.CreatedById);
-                    model.profile_picture_url = user.ProfilePicUrl;
+                    var accountModel = new AccountModel();
+                    accountModel.GetUsers(item.CreatedById);
+                    model.profile_picture_url = "data:image/png;base64," + Convert.ToBase64String(accountModel.ProfilePic, 0, accountModel.ProfilePic.Length) ;
                     list.Add(model);
                 }
                 return list.ToJSON();

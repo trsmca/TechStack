@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TechStackModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TechStackModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -40,6 +40,7 @@
           <Property Name="AttachmentCategory" Type="nvarchar(max)" />
           <Property Name="AttachmentKey" Type="nvarchar(max)" />
           <Property Name="FileName" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ContentType" Type="nvarchar" MaxLength="100" />
           <Property Name="CreatedById" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="LastEditedById" Type="int" />
@@ -82,6 +83,15 @@
           <Property Name="RoleName" Type="nvarchar" MaxLength="100" />
           <Property Name="RoleKey" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="Master_Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusKey" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
         <EntityType Name="MenuItems">
           <Key>
             <PropertyRef Name="MenuItemId" />
@@ -101,6 +111,17 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuItemId" Type="int" />
+          <Property Name="NewsHeadlines" Type="nvarchar" MaxLength="200" />
+          <Property Name="ShortContent" Type="nvarchar" MaxLength="200" />
+          <Property Name="Content" Type="nvarchar" MaxLength="4000" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="StatusID" Type="int" />
+          <Property Name="IsPopular" Type="bit" />
+          <Property Name="CreatedById" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="LastEditedById" Type="int" />
+          <Property Name="LastEditedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ProjectFiles">
           <Key>
@@ -146,19 +167,25 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Email" Type="nvarchar(max)" />
-          <Property Name="Password" Type="nvarchar(max)" />
-          <Property Name="ContactNumber" Type="nvarchar(max)" />
-          <Property Name="FirstName" Type="nvarchar(max)" />
-          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="Password" Type="nvarchar" MaxLength="200" />
+          <Property Name="ContactNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="200" />
           <Property Name="Gender" Type="bit" />
-          <Property Name="Address" Type="nvarchar(max)" />
-          <Property Name="State" Type="nvarchar(max)" />
-          <Property Name="Country" Type="nvarchar(max)" />
-          <Property Name="PinCode" Type="nvarchar(max)" />
-          <Property Name="ProfilePicUrl" Type="nvarchar(max)" />
-          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Address" Type="nvarchar" MaxLength="2000" />
+          <Property Name="State" Type="nvarchar" MaxLength="200" />
+          <Property Name="Country" Type="nvarchar" MaxLength="200" />
+          <Property Name="PinCode" Type="nvarchar" MaxLength="200" />
+          <Property Name="ProfilePicUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="ProfilePic" Type="image" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Website" Type="nvarchar" MaxLength="100" />
+          <Property Name="Education" Type="nvarchar" MaxLength="200" />
           <Property Name="RoleId" Type="int" />
+          <Property Name="WorkingIn" Type="nvarchar" MaxLength="100" />
+          <Property Name="WorkingAs" Type="nvarchar" MaxLength="100" />
+          <Property Name="WorkingFrom" Type="date" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedById" Type="int" />
@@ -174,6 +201,30 @@
             </Principal>
             <Dependent Role="Comments">
               <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Master_Status">
+          <End Role="Master_Status" Type="Self.Master_Status" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_MenuItems">
+          <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItems">
+              <PropertyRef Name="MenuItemId" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="MenuItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -239,6 +290,7 @@
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ForgotPassword" EntityType="Self.ForgotPassword" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Master_Roles" EntityType="Self.Master_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Master_Status" EntityType="Self.Master_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MenuItems" EntityType="Self.MenuItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectFiles" EntityType="Self.ProjectFiles" Schema="dbo" store:Type="Tables" />
@@ -249,13 +301,20 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Comments" EntitySet="Comments" />
           </AssociationSet>
+          <AssociationSet Name="FK_News_Master_Status" Association="Self.FK_News_Master_Status">
+            <End Role="Master_Status" EntitySet="Master_Status" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_MenuItems" Association="Self.FK_News_MenuItems">
+            <End Role="MenuItems" EntitySet="MenuItems" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
           <AssociationSet Name="FK_Users_Master_Roles" Association="Self.FK_Users_Master_Roles">
             <End Role="Master_Roles" EntitySet="Master_Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TechStackModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -302,6 +361,7 @@
           <Property Name="LastEditedById" Type="Int32" />
           <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
           <Property Name="Attachment1" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ContentType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -354,12 +414,27 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="LastEditedById" Type="Int32" />
           <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="News" Relationship="TechStackModel.FK_News_MenuItems" FromRole="MenuItem" ToRole="News" />
         </EntityType>
         <EntityType Name="News">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuItemId" Type="Int32" />
+          <Property Name="ShortContent" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedById" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastEditedById" Type="Int32" />
+          <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsPopular" Type="Boolean" />
+          <NavigationProperty Name="MenuItem" Relationship="TechStackModel.FK_News_MenuItems" FromRole="News" ToRole="MenuItem" />
+          <Property Name="NewsHeadlines" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="StatusID" Type="Int32" />
+          <NavigationProperty Name="Master_Status" Relationship="TechStackModel.FK_News_Master_Status" FromRole="News" ToRole="Master_Status" />
         </EntityType>
         <EntityType Name="ProjectFile">
           <Key>
@@ -405,18 +480,18 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ContactNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="Boolean" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PinCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ProfilePicUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PinCode" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ProfilePicUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="RoleId" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
@@ -425,6 +500,12 @@
           <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
           <NavigationProperty Name="Master_Roles" Relationship="Self.FK_Users_Master_Roles" FromRole="Users" ToRole="Master_Roles" />
+          <Property Name="ProfilePic" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Education" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WorkingIn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WorkingAs" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WorkingFrom" Type="DateTime" Precision="0" />
         </EntityType>
         <Association Name="FK_Comments_Users">
           <End Role="Users" Type="Self.User" Multiplicity="1" />
@@ -480,13 +561,13 @@
             <Parameter Name="Primary_Key" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="GET_MenuItems" ReturnType="Collection(TechStackModel.GET_MenuItems_Result)">
-            <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+          <Parameter Name="CategoryID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Get_QuestionsOnMenuId" ReturnType="Collection(TechStackModel.Get_QuestionsOnMenuId_Result)">
-            <Parameter Name="MenuItemId" Mode="In" Type="Int32" />
+          <Parameter Name="MenuItemId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="InsertGenerator">
-            <Parameter Name="tableName" Mode="In" Type="String" />
+          <Parameter Name="tableName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ResetPassword">
             <Parameter Name="UserId" Mode="In" Type="Int32" />
@@ -501,6 +582,15 @@
             <Parameter Name="Attachment" Mode="In" Type="Binary" />
             <Parameter Name="contactID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <AssociationSet Name="FK_News_MenuItems" Association="TechStackModel.FK_News_MenuItems">
+            <End Role="MenuItem" EntitySet="MenuItems" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <EntitySet Name="Master_Status" EntityType="TechStackModel.Master_Status" />
+          <AssociationSet Name="FK_News_Master_Status" Association="TechStackModel.FK_News_Master_Status">
+            <End Role="Master_Status" EntitySet="Master_Status" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GET_MenuItems_Result">
           <Property Type="String" Name="MenuItem" Nullable="true" MaxLength="1000" />
@@ -519,6 +609,40 @@
           <Property Type="DateTime" Name="LastEditedDate" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="MenuItemId" Nullable="true" />
         </ComplexType>
+        <Association Name="FK_News_MenuItems">
+          <End Type="TechStackModel.MenuItem" Role="MenuItem" Multiplicity="0..1" />
+          <End Type="TechStackModel.News" Role="News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MenuItem">
+              <PropertyRef Name="MenuItemId" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="MenuItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Master_Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusKey" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="News" Relationship="TechStackModel.FK_News_Master_Status" FromRole="Master_Status" ToRole="News" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_News_Master_Status">
+          <End Type="TechStackModel.Master_Status" Role="Master_Status" Multiplicity="0..1" />
+          <End Type="TechStackModel.News" Role="News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Master_Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -555,6 +679,7 @@
           <EntitySetMapping Name="Attachments">
             <EntityTypeMapping TypeName="TechStackModel.Attachment">
               <MappingFragment StoreEntitySet="Attachments">
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
                 <ScalarProperty Name="PkId" ColumnName="PkId" />
                 <ScalarProperty Name="AttachmentCategory" ColumnName="AttachmentCategory" />
@@ -625,6 +750,17 @@
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="TechStackModel.News">
               <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="NewsHeadlines" ColumnName="NewsHeadlines" />
+                <ScalarProperty Name="IsPopular" ColumnName="IsPopular" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LastEditedDate" ColumnName="LastEditedDate" />
+                <ScalarProperty Name="LastEditedById" ColumnName="LastEditedById" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ShortContent" ColumnName="ShortContent" />
+                <ScalarProperty Name="MenuItemId" ColumnName="MenuItemId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -674,6 +810,12 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TechStackModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="WorkingFrom" ColumnName="WorkingFrom" />
+                <ScalarProperty Name="WorkingAs" ColumnName="WorkingAs" />
+                <ScalarProperty Name="WorkingIn" ColumnName="WorkingIn" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -732,6 +874,16 @@
           <FunctionImportMapping FunctionImportName="InsertGenerator" FunctionName="TechStackModel.Store.InsertGenerator" />
           <FunctionImportMapping FunctionImportName="ResetPassword" FunctionName="TechStackModel.Store.ResetPassword" />
           <FunctionImportMapping FunctionImportName="Update_Attachments" FunctionName="TechStackModel.Store.Update_Attachments" />
+          <EntitySetMapping Name="Master_Status">
+            <EntityTypeMapping TypeName="TechStackModel.Master_Status">
+              <MappingFragment StoreEntitySet="Master_Status">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StatusKey" ColumnName="StatusKey" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

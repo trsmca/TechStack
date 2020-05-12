@@ -15,5 +15,20 @@ namespace Stack.Entities
     public partial class News
     {
         public int ID { get; set; }
+        public Nullable<int> MenuItemId { get; set; }
+        public string ShortContent { get; set; }
+        public string Content { get; set; }
+        public Nullable<int> CreatedById { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<int> LastEditedById { get; set; }
+        public Nullable<System.DateTime> LastEditedDate { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public Nullable<int> Status { get; set; }
+        public Nullable<bool> IsPopular { get; set; }
+        public string NewsHeadlines { get; set; }
+        public Nullable<int> StatusID { get; set; }
+    
+        public virtual MenuItem MenuItem { get; set; }
+        public virtual Master_Status Master_Status { get; set; }
     }
 }

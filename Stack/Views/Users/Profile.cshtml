@@ -1,0 +1,450 @@
+﻿@model Stack.Models.AccountModel
+<link href="~/Content/profile-page.css" rel="stylesheet" />
+<link href="~/Content/plugins/fileupload.css" rel="stylesheet" />
+<div>
+    <div class="vd_content-section clearfix">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel widget light-widget panel-bd-top">
+                    <div class="panel-heading no-title"> </div>
+                    <div class="panel-body">
+                        <div class="text-center vd_info-parent mgbt-xs-15">
+                            @*<img alt="example image" src="~/images/big.jpg">*@
+                            <div class="avatar-upload">
+                                <div class="avatar-edit">
+                                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                    <label for="imageUpload"></label>
+                                </div>
+                                <div class="avatar-preview">
+                                    <div id="imagePreview" style="background-image: url(@ViewBag.Base64String);">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-img-action text-center mgbt-xs-20">
+                            <a class="btn vd_btn  vd_bg-blue" id="btnimgupload" href="javascript:void(0);">
+                                <i class="fa fa-cloud-upload append-icon"></i>
+                                Upload
+                            </a>
+                            <input type="file" id="imgupload" accept="image/x-png,image/gif,image/jpeg" style="display:none" />
+                        </div>
+                        <h2 class="font-semibold mgbt-xs-5">
+                            @Model.FullName
+                        </h2>
+                        @*<h4>Owner at Our Company, Inc.</h4>*@
+                        <p>@Model.Description</p>
+                        <div class="mgtp-20">
+                            <table class="table table-striped table-hover">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:60%;">Status</td>
+                                        <td><span class="label label-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>User Rating</td>
+                                        <td><i class="fa fa-star vd_yellow fa-fw"></i><i class="fa fa-star vd_yellow fa-fw"></i><i class="fa fa-star vd_yellow fa-fw"></i><i class="fa fa-star vd_yellow fa-fw"></i><i class="fa fa-star vd_yellow fa-fw"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Member Since</td>
+                                        <td> Jan 07, 2014 </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- panel widget -->
+
+                <div class="panel widget light-widget">
+                    <div class="panel-body-list">
+                        <h3 class="pd-20 mgbt-xs-0"><i class="fa fa-users mgr-10"></i>Friends</h3>
+                        <div class="content-grid column-xs-2 column-sm-3 height-xs-auto mgbt-xs-20">
+                            <div>
+                                <ul class="list-wrapper">
+                                    <li> <a href="#"> <span class="menu-icon"><img alt="example image" src="img/avatar/avatar.jpg"></span> </a> </li>
+                                    <li class="warning"> <a href="#"> <span class="menu-icon"><img alt="example image" src="img/avatar/avatar-2.jpg"></span> </a> </li>
+                                    <li> <a href="#"> <span class="menu-icon"><img alt="example image" src="img/avatar/avatar-3.jpg"></span> </a> </li>
+                                    <li> <a href="#"> <span class="menu-icon"><img alt="example image" src="img/avatar/avatar-4.jpg"></span> </a> </li>
+                                    <li> <a href="#"> <span class="menu-icon"><img alt="example image" src="img/avatar/avatar-5.jpg"></span> </a> </li>
+                                    <li> <a href="#"> <span class="menu-icon"><img alt="example image" src="img/avatar/avatar-6.jpg"></span> </a> </li>
+                                    <li> <a href="#"> <span class="menu-icon"><img alt="example image" src="img/avatar/avatar-7.jpg"></span> </a> </li>
+                                    <li> <a href="#"> <span class="menu-icon"><img alt="example image" src="img/avatar/avatar-8.jpg"></span> </a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="closing text-center" style=""> <a href="#">See All Friends<i class="fa fa-angle-double-right prepend-icon"></i></a> </div>
+                    </div>
+                </div>
+                <!-- panel widget -->
+            </div>
+            <div class="col-sm-9">
+                <div class="tabs widget">
+                    <ul class="nav nav-tabs widget">
+                        <li class="active"> <a data-toggle="tab" href="#profile-tab"> Profile <span class="menu-active"><i class="fa fa-caret-up"></i></span> </a></li>
+                        <li class=""> <a data-toggle="tab" href="#projects-tab"> Articles <span class="menu-active"><i class="fa fa-caret-up"></i></span> </a></li>
+                        <li class=""> <a data-toggle="tab" href="#photos-tab">Projects<span class="menu-active"><i class="fa fa-caret-up"></i></span> </a></li>
+                        <li class=""> <a data-toggle="tab" href="#friends-tab">News<span class="menu-active"><i class="fa fa-caret-up"></i></span> </a></li>
+                        <li class=""> <a data-toggle="tab" href="#groups-tab">Questions<span class="menu-active"><i class="fa fa-caret-up"></i></span> </a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="profile-tab" class="tab-pane active">
+                            <div class="pd-20">
+                                <div class="vd_info tr"> <a class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-pencil append-icon"></i> Edit </a> </div>
+                                <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="icon-user mgr-10 profile-icon"></i> ABOUT</h3>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">First Name:</label>
+                                            <div class="col-xs-7 controls">@Model.FirstName</div>
+                                            <!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Last Name:</label>
+                                            <div class="col-xs-7 controls">@Model.LastName</div>
+                                            <!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">User Name:</label>
+                                            <div class="col-xs-7 controls">@Model.Email</div>
+                                            <!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Email:</label>
+                                            <div class="col-xs-7 controls">@Model.Email</div>
+                                            <!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">City:</label>
+                                            <div class="col-xs-7 controls">@Model.Address</div>
+                                            <!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Country:</label>
+                                            <div class="col-xs-7 controls">@Model.Country</div>
+                                            <!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Birthday:</label>
+                                            <div class="col-xs-7 controls">@Model.DOB</div>
+                                            <!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Interests:</label>
+                                            <div class="col-xs-7 controls">Basketball, Web, Design, etc.</div>
+                                            <!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Website:</label>
+                                            <div class="col-xs-7 controls"><a href="@Model.Website">@Model.Website</a></div>
+                                            <!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row mgbt-xs-0">
+                                            <label class="col-xs-5 control-label">Phone:</label>
+                                            <div class="col-xs-7 controls">@Model.ContactNumber</div>
+                                            <!-- col-sm-10 -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="pd-10">
+                                <div class="row">
+                                    <div class="col-sm-7 mgbt-xs-20">
+                                        <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-file-text-o mgr-10 profile-icon"></i> EXPERIENCE</h3>
+                                        <div class="content-list content-menu">
+                                            <ul class="list-wrapper">
+                                                <li class="mgbt-xs-10"> <span class="menu-icon vd_green"><i class="fa  fa-circle-o"></i></span> <span class="menu-text"> <a href="http://www.venmond.com">@Model.WorkingAs</a> at <a href="http://www.venmond.com">@Model.WorkingIn</a> <span class="menu-info"><span class="menu-date"> @Model.WorkingFrom ~ Now</span></span> </span> </li>
+                                                <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> <a href="http://www.venmond.com">CEO</a> at <a href="http://www.venmond.com">Mc. Dondon</a> <span class="menu-info"><span class="menu-date"> March 2011 ~ February 2013</span></span> </span> </li>
+                                                <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> <a href="http://www.venmond.com">Web Designer</a> at <a href="http://www.venmond.com">Web Design Company Ltd.</a> <span class="menu-info"><span class="menu-date"> March 2010 ~ February 2011</span></span> </span> </li>
+                                                <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> <a href="http://www.venmond.com">Sales</a> at <a href="http://www.venmond.com">Sales Company Ltd.</a> <span class="menu-info"><span class="menu-date"> March 2009 ~ February 2010</span></span> </span> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-trophy mgr-10 profile-icon"></i> EDUCATION</h3>
+                                        <div class="content-list content-menu">
+                                            <ul class="list-wrapper">
+                                                <li class="mgbt-xs-10"> <span class="menu-icon vd_green"><i class="fa  fa-circle-o"></i></span> <span class="menu-text"> Bachelor's degree, E-Commerce/Electronic Commerce at <a href="http://www.venmond.com">UCLA</a> <span class="menu-info"><span class="menu-date"> August 2003 ~ July 2008</span></span> </span> </li>
+                                                <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> Student at <a href="http://www.venmond.com">Web Design Education</a> <span class="menu-info"><span class="menu-date"> March 2006 ~ February 2007</span></span> </span> </li>
+                                                <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> Student at <a href="http://www.venmond.com">St. Louis High School</a> <span class="menu-info"><span class="menu-date"> August 2000 ~ July 2003 </span></span> </span> </li>
+                                                <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> Student at <a href="http://www.venmond.com">St. Monica Junior High School</a> <span class="menu-info"><span class="menu-date"> August 1998 ~ July 2000</span></span> </span> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- row -->
+                                <hr class="pd-10">
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-globe mgr-10 profile-icon"></i> ACTIVITY</h3>
+                                        <div class="">
+                                            <div class="content-list">
+                                                <div data-rel="scroll" class="mCustomScrollbar _mCS_6" style="overflow: hidden;">
+                                                    <div class="mCustomScrollBox mCS-light" id="mCSB_6" style="position: relative; height: 100%; overflow: hidden; max-width: 100%; max-height: 400px;">
+                                                        <div class="mCSB_container mCS_no_scrollbar" style="position: relative; top: 0px;">
+                                                            <ul class="list-wrapper">
+                                                                <li> <span class="menu-icon vd_yellow"><i class="fa fa-suitcase"></i></span> <span class="menu-text"> Someone has give you a surprise <span class="menu-info"><span class="menu-date"> ~ 12 Minutes Ago</span></span> </span>  </li>
+                                                                <li> <span class="menu-icon vd_blue"><i class=" fa fa-user"></i></span> <span class="menu-text"> Change your user profile details <span class="menu-info"><span class="menu-date"> ~ 1 Hour 20 Minutes Ago</span></span> </span> </li>
+                                                                <li> <span class="menu-icon vd_red"><i class=" fa fa-cogs"></i></span> <span class="menu-text"> Your setting is updated <span class="menu-info"><span class="menu-date"> ~ 12 Days Ago</span></span> </span></li>
+                                                                <li>  <span class="menu-icon vd_green"><i class=" fa fa-book"></i></span> <span class="menu-text"> Added new article <span class="menu-info"><span class="menu-date"> ~ 19 Days Ago</span></span> </span>  </li>
+                                                                <li>  <span class="menu-icon vd_green"><img alt="example image" src="img/avatar/avatar.jpg"></span> <span class="menu-text"> Change Profile Pic <span class="menu-info"><span class="menu-date"> ~ 20 Days Ago</span></span> </span> </li>
+                                                                <li>  <span class="menu-icon vd_red"><i class=" fa fa-cogs"></i></span> <span class="menu-text"> Your setting is updated <span class="menu-info"><span class="menu-date"> ~ 12 Days Ago</span></span> </span>  </li>
+                                                                <li>  <span class="menu-icon vd_green"><i class=" fa fa-book"></i></span> <span class="menu-text"> Added new article <span class="menu-info"><span class="menu-date"> ~ 19 Days Ago</span></span> </span> </li>
+                                                                <li>  <span class="menu-icon vd_green"><img alt="example image" src="img/avatar/avatar.jpg"></span> <span class="menu-text"> Change Profile Pic <span class="menu-info"><span class="menu-date"> ~ 20 Days Ago</span></span> </span>  </li>
+                                                            </ul>
+                                                        </div><div class="mCSB_scrollTools" style="position: absolute; opacity: 0; display: none;"><div class="mCSB_draggerContainer"><div class="mCSB_dragger" style="position: absolute; height: 352px; top: 0px;" oncontextmenu="return false;"><div class="mCSB_dragger_bar" style="position: relative; line-height: 352px;"></div></div><div class="mCSB_draggerRail"></div></div></div>
+                                                    </div>
+                                                </div>
+                                                <div class="closing text-center" style=""> <a href="#">See All Activities <i class="fa fa-angle-double-right"></i></a> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- col-sm-7 -->
+                                    <div class="col-sm-5">
+                                        <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-flask mgr-10 profile-icon"></i> SKILL</h3>
+                                        <div class="skill-list">
+                                            <div class="skill-name"> Photoshop </div>
+                                            <div class="progress  progress-sm">
+                                                <div style="width: 90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="90" role="progressbar" class="progress-bar progress-bar-success "> <span class="sr-only">90%</span> </div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-list">
+                                            <div class="skill-name"> Illustrator </div>
+                                            <div class="progress  progress-sm">
+                                                <div style="width: 20%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" role="progressbar" class="progress-bar progress-bar-danger "> <span class="sr-only">20%</span> </div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-list">
+                                            <div class="skill-name"> PHP </div>
+                                            <div class="progress  progress-sm">
+                                                <div style="width: 50%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" role="progressbar" class="progress-bar progress-bar-warning "> <span class="sr-only">50% Complete</span> </div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-list">
+                                            <div class="skill-name"> Javascript </div>
+                                            <div class="progress  progress-sm">
+                                                <div style="width: 60%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="60" role="progressbar" class="progress-bar progress-bar-info "> <span class="sr-only">60% Complete</span> </div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-list">
+                                            <div class="skill-name"> Communication </div>
+                                            <div class="progress  progress-sm">
+                                                <div style="width: 95%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="95" role="progressbar" class="progress-bar progress-bar-success "> <span class="sr-only">95% Complete</span> </div>
+                                            </div>
+                                        </div>
+                                        <div class="skill-list">
+                                            <div class="skill-name"> Writing </div>
+                                            <div class="progress  progress-sm">
+                                                <div style="width: 45%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="45" role="progressbar" class="progress-bar progress-bar-warning "> <span class="sr-only">45% Complete</span> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- col-sm-7 -->
+                                </div>
+                                <!-- row -->
+                            </div>
+                            <!-- pd-20 -->
+                        </div>
+                        <!-- home-tab -->
+
+                        <div id="projects-tab" class="tab-pane ">
+                            <div class="pd-20">
+                                <div class="vd_info tr"> <a id="add-article" class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-plus append-icon"></i> Add Article </a> </div>
+                                <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="fa fa-bolt mgr-10 profile-icon"></i> Articles</h3>
+                                <div class="tabs widget">
+                                    <ul class="nav nav-pills">
+                                        <li class="active"><a id="li-all-articles" href="#article-all" data-toggle="tab">All</a></li>
+                                        <li><a data-toggle="tab" id="li-article-new" href="#article-new">Create New</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="article-all" class="tab-pane active">
+                                            @{Html.RenderAction("Index", "Articles", new { area = "Admin" });}
+                                        </div>
+                                        <div id="article-new" class="tab-pane">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div id="photos-tab" class="tab-pane">
+                            <div class="pd-20">
+                                <div class="vd_info tr"> <a id="add-projects" class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-plus append-icon"></i> Add Project</a> </div>
+                                <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="fa fa-picture-o mgr-10 profile-icon"></i> PROJECTS</h3>
+                                <ul class="nav nav-pills">
+                                    <li class="active"><a id="li-all-projects" href="#projects-all" data-toggle="tab">All</a></li>
+                                    <li><a data-toggle="tab" id="li-projects-new" href="#projects-new">Create New</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="projects-all" class="tab-pane active">
+                                        @{Html.RenderAction("Index", "Projects", new { area = "Admin" });}
+                                    </div>
+                                    <div id="projects-new" class="tab-pane">
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <!-- pd-20 -->
+                        </div> <!-- photos tab -->
+
+                        <div id="friends-tab" class="tab-pane">
+                            <div class="pd-20">
+                                <div class="vd_info tr"> <a class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-plus append-icon"></i> Add News</a> </div>
+                                <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="fa fa-users mgr-10 profile-icon"></i> NEWS</h3>
+                                <ul class="nav nav-pills">
+                                    <li class="active"><a id="li-all-articles" href="#article-all" data-toggle="tab">All</a></li>
+                                    <li><a data-toggle="tab" id="li-article-new" href="#article-new">Create New</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="projects-all" class="tab-pane active">
+                                        @{Html.RenderAction("Index", "News", new { area = "Admin" });}
+                                    </div>
+                                    <div id="projects-new" class="tab-pane">
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div><!-- pd-20 -->
+                        </div>  <!-- photos tab -->
+
+                        <div id="groups-tab" class="tab-pane">
+                            <div class="pd-20">
+                                <div class="vd_info tr"> <a class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-plus append-icon"></i> Ask Question?</a> </div>
+                                <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="fa fa-leaf mgr-10 profile-icon"></i> Question</h3>
+                                <ul class="nav nav-pills">
+                                    <li class="active"><a id="li-all-articles" href="#article-all" data-toggle="tab">All</a></li>
+                                    <li><a data-toggle="tab" id="li-article-new" href="#article-new">Create New</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="projects-all" class="tab-pane active">
+                                        @{Html.RenderAction("Index", "Questions", new { area = "Admin" });}
+                                    </div>
+                                    <div id="projects-new" class="tab-pane">
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div> <!-- row -->
+                            </div> <!-- pd-20 -->
+                        </div>  <!-- groups tab -->
+
+                    </div>
+                    <!-- tab-content -->
+                </div>
+                <!-- tabs-widget -->
+            </div>
+        </div>
+        <!-- row -->
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#btnimgupload').click(function () {
+
+        var fileUpload = $("#imageUpload").get(0);
+        var files = fileUpload.files;
+        // Create FormData object
+        var fileData = new FormData();
+        // Looping over all files and add it to FormData object
+        for (var i = 0; i < files.length; i++) {
+            fileData.append(files[i].name, files[i]);
+        }
+        $.ajax({
+            url: '/Users/UploadUserProfilePic',
+            type: "POST",
+            contentType: false, // Not to set any content header
+            processData: false, // Not to process data
+            data: fileData,
+            async: false,
+            success: function (result) {
+                var msgType = "";
+                if (result.search("successfully") > 0) {
+                    msgType = "success";
+                } else {
+                    msgType = "error";
+                }
+                notify({
+                    //alert | success | error | warning | info
+                    type: msgType,
+                    title: result,
+                    //message: data,
+                    position: {
+                        x: "right", //right | left | center
+                        y: "bottom" //top | bottom | center
+                    },
+                    icon: '<img src="/images/paper_plane.png"/>',
+                });
+                //if (result != "") {
+                //    $('#FileBrowse').find("*").prop("disabled", true);
+                //    LoadProgressBar(result);
+                //}
+            },
+            error: function (err) {
+                alert(err.statusText);
+            }
+        });
+
+    });
+</script>
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#imagePreview").css(
+                    "background-image",
+                    "url(" + e.target.result + ")"
+                );
+                $("#imagePreview").hide();
+                $("#imagePreview").fadeIn(650);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imageUpload").change(function () {
+        readURL(this);
+    });
+    // bind filter button click
+    $('#filters').on('click', 'a', function () {
+        var filterValue = $(this).attr('data-filter');
+        $('#filters li').removeClass('active');
+        $(this).parent().addClass('active');
+        $container.isotope({ filter: filterValue });
+    });
+
+    $("#add-article").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Admin/Articles/Create",
+            success: function (data) {
+                $("#article-new").html(data);
+                $("#li-article-new").trigger("click");
+            }
+        });
+    });
+    $("#add-projects").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Admin/Projects/Create",
+            success: function (data) {
+                $("#projects-new").html(data);
+                $("#li-projects-new").trigger("click");
+            }
+        });
+    });
+</script>

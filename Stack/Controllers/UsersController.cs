@@ -136,7 +136,84 @@ namespace Stack.Controllers
         //    db.SaveChanges();
         //    return RedirectToAction("Index");
         //}
+        public string UploadUserProfilePic()
+        {
+            string FileName = "";
+            HttpFileCollectionBase files = Request.Files;
+            for (int i = 0; i < files.Count; i++)
+            {
+                //string path = AppDomain.CurrentDomain.BaseDirectory + "Uploads/";  
+                //string filename = Path.GetFileName(Request.Files[i].FileName);  
 
+                HttpPostedFileBase file = files[i];
+                string fname;
+
+                // Checking for Internet Explorer  
+                if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                {
+                    string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                    fname = testfiles[testfiles.Length - 1];
+                }
+                else
+                {
+                    fname = file.FileName;
+                    FileName = file.FileName;
+                }
+
+                using (Stream fs = file.InputStream)
+                {
+                    using (BinaryReader br = new BinaryReader(fs))
+                    {
+                        byte[] bytes = br.ReadBytes((Int32)fs.Length);
+                        int userId = Convert.ToInt32(Session["UserId"]);
+                        _model.UploadUserProfilePic(userId, bytes);
+                        return "Profile picture updated successfully,";
+                    }
+                }
+                // Get the complete folder path and store the file inside it.  
+                //fname = Path.Combine(Server.MapPath("~/Uploads/"), fname);
+                //file.SaveAs(fname);
+            }
+            return string.Empty;
+        }
+
+        public ActionResult LoadUserProfilePic()
+        {
+            int userId = Convert.ToInt32(Session["UserId"]);
+            ImageModel image = _model.GetImages(userId);
+            if (image != null)
+            {
+                image.IsSelected = true;
+                ViewBag.Base64String = "data:image/png;base64," + Convert.ToBase64String(image.Data, 0, image.Data.Length);
+            }
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Profile()
+        {
+            object value = Session["UserId"];
+            if (value != null)
+            {
+                int userId = Convert.ToInt32(value);
+                _model.GetUsers(userId);
+
+                ImageModel image = _model.GetImages(userId);
+                if (image.Data != null)
+                {
+                    image.IsSelected = true;
+                    ViewBag.Base64String = "data:image/png;base64," + Convert.ToBase64String(image.Data, 0, image.Data.Length);
+                }
+            }
+            return View(_model);
+        }
+        [AllowAnonymous]
+        public ActionResult ProfileEdit()
+        {
+            int userId = Convert.ToInt32(Session["UserId"]);
+            _model.GetUsers(userId);
+            return View(_model);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -146,4 +223,5 @@ namespace Stack.Controllers
             base.Dispose(disposing);
         }
     }
+
 }

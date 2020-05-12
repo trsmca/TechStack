@@ -27,7 +27,7 @@ namespace Stack.Models
         {
             using (var ctx = new StackContext())
             {
-                return ctx.Projects.OrderByDescending(x=>x.ProjectId).Take(6).ToList();
+                return ctx.Projects.OrderByDescending(x => x.ProjectId).Take(6).ToList();
             }
         }
         public List<Projects> GetProjectsOnMenuItemId(string menuItemId, int pageNumber)
@@ -64,9 +64,9 @@ namespace Stack.Models
                 }
                 //ProfilePicUrl = userDetails.ProfilePicUrl;
                 var accountModel = new AccountModel();
-                var user = accountModel.GetUsers(Project.CreatedById);
-                CreatedBy = user.FirstName + " " + user.LastName;
-                ProfilePicUrl = user.ProfilePicUrl;
+                accountModel.GetUsers(Project.CreatedById);
+                CreatedBy = accountModel.FirstName + " " + accountModel.LastName;
+                ProfilePicUrl = accountModel.ProfilePicUrl;
                 ProjectFiles = ctx.ProjectFiles.ToList();
             }
         }
