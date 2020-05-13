@@ -20,7 +20,7 @@
         <AssociationConnector Association="TechStackModel.FK_Comments_Users" ManuallyRouted="false" />
         <AssociationConnector Association="TechStackModel.FK_Users_Master_Roles" ManuallyRouted="false" />
         <AssociationConnector Association="TechStackModel.FK_News_MenuItems" />
-        <EntityTypeShape EntityType="TechStackModel.Master_Status" Width="1.5" PointX="10.375" PointY="7.875" />
+        <EntityTypeShape EntityType="TechStackModel.Master_Status" PointX="12.375" PointY="9.25" Width="1.5" />
         <AssociationConnector Association="TechStackModel.FK_News_Master_Status" />
       </Diagram>
     </edmx:Diagrams>

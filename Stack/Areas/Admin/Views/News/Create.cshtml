@@ -1,0 +1,128 @@
+﻿@model Stack.Entities.News
+@{
+    ViewBag.Title = "News - Creation";
+    Layout = null;
+}
+<script src="~/ckeditor/ckeditor.js"></script>
+<script src="~/Scripts/adapters_jquery.js"></script>
+<script src="~/Scripts/editor.js"></script>
+<link href="~/Content/plugins/fileupload-multiple.css" rel="stylesheet" />
+<div class="panel widget light-widget">
+    <div class="panel-heading no-title"> </div>
+    <div class="panel-body">
+        <h2 class="mgbt-xs-20">News - Create</h2>
+        @using (Html.BeginForm("create", "news", FormMethod.Post, new { id = "frmNews" }))
+        {
+            <div class="margin-top-20px">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <label class="control-label margin-bottom-10px">Category<span class="vd_red">*</span></label>
+                    <div>
+                        @Html.DropDownList("MenuItemId", null, htmlAttributes: new { @class = "select2" })
+                        @Html.ValidationMessageFor(model => model.MenuItemId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label margin-bottom-10px">News Headlines<span class="vd_red">*</span></label>
+                    <div>
+                        @Html.EditorFor(model => model.NewsHeadlines, new { htmlAttributes = new { @class = "" } })
+                        @Html.ValidationMessageFor(model => model.NewsHeadlines, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label margin-bottom-10px">Description (short)<span class="vd_red">*</span></label>
+                    <div>
+                        @Html.TextAreaFor(model => model.ShortContent, new { htmlAttributes = new { @class = "" } })
+                        @Html.ValidationMessageFor(model => model.ShortContent, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label margin-bottom-10px">Content<span class="vd_red">*</span></label>
+                    <div>
+                        @Html.TextAreaFor(model => model.Content, new { @id = "Description", @class = "" })
+                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label margin-bottom-10px">Cover Photo <span class="vd_red">*</span></label>
+                    <div class="fileupload-input-wrapper controls" style="border:1px solid #ccc">
+                        @*@Html.TextBoxFor(model => model.CoverPhoto, "", new { @type = "file" })*@
+                        <div class="file-upload-wrapper" data-text="Select your file!">
+                            <input id="file-coverphoto" name="file-upload-field" type="file" class="file-upload-field" value="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label margin-bottom-10px">Is Active<span class="vd_red">*</span></label>
+                    <div>
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.IsActive)
+                            @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        @* <input type="submit" value="Create" class="btn btn-default" />*@
+                        <div class="it">
+                            <a class="btn btn-next" id="btn-news-submit"><i class="fa fa-paper-plane"></i> Submit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    $('.select2').select2();
+    initSample();
+
+    $("form").on("change", ".file-upload-field", function () {
+        $(this)
+            .parent(".file-upload-wrapper")
+            .attr(
+                "data-text",
+                $(this)
+                    .val()
+                    .replace(/.*(\/|\\)/, "")
+            );
+    });
+
+    $("#btn-news-submit").click(function (e) {
+        e.preventDefault();
+        debugger;
+        $("#Description").val(CKEDITOR.instances.Description.getData());
+        var formData = $("#frmNews").submit(function (e) {
+            return;
+        });
+        var formData = new FormData(formData[0]);
+        var fileUpload = $("#file-coverphoto").get(0);
+        var files = fileUpload.files;
+        for (var i = 0; i < files.length; i++) {
+            formData.append("CoverPhoto", files[i]);
+        }
+        $.ajax({
+            url: "/Admin/News/Create",
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                $("#news-all").html(response);
+                $("#li-all-news").trigger("click");
+                $("html, body").animate({
+                    scrollTop: 0
+                }, 900);
+            },
+            contentType: false,
+            processData: false,
+            cache: false
+        });
+        return false;
+
+    });
+</script>

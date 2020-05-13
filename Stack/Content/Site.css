@@ -586,9 +586,11 @@ label {
 .margin-top-10px {
     margin-top: 10px !important;
 }
+
 .margin-top-20px {
     margin-top: 20px !important;
 }
+
 .margin-top-30px {
     margin-top: 30px !important;
 }
@@ -607,4 +609,42 @@ label {
     margin-bottom: 20px;
     text-align: center;
     /*max-height: 220px;*/
+}
+
+.form-container select {
+    max-width: 300px;
+}
+
+.min-width-300px {
+    min-width: 300px;
+}
+
+.it .btn-new, .it .btn-next {
+    margin: 30px 0px;
+    border-radius: 0px;
+    background-color: #333;
+    color: #f5f5f5 !important;
+    font-size: 16px;
+    width: 155px;
+}
+
+.it .btn-next {
+    background-color: #ff4d0d;
+    color: #fff;
+}
+
+.it .btn-check {
+    cursor: pointer;
+    line-height: 54px;
+    color: red;
+}
+
+.fileupload-input-wrapper {
+    max-width: 500px;
+}
+
+.content-container {
+    text-align: justify;
+    font-family: Verdana;
+    line-height:1.6;
 }

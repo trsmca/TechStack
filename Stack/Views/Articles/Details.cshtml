@@ -27,7 +27,7 @@
                         @Html.ActionLink("Show All Articles", "Index")
                     </div>
                     <div class="row">
-                        <div class="col-md-8 padding-top25px ">
+                        <div class="col-md-8 padding-top25px content-container">
                             <span style="font-size: 25px;font-weight: bold">@Html.DisplayFor(model => model.ArticleName)</span>
                             <br />
                             <span>By <span style="color: orange">@accountModel.CreatedBy</span> on <span style="color: #ff3b30">@Model.LastEditedDate</span></span>
@@ -68,7 +68,7 @@
                                 <div class="col-md-3">
                                     <img class="image-cover " src='data:image/png;base64,@Convert.ToBase64String(image.Data, 0, image.Data.Length)' style="width:150px;height:150px" />
                                 </div>
-                                <div class="col-md-9" style="font-size: 13px;">
+                                <div class="col-md-9">
                                     <span style="color: orange; font-size: 26px;font-weight: bold;">@accountModel.CreatedBy</span>
                                     <br />
                                     @if (accountModel.Description != null)

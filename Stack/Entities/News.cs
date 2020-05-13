@@ -23,7 +23,6 @@ namespace Stack.Entities
         public Nullable<int> LastEditedById { get; set; }
         public Nullable<System.DateTime> LastEditedDate { get; set; }
         public Nullable<bool> IsActive { get; set; }
-        public Nullable<int> Status { get; set; }
         public Nullable<bool> IsPopular { get; set; }
         public string NewsHeadlines { get; set; }
         public Nullable<int> StatusID { get; set; }

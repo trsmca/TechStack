@@ -4,27 +4,27 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TechStackModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Alias="Self" Namespace="TechStackModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
             <PropertyRef Name="ContextKey" />
           </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="MigrationId" Nullable="false" MaxLength="150" Type="nvarchar" />
+          <Property Name="ContextKey" Nullable="false" MaxLength="300" Type="nvarchar" />
+          <Property Name="Model" Nullable="false" Type="varbinary(max)" />
+          <Property Name="ProductVersion" Nullable="false" MaxLength="32" Type="nvarchar" />
         </EntityType>
         <EntityType Name="Articles">
           <Key>
             <PropertyRef Name="ArticleId" />
           </Key>
-          <Property Name="ArticleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MenuItemId" Type="int" Nullable="false" />
+          <Property Name="ArticleId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="MenuItemId" Nullable="false" Type="int" />
           <Property Name="ArticleName" Type="nvarchar(max)" />
           <Property Name="ArticleNameSeo" Type="nvarchar(max)" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="ShortDescription" Type="nvarchar" MaxLength="200" />
+          <Property Name="ShortDescription" MaxLength="200" Type="nvarchar" />
           <Property Name="CreatedBy" Type="nvarchar(max)" />
           <Property Name="CreatedById" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -35,12 +35,12 @@
           <Key>
             <PropertyRef Name="AttachmentId" />
           </Key>
-          <Property Name="AttachmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PkId" Type="int" Nullable="false" />
+          <Property Name="AttachmentId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="PkId" Nullable="false" Type="int" />
           <Property Name="AttachmentCategory" Type="nvarchar(max)" />
           <Property Name="AttachmentKey" Type="nvarchar(max)" />
-          <Property Name="FileName" Type="nvarchar" MaxLength="2000" />
-          <Property Name="ContentType" Type="nvarchar" MaxLength="100" />
+          <Property Name="FileName" MaxLength="2000" Type="nvarchar" />
+          <Property Name="ContentType" MaxLength="100" Type="nvarchar" />
           <Property Name="CreatedById" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="LastEditedById" Type="int" />
@@ -51,8 +51,8 @@
           <Key>
             <PropertyRef Name="CommentId" />
           </Key>
-          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CommentId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="UserId" Nullable="false" Type="int" />
           <Property Name="PkId" Type="int" />
           <Property Name="Category" Type="nvarchar(max)" />
           <Property Name="Comment" Type="nvarchar(max)" />
@@ -62,7 +62,7 @@
           <Property Name="UserHasUpvoted" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="CreatedById" Type="int" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedBy" MaxLength="100" Type="nvarchar" />
           <Property Name="LastEditedById" Type="int" />
           <Property Name="LastEditedDate" Type="datetime" />
         </EntityType>
@@ -70,37 +70,37 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="100" />
-          <Property Name="GUID" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Email" MaxLength="100" Type="nvarchar" />
+          <Property Name="GUID" MaxLength="2000" Type="nvarchar" />
           <Property Name="ExpiryTime" Type="datetime" />
         </EntityType>
         <EntityType Name="Master_Roles">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="RoleName" Type="nvarchar" MaxLength="100" />
-          <Property Name="RoleKey" Type="nvarchar" MaxLength="100" />
+          <Property Name="RoleId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="RoleName" MaxLength="100" Type="nvarchar" />
+          <Property Name="RoleKey" MaxLength="100" Type="nvarchar" />
         </EntityType>
         <EntityType Name="Master_Status">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StatusKey" Type="nvarchar" MaxLength="100" />
-          <Property Name="Status" Type="nvarchar" MaxLength="100" />
+          <Property Name="ID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="StatusKey" MaxLength="100" Type="nvarchar" />
+          <Property Name="Status" MaxLength="100" Type="nvarchar" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="MenuItems">
           <Key>
             <PropertyRef Name="MenuItemId" />
           </Key>
-          <Property Name="MenuItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ParentMenuId" Type="int" Nullable="false" />
-          <Property Name="MenuItem" Type="nvarchar" MaxLength="1000" />
-          <Property Name="MenuItemSeo" Type="nvarchar" MaxLength="1000" />
-          <Property Name="MenuUrl" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MenuItemId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="ParentMenuId" Nullable="false" Type="int" />
+          <Property Name="MenuItem" MaxLength="1000" Type="nvarchar" />
+          <Property Name="MenuItemSeo" MaxLength="1000" Type="nvarchar" />
+          <Property Name="MenuUrl" MaxLength="1000" Type="nvarchar" />
           <Property Name="CreatedById" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="LastEditedById" Type="int" />
@@ -110,11 +110,11 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
           <Property Name="MenuItemId" Type="int" />
-          <Property Name="NewsHeadlines" Type="nvarchar" MaxLength="200" />
-          <Property Name="ShortContent" Type="nvarchar" MaxLength="200" />
-          <Property Name="Content" Type="nvarchar" MaxLength="4000" />
+          <Property Name="NewsHeadlines" MaxLength="200" Type="nvarchar" />
+          <Property Name="ShortContent" MaxLength="200" Type="nvarchar" />
+          <Property Name="Content" MaxLength="4000" Type="nvarchar" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="StatusID" Type="int" />
           <Property Name="IsPopular" Type="bit" />
@@ -127,8 +127,8 @@
           <Key>
             <PropertyRef Name="ProjectFileId" />
           </Key>
-          <Property Name="ProjectFileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileName" Type="nvarchar" MaxLength="2000" />
+          <Property Name="ProjectFileId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="FileName" MaxLength="2000" Type="nvarchar" />
           <Property Name="ParentId" Type="int" />
           <Property Name="ProjectId" Type="int" />
         </EntityType>
@@ -136,11 +136,11 @@
           <Key>
             <PropertyRef Name="ProjectId" />
           </Key>
-          <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MenuItemId" Type="int" Nullable="false" />
+          <Property Name="ProjectId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="MenuItemId" Nullable="false" Type="int" />
           <Property Name="ProjectName" Type="nvarchar(max)" />
           <Property Name="ProjectNameSeo" Type="nvarchar(max)" />
-          <Property Name="ShortDescription" Type="nvarchar" MaxLength="200" />
+          <Property Name="ShortDescription" MaxLength="200" Type="nvarchar" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="CreatedById" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -151,10 +151,10 @@
           <Key>
             <PropertyRef Name="QuestionId" />
           </Key>
-          <Property Name="QuestionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Question" Type="nvarchar" MaxLength="2000" />
-          <Property Name="QuestionSeo" Type="nvarchar" MaxLength="2000" />
-          <Property Name="ShortDescription" Type="nvarchar" MaxLength="2000" />
+          <Property Name="QuestionId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Question" MaxLength="2000" Type="nvarchar" />
+          <Property Name="QuestionSeo" MaxLength="2000" Type="nvarchar" />
+          <Property Name="ShortDescription" MaxLength="2000" Type="nvarchar" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="CreatedById" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -166,25 +166,25 @@
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="200" />
-          <Property Name="Password" Type="nvarchar" MaxLength="200" />
-          <Property Name="ContactNumber" Type="nvarchar" MaxLength="200" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="200" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="200" />
+          <Property Name="UserId" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+          <Property Name="Email" MaxLength="200" Type="nvarchar" />
+          <Property Name="Password" MaxLength="200" Type="nvarchar" />
+          <Property Name="ContactNumber" MaxLength="200" Type="nvarchar" />
+          <Property Name="FirstName" MaxLength="200" Type="nvarchar" />
+          <Property Name="LastName" MaxLength="200" Type="nvarchar" />
           <Property Name="Gender" Type="bit" />
-          <Property Name="Address" Type="nvarchar" MaxLength="2000" />
-          <Property Name="State" Type="nvarchar" MaxLength="200" />
-          <Property Name="Country" Type="nvarchar" MaxLength="200" />
-          <Property Name="PinCode" Type="nvarchar" MaxLength="200" />
-          <Property Name="ProfilePicUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="Address" MaxLength="2000" Type="nvarchar" />
+          <Property Name="State" MaxLength="200" Type="nvarchar" />
+          <Property Name="Country" MaxLength="200" Type="nvarchar" />
+          <Property Name="PinCode" MaxLength="200" Type="nvarchar" />
+          <Property Name="ProfilePicUrl" MaxLength="200" Type="nvarchar" />
           <Property Name="ProfilePic" Type="image" />
-          <Property Name="Description" Type="nvarchar" MaxLength="2000" />
-          <Property Name="Website" Type="nvarchar" MaxLength="100" />
-          <Property Name="Education" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" MaxLength="2000" Type="nvarchar" />
+          <Property Name="Website" MaxLength="100" Type="nvarchar" />
+          <Property Name="Education" MaxLength="200" Type="nvarchar" />
           <Property Name="RoleId" Type="int" />
-          <Property Name="WorkingIn" Type="nvarchar" MaxLength="100" />
-          <Property Name="WorkingAs" Type="nvarchar" MaxLength="100" />
+          <Property Name="WorkingIn" MaxLength="100" Type="nvarchar" />
+          <Property Name="WorkingAs" MaxLength="100" Type="nvarchar" />
           <Property Name="WorkingFrom" Type="date" />
           <Property Name="IsActive" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -193,8 +193,8 @@
           <Property Name="LastEditedDate" Type="datetime" />
         </EntityType>
         <Association Name="FK_Comments_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <End Type="Self.Users" Multiplicity="1" Role="Users" />
+          <End Type="Self.Comments" Multiplicity="*" Role="Comments" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
@@ -205,8 +205,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_News_Master_Status">
-          <End Role="Master_Status" Type="Self.Master_Status" Multiplicity="0..1" />
-          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <End Type="Self.Master_Status" Multiplicity="0..1" Role="Master_Status" />
+          <End Type="Self.News" Multiplicity="*" Role="News" />
           <ReferentialConstraint>
             <Principal Role="Master_Status">
               <PropertyRef Name="ID" />
@@ -217,8 +217,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_News_MenuItems">
-          <End Role="MenuItems" Type="Self.MenuItems" Multiplicity="0..1" />
-          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <End Type="Self.MenuItems" Multiplicity="0..1" Role="MenuItems" />
+          <End Type="Self.News" Multiplicity="*" Role="News" />
           <ReferentialConstraint>
             <Principal Role="MenuItems">
               <PropertyRef Name="MenuItemId" />
@@ -229,8 +229,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_Master_Roles">
-          <End Role="Master_Roles" Type="Self.Master_Roles" Multiplicity="0..1" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <End Type="Self.Master_Roles" Multiplicity="0..1" Role="Master_Roles" />
+          <End Type="Self.Users" Multiplicity="*" Role="Users" />
           <ReferentialConstraint>
             <Principal Role="Master_Roles">
               <PropertyRef Name="RoleId" />
@@ -240,7 +240,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_GetFormattedColumnName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+        <Function Name="fn_GetFormattedColumnName" ReturnType="nvarchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="columnName" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="Generate_UpdateScriptWithPK" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -253,7 +253,7 @@
         <Function Name="Get_QuestionsOnMenuId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="MenuItemId" Type="int" Mode="In" />
         </Function>
-        <Function Name="InitCap" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+        <Function Name="InitCap" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="InputString" Type="varchar" Mode="In" />
         </Function>
         <Function Name="InsertGenerator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -298,20 +298,20 @@
           <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Comments" EntitySet="Comments" />
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="Comments" Role="Comments" />
           </AssociationSet>
           <AssociationSet Name="FK_News_Master_Status" Association="Self.FK_News_Master_Status">
-            <End Role="Master_Status" EntitySet="Master_Status" />
-            <End Role="News" EntitySet="News" />
+            <End EntitySet="Master_Status" Role="Master_Status" />
+            <End EntitySet="News" Role="News" />
           </AssociationSet>
           <AssociationSet Name="FK_News_MenuItems" Association="Self.FK_News_MenuItems">
-            <End Role="MenuItems" EntitySet="MenuItems" />
-            <End Role="News" EntitySet="News" />
+            <End EntitySet="MenuItems" Role="MenuItems" />
+            <End EntitySet="News" Role="News" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Master_Roles" Association="Self.FK_Users_Master_Roles">
-            <End Role="Master_Roles" EntitySet="Master_Roles" />
-            <End Role="Users" EntitySet="Users" />
+            <End EntitySet="Master_Roles" Role="Master_Roles" />
+            <End EntitySet="Users" Role="Users" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -429,7 +429,6 @@
           <Property Name="LastEditedById" Type="Int32" />
           <Property Name="LastEditedDate" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" />
-          <Property Name="Status" Type="Int32" />
           <Property Name="IsPopular" Type="Boolean" />
           <NavigationProperty Name="MenuItem" Relationship="TechStackModel.FK_News_MenuItems" FromRole="News" ToRole="MenuItem" />
           <Property Name="NewsHeadlines" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -553,34 +552,34 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <FunctionImport Name="Split" IsComposable="true" ReturnType="Collection(TechStackModel.Split_Result)">
-            <Parameter Name="InputString" Mode="In" Type="String" />
-            <Parameter Name="Delimiter" Mode="In" Type="String" />
+            <Parameter Name="InputString" Type="String" Mode="In" />
+            <Parameter Name="Delimiter" Type="String" Mode="In" />
           </FunctionImport>
           <FunctionImport Name="Generate_UpdateScriptWithPK">
-            <Parameter Name="Table_Name" Mode="In" Type="String" />
-            <Parameter Name="Primary_Key" Mode="In" Type="String" />
+            <Parameter Name="Table_Name" Type="String" Mode="In" />
+            <Parameter Name="Primary_Key" Type="String" Mode="In" />
           </FunctionImport>
           <FunctionImport Name="GET_MenuItems" ReturnType="Collection(TechStackModel.GET_MenuItems_Result)">
-          <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+          <Parameter Name="CategoryID" Type="Int32" Mode="In" />
           </FunctionImport>
           <FunctionImport Name="Get_QuestionsOnMenuId" ReturnType="Collection(TechStackModel.Get_QuestionsOnMenuId_Result)">
-          <Parameter Name="MenuItemId" Mode="In" Type="Int32" />
+          <Parameter Name="MenuItemId" Type="Int32" Mode="In" />
           </FunctionImport>
           <FunctionImport Name="InsertGenerator">
-          <Parameter Name="tableName" Mode="In" Type="String" />
+          <Parameter Name="tableName" Type="String" Mode="In" />
           </FunctionImport>
           <FunctionImport Name="ResetPassword">
-            <Parameter Name="UserId" Mode="In" Type="Int32" />
-            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="UserId" Type="Int32" Mode="In" />
+            <Parameter Name="Password" Type="String" Mode="In" />
           </FunctionImport>
           <FunctionImport Name="Update_Attachments" ReturnType="Collection(Int32)">
-            <Parameter Name="AttachmentId" Mode="InOut" Type="Int32" />
-            <Parameter Name="PkId" Mode="In" Type="Int32" />
-            <Parameter Name="AttachmentCategory" Mode="In" Type="String" />
-            <Parameter Name="AttachmentKey" Mode="In" Type="String" />
-            <Parameter Name="FileName" Mode="In" Type="String" />
-            <Parameter Name="Attachment" Mode="In" Type="Binary" />
-            <Parameter Name="contactID" Mode="In" Type="Int32" />
+            <Parameter Name="AttachmentId" Type="Int32" Mode="InOut" />
+            <Parameter Name="PkId" Type="Int32" Mode="In" />
+            <Parameter Name="AttachmentCategory" Type="String" Mode="In" />
+            <Parameter Name="AttachmentKey" Type="String" Mode="In" />
+            <Parameter Name="FileName" Type="String" Mode="In" />
+            <Parameter Name="Attachment" Type="Binary" Mode="In" />
+            <Parameter Name="contactID" Type="Int32" Mode="In" />
           </FunctionImport>
           <AssociationSet Name="FK_News_MenuItems" Association="TechStackModel.FK_News_MenuItems">
             <End Role="MenuItem" EntitySet="MenuItems" />
@@ -588,8 +587,8 @@
           </AssociationSet>
           <EntitySet Name="Master_Status" EntityType="TechStackModel.Master_Status" />
           <AssociationSet Name="FK_News_Master_Status" Association="TechStackModel.FK_News_Master_Status">
-            <End Role="Master_Status" EntitySet="Master_Status" />
-            <End Role="News" EntitySet="News" />
+            <End EntitySet="Master_Status" Role="Master_Status" />
+            <End EntitySet="News" Role="News" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="GET_MenuItems_Result">
@@ -625,15 +624,15 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StatusKey" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="StatusKey" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Status" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
           <NavigationProperty Name="News" Relationship="TechStackModel.FK_News_Master_Status" FromRole="Master_Status" ToRole="News" />
           <Property Name="IsActive" Type="Boolean" />
         </EntityType>
         <Association Name="FK_News_Master_Status">
-          <End Type="TechStackModel.Master_Status" Role="Master_Status" Multiplicity="0..1" />
-          <End Type="TechStackModel.News" Role="News" Multiplicity="*" />
+          <End Type="TechStackModel.Master_Status" Multiplicity="0..1" Role="Master_Status" />
+          <End Type="TechStackModel.News" Multiplicity="*" Role="News" />
           <ReferentialConstraint>
             <Principal Role="Master_Status">
               <PropertyRef Name="ID" />

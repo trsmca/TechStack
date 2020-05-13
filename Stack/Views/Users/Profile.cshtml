@@ -306,17 +306,17 @@
 
                         <div id="friends-tab" class="tab-pane">
                             <div class="pd-20">
-                                <div class="vd_info tr"> <a class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-plus append-icon"></i> Add News</a> </div>
+                                <div class="vd_info tr"> <a id="add-news" class="btn vd_btn btn-xs vd_bg-yellow"> <i class="fa fa-plus append-icon"></i> Add News</a> </div>
                                 <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="fa fa-users mgr-10 profile-icon"></i> NEWS</h3>
                                 <ul class="nav nav-pills">
-                                    <li class="active"><a id="li-all-articles" href="#article-all" data-toggle="tab">All</a></li>
-                                    <li><a data-toggle="tab" id="li-article-new" href="#article-new">Create New</a></li>
+                                    <li class="active"><a id="li-all-news" href="#news-all" data-toggle="tab">All</a></li>
+                                    <li><a data-toggle="tab" id="li-news-new" href="#news-new">Create New</a></li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div id="projects-all" class="tab-pane active">
+                                    <div id="news-all" class="tab-pane active">
                                         @{Html.RenderAction("Index", "News", new { area = "Admin" });}
                                     </div>
-                                    <div id="projects-new" class="tab-pane">
+                                    <div id="news-new" class="tab-pane">
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -444,6 +444,16 @@
             success: function (data) {
                 $("#projects-new").html(data);
                 $("#li-projects-new").trigger("click");
+            }
+        });
+    });
+    $("#add-news").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Admin/News/Create",
+            success: function (data) {
+                $("#news-new").html(data);
+                $("#li-news-new").trigger("click");
             }
         });
     });

@@ -1,0 +1,107 @@
+﻿@model Stack.Entities.News
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>News</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortContent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortContent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedById)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedById)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastEditedById)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastEditedById)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastEditedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastEditedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPopular)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPopular)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NewsHeadlines)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewsHeadlines)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MenuItem.MenuItem1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MenuItem.MenuItem1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Master_Status.StatusKey)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Master_Status.StatusKey)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

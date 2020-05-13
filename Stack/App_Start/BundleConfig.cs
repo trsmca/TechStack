@@ -39,7 +39,8 @@ namespace Stack
                       "~/Scripts/jquery-comments.min.js",
                       "~/Scripts/Notifications/jquery.notify.min.js",
                       "~/Scripts/loader.js",
-                       "~/Scripts/custombox.js",
+                      "~/Scripts/custombox.js",
+                      "~/Scripts/select2.min.js",
                       "~/Scripts/Site.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -60,7 +61,8 @@ namespace Stack
                       "~/Content/Notifications/jquery.notify.css",
                       "~/Content/loader.css",
                       "~/Content/jquery-comments.css",
-                      "~/Content/Site.css"
+                      "~/Content/Site.css",
+                      "~/Content/select2.min.css"
                       //"~/Content/loader.css",
                       //"~/Content/custombox.css",
                       //"~/Content/mn/main.css",
